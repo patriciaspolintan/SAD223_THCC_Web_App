@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!--=============== REMIXICONS ===============-->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet" />
+
+    <!--=============== CSS ===============-->
+    <link rel="stylesheet" href="/static/log_in.css" />
+
+    <title>THCC Login</title>
+  </head>
+  <body>
+
+
+    <div class="container">
+      <div class="login">
+        <div class="login__content">
+          <img class="login__img" src="static/login.png" alt="Login image" />
+
+          <form class="login__form" method="POST" action="/">
+            <div>
+              <h1 class="login__title"><span>Welcome back</span></h1>
+              <p class="login__description">Please login to continue.</p>
+            </div>
+
+            <!-- to display the flashed messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} error-message">
+                    {{ message }}
+                </div>
+            {% endfor %}
+            {% endwith %}
+
+            <div>
+              <div class="login__inputs">
+                <div>
+                  <label for="username" class="login__label"></label>
+                  <input class="login__input" type="text" id="username" name="username" placeholder="Username" required /> <!--required-->
+                </div>
+                
+
+                <div>
+                  <label for="password" class="login__label"></label>
+                  <div class="login__box">
+                    <input class="login__input" type="password" id="password" name="password" placeholder="Password" required /> <!--required--> 
+                    <i class="ri-eye-off-line login__eye" id="input-icon"></i>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <div>
+              <div class="login__buttons">
+                <button type="submit" class="login__button">LOG IN</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  <!--=============== MAIN JS ===============-->
+  <script src="/static/log_in.js"></script>
+  </body>
+</html>

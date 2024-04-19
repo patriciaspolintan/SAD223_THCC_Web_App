@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- ========== Boxicons ========== -->
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<!-- ========== My CSS ========== -->
+	<link rel="stylesheet" href="static/style.css">
+
+	<title>THCC Unit Records</title>
+</head>
+<body>
+
+
+
+
+	<!-- ========== SIDEBAR ========== -->
+	<section id="sidebar" >
+		<a href="{{ url_for('index') }}" class="brand">
+			<i class='bx bxs-church'></i>
+			<span class="text">THCC Web App</span>
+		</a>
+		<ul class="side-menu top">
+			<li>
+				<a href="{{ url_for('index') }}">
+					<i class='bx bxs-dashboard' ></i>
+					<span class="text">Dashboard</span>
+				</a>
+			</li>
+			<li>
+				<a href="{{ url_for('unit_mgmt') }}">
+					<i class='bx bxs-shopping-bag-alt' ></i>
+					<span class="text">Unit Management</span>
+				</a>
+			</li>
+			<li class="active">
+				<a href="{{ url_for('unit_record' ) }}">
+					<i class='bx bxs-folder' ></i>
+					<span class="text">Unit Records</span>
+				</a>
+			</li>
+			<li>
+				<a href="{{ url_for('payment_record') }}">
+					<i class='bx bxs-bank' ></i>
+					<span class="text">Payment Records</span>
+				</a>
+			</li>
+			<li>
+				<a href="{{ url_for('users_mgmt') }}">
+					<i class='bx bxs-user' ></i>
+					<span class="text">Users Management</span>
+				</a>
+			</li>
+		</ul>
+		<ul class="side-menu">
+			<li>
+				<a href="{{ url_for('login') }}" class="logout">
+					<i class='bx bxs-log-out-circle' ></i>
+					<span class="text">Logout</span>
+				</a>
+			</li>
+		</ul>
+	</section>
+	<!-- ========== END OF SIDEBAR ========== -->
+
+
+
+	<!-- ========== CONTENT ========== -->
+	<section id="content">
+		<!-- ========== NAVBAR ========== -->
+		<nav>
+			<i class='bx bx-menu' ></i>
+			<form action="#"></form>
+			<a href="#" class="profile">
+                <i class='bx user-circle' ></i>
+				<!-- <img src="img/people.png"> -->
+                <h4>Columbarium Representative</h4>
+			</a>
+		</nav>
+		<!-- ========== END OF NAVBAR ========== -->
+	
+		<!-- ========== MAIN ========== -->
+		<main>
+			<div class="head-title">
+				<div class="left">
+					<h1>Unit Records</h1>
+				</div>
+			</div>
+
+			<!-- ========== SEARCH ========== -->
+			<form action="#">
+				<div class="form-input">
+					<input type="search" placeholder="Search record">
+					<button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
+				</div>
+
+				<!-- <div class="add-import">
+					<button type="sortfilter" class="sortfilter-btn">Filter<i class='bx bx-filter-alt' ></i></button>
+					<button type="improtfile" class="import-btn">Import Records<i class='bx bx-import' ></i></button>
+				</div> -->
+			</form>
+
+			<div class="add-import">
+				<button id="newrecord-show">Add New Record<i class='bx bx-plus'></i></button>
+
+			</div>
+
+			<div id="newrecordmodal">
+				<div class="modal">
+					<div class="top-form">
+						<div class="close-modal">&#10006;</div>
+					</div>
+
+					<div class="login-form">
+						<h2>ADD NEW RECORD</h2>
+
+						<form id="newrecord-form" action="/" method="/">
+							<div id="name">
+								<input type="text" class="form-control" name="text" placeholder="Name">
+							</div>
+							
+							<div id="address">
+								<input type="text" class="form-control" name="text" placeholder="Sitio/Barangay, Municipality, City/Province" >
+							</div>
+							
+							<div class="input-box">
+								<label for="unitLocation">Unit Location:</label>
+								<div class="select-box-record">
+										<select name="" id="quadrant">
+											<option value="">Quadrant</option>
+										</select>
+										<select name="" id="block">
+											<option value="">Block</option>
+										</select>
+										<select name="" id="unit">
+											<option value="">Unit</option>
+										</select>
+								</div>
+							</div>
+
+							<div class="form-element">
+								<button onclick="concatenateNames()">CREATE NEW RECORD</button>						
+							</div>
+						</form>
+					</div>
+					
+				</div>
+			</div>
+			<!-- ========== END OF SEARCH ========== -->
+
+			<div class="table-data">
+				<div class="order">
+					
+					<table>
+						<thead>
+							<tr>
+								<th>CRU Contract No.</th>
+								<th>Unit Location</th>
+								<th>Name</th>
+								<th>Address</th>
+								<th>CAT Parcel Lot No.</th>
+								<th>Receipt No.</th>
+								<th>Date</th>
+								<th>Amount</th>
+								<th>Action</th>
+
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td>
+									<button id="edit-show" class="editrecord-button">
+										<i class='bx bxs-edit'></i></button>  
+									<button class="deleterecord-button" >
+										<i class='bx bxs-trash'></i></button>
+
+
+									<!-- <button id="edit-show" class="editrecord-button"><i class='bx bxs-edit'></i></button>  
+									<button class="deleterecord-button"><i class='bx bxs-trash' onclick="return confirm('Are You Sure To Delete ?')"></i></i></button>  -->
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</main>
+		<!-- ========== END OF MAIN ========== -->
+	</section>
+	<!-- ========== END OF CONTENT ========== -->
+
+
+
+
+	<script src="static/script.js"></script>
+	<script src="static/addnewuser.js"></script>
+	<script>
+		var quadrantBlockUnitInfo = {
+			"Quadrant 1": {
+				"Block 1": ["Unit 1", "Unit 2", "Unit 3"],
+				"Block 2": ["Unit 105", "Unit 106", "Unit 107"],
+				"Block 3": ["Unit 189", "Unit 190", "Unit 191"]
+			},
+			"Quadrant 2": {
+				"Block 10": ["Unit 777", "Unit 778", "Unit 779"],
+				"Block 11": ["Unit 861", "Unit 862", "Unit 863"],
+				"Block 12": ["Unit 945", "Unit 946", "Unit 947"]
+			},
+			"Quadrant 3": {
+				"Block 18": ["Unit 1449", "Unit 1450", "Unit 1451"],
+				"Block 19": ["Unit 1533", "Unit 1534", "Unit 1535"],
+				"Block 20": ["Unit 1617", "Unit 1618", "Unit 1619"]
+			}
+		}
+		
+		window.onload = function(){
+			const selectQuadrant = document.getElementById('quadrant'),
+				selectBlock = document.getElementById('block'),
+				selectUnit = document.getElementById('unit'),
+				selects = document.querySelectorAll('select')
+		
+				selectBlock.disabled = true
+				selectUnit.disabled = true
+		
+				selects.forEach(select => {
+					if(select.disabled == true){
+						select.style.cursor = "auto"
+					}
+					else{
+						select.style.cursor = "pointer"
+					}
+				})
+		
+				for(let quadrant in quadrantBlockUnitInfo){
+					selectQuadrant.options[selectQuadrant.options.length] = new Option(quadrant, quadrant)
+				}
+		
+				// Quadrant change
+				selectQuadrant.onchange = (e) =>{
+					
+					selectBlock.disabled = false
+					selectUnit.disabled = true
+		
+					selects.forEach(select => {
+						if(select.disabled == true){
+							select.style.cursor = "auto"
+						}
+						else{
+							select.style.cursor = "pointer"
+						}
+					})
+		
+					selectBlock.length = 1
+					selectUnit.length = 1
+		
+					for(let block in quadrantBlockUnitInfo[e.target.value]){
+						selectBlock.options[selectBlock.options.length] = new Option(block, block)
+					}
+				}
+		
+				// Block change
+				selectBlock.onchange = (e) =>{
+					selectUnit.disabled = false
+		
+					selects.forEach(select => {
+						if(select.disabled == true){
+							select.style.cursor = "auto"
+						}
+						else{
+							select.style.cursor = "pointer"
+						}
+					})
+		
+					selectUnit.length = 1
+		
+					let units = quadrantBlockUnitInfo[selectQuadrant.value][e.target.value]
+					
+					for(let i=0; i<units.length; i++){
+						selectUnit.options[selectUnit.options.length] = new Option(units[i], units[i])
+					}
+				}
+		}
+		</script>
+</body>
+</html>

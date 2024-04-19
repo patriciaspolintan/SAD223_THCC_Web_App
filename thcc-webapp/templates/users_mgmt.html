@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- ========== Boxicons ========== -->
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<!-- ========== My CSS ========== -->
+	<link rel="stylesheet" href="static/style.css">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<style>
+		/* Define styles for flash messages */
+		.alert {
+			padding: 10px;
+			margin-bottom: 10px;
+			border-radius: 5px;
+		}
+		/* Define styles for success messages */
+		.alert-success {
+			background-color: #d4edda;
+			border-color: #c3e6cb;
+			color: #155724;
+		}
+		/* Define styles for error messages */
+		.alert-error {
+			background-color: #f8d7da;
+			border-color: #f5c6cb;
+			color: #721c24;
+		}
+	</style>
+	
+	<title>THCC Unit Records</title>
+
+
+
+</head>
+<body>
+
+
+
+	<!-- ========== SIDEBAR ========== -->
+	<section id="sidebar" >
+		<a href="{{ url_for('index') }}" class="brand">
+			<i class='bx bxs-church'></i>
+			<!-- <img src="static/THCC_logo.png" alt="THCC Logo" class="logo-icon"> -->
+			<span class="text">THCC Web App</span>
+		</a>
+		<ul class="side-menu top">
+			<li>
+				<a href="{{ url_for('index') }}">
+					<i class='bx bxs-dashboard' ></i>
+					<span class="text">Dashboard</span>
+				</a>
+			</li>
+			<li>
+				<a href="{{ url_for('unit_mgmt') }}">
+					<i class='bx bxs-shopping-bag-alt' ></i>
+					<span class="text">Unit Management</span>
+				</a>
+			</li>
+			<li >
+				<a href="{{ url_for('unit_record') }}">
+					<i class='bx bxs-folder' ></i>
+					<span class="text">Unit Records</span>
+				</a>
+			</li>
+            <li>
+				<a href="{{ url_for('payment_record') }}">
+					<i class='bx bxs-bank' ></i>
+					<span class="text">Payment Records</span>
+				</a>
+			</li>
+            <li class="active">
+				<a href="{{ url_for('users_mgmt') }}">
+					<i class='bx bxs-user' ></i>
+					<span class="text">Users Management</span>
+				</a>
+			</li>
+		</ul>
+		<ul class="side-menu">
+			<li>
+				<a href="{{ url_for('login') }}" class="logout">
+					<i class='bx bxs-log-out-circle' ></i>
+					<span class="text">Logout</span>
+				</a>
+			</li>
+		</ul>
+	</section>
+	<!-- ========== END OF SIDEBAR ========== -->
+
+
+
+	<!-- ========== CONTENT ========== -->
+	<section id="content">
+
+
+		<!-- ========== NAVBAR ========== -->
+		<nav>
+			<i class='bx bx-menu' ></i>
+			<form action="#"></form>
+			<a href="#" class="profile">
+                <i class='bx user-circle' ></i>
+				<!-- <img src="img/people.png"> -->
+                <h4>User Role</h4>
+			</a>
+		</nav>
+		<!-- ========== END OF NAVBAR ========== -->
+
+
+
+		<!-- ========== MAIN ========== -->
+		<main>
+			<div class="head-title">
+				<div class="left">
+					<h1>Users Management</h1>
+				</div>
+			</div>
+
+
+			<!-- ========== SEARCH ========== -->
+			<form action="#">
+				<div class="form-input">
+					<input type="search" placeholder="Search record">
+					<button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
+				</div>
+
+			</form>
+			<!-- ========== END OF SEARCH ========== -->
+
+			<!-- ========== ADD NEW USER OVERLAY ========== -->
+			<div class="add-import">
+				<button id="login-show">Add New User<i class='bx bx-plus'></i></button>
+			</div>
+				<!-- Flash message SA CREATE USER ACCOUNT -->
+				{%with messages = get_flashed_messages(with_categories=true)%}
+				{%if category, message in messages%}
+					<div class="alert alert-{{ category }} error-message">
+						{{ message }}
+					</div>
+				{%endif%}
+				{%endwith%}
+
+			
+
+
+			<div id="login-modal">
+				<div class="modal">
+					<div class="top-form">
+						<div class="close-modal">&#10006;</div>
+					</div>
+					<div class="login-form">
+						<h2>ADD NEW USER</h2>
+
+						<p id="error" style="color: red; display: none;">Please select a user role.</p>
+
+						<form id="signup-form" action="{{ url_for('signup') }}" method="POST">
+							<input type="text" class="form-control" name="username" placeholder="Username" required minlength="8">
+							<input type="password" class="form-control" name="password" placeholder="Password" required minlength="8">
+							<div class="select-box">
+								<select name="user_role" id="user_role" required>
+									<option hidden>Select User Role</option>
+									<option>IT Administrator</option>
+									<option>Columbarium Representative</option>
+									<option>Cashier</option>
+								</select>
+							</div>
+							<div class="form-element">
+								<button>CREATE NEW USER</button>
+							</div>
+						</form>
+					</div>
+					
+				</div>
+			</div>
+			<!-- ========== END OF ADD NEW USER OVERLAY ========== -->
+
+			
+				<!-- ========== USER MANAGEMENT TABLE ========== -->
+				<!-- to display the flash messages (USER UPDATED/DELETED SUCCESSFULLY) -->
+				{%with messages = get_flashed_messages(with_categories=true) %}
+				{%for category, message in messages%}
+					<div class="alert alert-{{ category }} error-message">
+						{{ message }}
+					</div>
+				{%endfor%}
+				{%endwith%}
+
+				<div class="table-data">
+					<div class="order">
+						<table>
+							<thead>
+								<tr>
+									<th>User ID</th>
+									<th>User Role</th>
+									<th>Username</th>
+									<th>Password</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for user in users %}
+								<tr>
+									<td>{{ user.user_id }}</td>
+									<td>{{ user.user_role }}</td>
+									<td>{{ user.username }}</td>
+									<td>{{ user.password }}</td>
+									<td>
+										<button id="edit-show" class="editrecord-button" onclick="showEditModal('{{ user.user_id }}', '{{ user.username }}', '{{ user.password }}', '{{ user.user_role }}')">
+											<i class='bx bxs-edit'></i></button>  
+										<button class="deleterecord-button" onclick="confirmDelete('{{ user.user_id }}')">
+											<i class='bx bxs-trash'></i></button>
+
+
+										<!-- <button id="edit-show" class="editrecord-button"><i class='bx bxs-edit'></i></button>  
+										<button class="deleterecord-button"><i class='bx bxs-trash' onclick="return confirm('Are You Sure To Delete ?')"></i></i></button>  -->
+									</td>
+								</tr>								
+								{% endfor %}
+							</tbody>
+							
+						</table>
+					</div>
+
+					<div id="EditModal">
+						<div class="modal">
+							<div class="top-form">
+								<div class="close-modal">&#10006;</div>
+							</div>
+							<div class="login-form">
+								<h2>EDIT USER DETAILS</h2>
+
+								
+					
+								<form id="edit-user-form" action="/edit" method="POST">
+									<input type="text" class="form-control" id="edit-username" name="username"  required minlength="8">
+									<input type="password" class="form-control" id="edit-password" name="password"  required minlength="8">
+									<div class="select-box">
+										<select name="user_role" id="edit-userRole" onchange="validateForm()" required>
+											<option hidden>Select User Role</option>
+											<option>IT Administrator</option>
+											<option>Columbarium Representative</option>
+											<option>Cashier</option>
+										</select>
+									</div>
+									<div class="form-element">
+										<button class="save-button">SAVE CHANGES</button>
+										<!-- <button id="cancelbtn" class="cancel-button">CANCEL</button> -->
+									</div>
+								</form>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+	
+
+		</main>
+			<!-- ========== END OF MAIN ========== -->
+
+	</section>
+	<!-- ========== END OF CONTENT ========== -->
+	
+	
+	<script src="static/script.js"></script>
+	<script src="static/addnewuser.js"></script>
+	
+	<!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
+
+
+</body>
+</html>

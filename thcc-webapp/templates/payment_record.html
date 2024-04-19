@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- ========== Boxicons ========== -->
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<!-- ========== My CSS ========== -->
+	<link rel="stylesheet" href="static/style.css">
+
+	<title>THCC Payment Records</title>
+</head>
+<body>
+
+
+
+	<!-- ========== SIDEBAR ========== -->
+	<section id="sidebar" >
+		<a href="{{ url_for('index') }}" class="brand">
+			<i class='bx bxs-church'></i>
+			<span class="text">THCC Web App</span>
+		</a>
+		<ul class="side-menu top">
+			<li>
+				<a href="{{ url_for('index') }}">
+					<i class='bx bxs-dashboard' ></i>
+					<span class="text">Dashboard</span>
+				</a>
+			</li>
+			<li>
+				<a href="{{ url_for('unit_mgmt') }}">
+					<i class='bx bxs-shopping-bag-alt' ></i>
+					<span class="text">Unit Management</span>
+				</a>
+			</li>
+			<li>
+				<a href="{{ url_for('unit_record') }}">
+					<i class='bx bxs-folder' ></i>
+					<span class="text">Unit Records</span>
+				</a>
+			</li>
+            <li class="active">
+				<a href="{{ url_for('payment_record') }}">
+					<i class='bx bxs-bank' ></i>
+					<span class="text">Payment Records</span>
+				</a>
+			</li>
+			<li>
+				<a href="{{ url_for('users_mgmt') }}">
+					<i class='bx bxs-user' ></i>
+					<span class="text">Users Management</span>
+				</a>
+			</li>
+		</ul>
+		<ul class="side-menu">
+			<li>
+				<a href="{{ url_for('login') }}" class="logout">
+					<i class='bx bxs-log-out-circle' ></i>
+					<span class="text">Logout</span>
+				</a>
+			</li>
+		</ul>
+	</section>
+	<!-- ========== END OF SIDEBAR ========== -->
+
+
+
+	<!-- ========== CONTENT ========== -->
+	<section id="content">
+
+
+		<!-- ========== NAVBAR ========== -->
+		<nav>
+			<i class='bx bx-menu' ></i>
+			<form action="#"></form>
+			<a href="#" class="profile">
+                <i class='bx user-circle' ></i>
+				<!-- <img src="img/people.png"> -->
+                <h4>USER ROLE</h4>
+			</a>
+		</nav>
+		<!-- ========== END OF NAVBAR ========== -->
+
+
+
+		<!-- ========== MAIN ========== -->
+		<main>
+			<div class="head-title">
+				<div class="left">
+					<h1>Payment Records</h1>
+				</div>
+			</div>
+
+
+			<!-- ========== SEARCH ========== -->
+			<form action="#">
+				<div class="form-input">
+					<input type="search" placeholder="Search record">
+					<button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
+				</div>
+
+			</form>
+			<!-- ========== END OF SEARCH ========== -->
+
+			<div class="add-import">
+				<button id="newrecord-show">Add New Payment<i class='bx bx-plus'></i></button>
+
+			</div>
+
+			<div id="newrecordmodal">
+				<div class="modal">
+					<div class="top-form">
+						<div class="close-modal">&#10006;</div>
+					</div>
+
+					<div class="login-form">
+						<h2>ADD NEW PAYMENT</h2>
+
+						<form id="newrecord-form" action="/" method="/">
+							<div id="name">
+								<input type="text" class="form-control" name="text" placeholder="Name">
+							</div>
+							
+							<div id="address">
+								<input type="text" class="form-control" name="text" placeholder="Sitio/Barangay, Municipality, City/Province" >
+							</div>
+							
+							<div class="input-box">
+								<label for="unitLocation">Unit Location:</label>
+								<div class="select-box-record">
+										<select name="" id="quadrant">
+											<option value="">Quadrant</option>
+										</select>
+										<select name="" id="block">
+											<option value="">Block</option>
+										</select>
+										<select name="" id="unit">
+											<option value="">Unit</option>
+										</select>
+								</div>
+							</div>
+
+							<label for="unitLocation">Payment Details</label>
+
+							<div class="paymentdetails">
+								<div id="receiptnum">
+									<input type="number" class="form-control" name="text" placeholder="Receipt Number" >
+								</div>
+								<div id="datepaid">
+									<input type="date" class="form-control" name="text" placeholder="Date" >
+								</div>
+								<div id="amtpaid">
+									<input type="text" class="form-control" name="text" placeholder="Amount" >
+								</div>
+
+							</div>
+
+							<div class="form-element">
+								<button onclick="concatenateNames()">CREATE NEW RECORD</button>						
+							</div>
+						</form>
+					</div>
+					
+				</div>
+			</div>
+
+
+			<div class="table-data">
+				<div class="order">
+					
+					<table>
+						<thead>
+							<tr>
+								<th>CRU Contract No.</th>
+								<th>Unit Location</th>
+								<th>Name</th>
+								<th>Address</th>
+								<th>CAT Parcel Lot No.</th>
+								<th>Receipt No.</th>
+								<th>Date</th>
+								<th>Amount</th>
+							</tr>
+						</thead>
+						<tbody>
+							
+						</tbody>
+					</table>
+				</div>
+            </div>
+		</main>
+		<!-- ========== END OF MAIN ========== -->
+
+	</section>
+	<!-- ========== END OF CONTENT ========== -->
+
+
+
+
+	<script src="static/script.js"></script>
+</body>
+</html>

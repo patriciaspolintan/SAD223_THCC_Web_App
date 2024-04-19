@@ -1,0 +1,56 @@
+<div id="editPopup" class="popup">
+    <div id="login-modal">
+    <div class="modal">
+        <div class="top-form">
+            <div class="close-modal">&#10006;</div>
+        </div>
+        <div class="login-form">
+            <h2>EDIT USER DETAILS</h2>
+
+            <form action="/" method="/">
+                <input type="text" class="form-control" name="username"  required minlength="8">
+                <input type="password" class="form-control" name="password"  required minlength="8">
+                <div class="select-box">
+                    <select name="user_role" id="user_role" required>
+                        <option hidden>Select User Role</option>
+                        <option>IT Administrator</option>
+                        <option>Columbarium Representative</option>
+                        <option>Cashier</option>
+                    </select>
+                </div>
+                <div class="form-element">
+                    <button>SAVE CHANGES</button>
+                    <button>CANCEL</button>
+                </div>
+            </form>
+        </div>
+        
+    </div>
+</div>
+</div>
+
+
+<div id="editPopup" class="popup">
+    <h2>Edit User Details</h2>
+    <form action="/" method="/">
+        <div class="form-group">
+            <label for="edit-username">Username:</label>
+            <input type="text" id="edit-username" name="username"
+        </div>
+        <div class="form-group">
+            <label for="edit-password">Password:</label>
+            <input type="password" id="edit-password" name="password" >
+        </div>
+        <div class="form-group">
+            <label for="edit-userRole">User Role:</label>
+            <select name="userRole" id="edit-userRole">
+                <option hidden>Edit User Role</option>
+                <option>IT Administrator</option>
+                <option>Columbarium Representative</option>
+                <option>Cashier</option>
+            </select>
+        </div>
+        <button type="submit">Save Changes</button>
+        <button type="button" onclick="hideEditPopup()">Cancel</button>
+    </form>
+</div>

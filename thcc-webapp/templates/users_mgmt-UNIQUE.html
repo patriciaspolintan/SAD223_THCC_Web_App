@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- ========== Boxicons ========== -->
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<!-- ========== My CSS ========== -->
+	<link rel="stylesheet" href="static/style.css">
+
+	<title>THCC Unit Records</title>
+</head>
+<body>
+
+
+
+	<!-- ========== SIDEBAR ========== -->
+	<section id="sidebar">
+		<a href="index.html" class="brand">
+			<i class='bx bxs-church'></i>
+			<span class="text">THCC Web App</span>
+		</a>
+		<ul class="side-menu top">
+			<li>
+				<a href="index.html">
+					<i class='bx bxs-dashboard' ></i>
+					<span class="text">Dashboard</span>
+				</a>
+			</li>
+			<li>
+				<a href="unit_mgmt.html">
+					<i class='bx bxs-shopping-bag-alt' ></i>
+					<span class="text">Unit Management</span>
+				</a>
+			</li>
+			<li >
+				<a href="unit_record.html">
+					<i class='bx bxs-folder' ></i>
+					<span class="text">Unit Records</span>
+				</a>
+			</li>
+            <li>
+				<a href="payment_record.html">
+					<i class='bx bxs-bank' ></i>
+					<span class="text">Payment Records</span>
+				</a>
+			</li>
+            <li class="active">
+				<a href="users_mgmt.html">
+					<i class='bx bxs-user' ></i>
+					<span class="text">Users Management</span>
+				</a>
+			</li>
+		</ul>
+		<ul class="side-menu">
+			<li>
+				<a href="log_in.html" class="logout">
+					<i class='bx bxs-log-out-circle' ></i>
+					<span class="text">Logout</span>
+				</a>
+			</li>
+		</ul>
+	</section>
+	<!-- ========== END OF SIDEBAR ========== -->
+
+
+
+	<!-- ========== CONTENT ========== -->
+	<section id="content">
+		<!-- ========== NAVBAR ========== -->
+		<nav>
+			<i class='bx bx-menu' ></i>
+			<form action="#"></form>
+			<a href="#" class="profile">
+                <i class='bx user-circle' ></i>
+				<!-- <img src="img/people.png"> -->
+                <h4>IT Administrator</h4>
+			</a>
+		</nav>
+		<!-- ========== END OF NAVBAR ========== -->
+	
+		<!-- ========== MAIN ========== -->
+		<main>
+			<div class="head-title">
+				<div class="left">
+					<h1>Users Management</h1>
+				</div>
+			</div>
+			<!-- ========== ADD NEW USER OVERLAY ========== -->
+			<div class="overlay"></div>
+			<form action="#">
+				
+				<div class="add-import">
+					<button class="add-btn" id="showFormBtn">Add New User<i class='bx bx-plus'></i></button>
+				</div>	
+				
+				<div class="popup"> 
+					<div class="close-btn">&times;</div>
+					<div class="form">
+						<h2>Create New User</h2>
+						<div class="form-element">
+							<input type="username" id="username" placeholder="Enter username">
+						</div>
+						
+						<div class="form-element">
+							<input type="password" id="password" placeholder="Enter password">
+						</div>
+
+						<div class="select-box">
+							<select>
+								<option hidden>User Role</option>
+								<option>IT Administrator</option>
+								<option>Columbarium Representative</option>
+								<option>Cashier</option>
+							</select>
+						</div>
+
+						<div class="form-element">
+							<button>Create </button>
+						</div>
+					</div>
+				</div>
+			</form>
+			<!-- ========== END OF ADD NEW USER OVERLAY ========== -->
+
+
+				<!-- ========== USER MANAGEMENT TABLE ========== -->
+	
+				<div class="table-data">
+					<div class="order">
+						
+						<table>
+							<thead>
+								<tr>
+									<th>User ID</th>
+									<th>User Role</th>
+									<th>User Status</th>
+									<th>Username</th>
+									<th>Password</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+		</main>
+			<!-- ========== END OF MAIN ========== -->
+	</section>
+	<!-- ========== END OF CONTENT ========== -->
+	
+	
+	<script src="static/script.js"></script>
+</body>
+</html>
