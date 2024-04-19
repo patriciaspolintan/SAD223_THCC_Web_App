@@ -3,18 +3,33 @@ $(function () {
     $('#login-show').click(function () {
         $('#login-modal').fadeIn().css("display", "flex");
     });
+    $('#edit-show').click(function () {
+        $('#EditModal').fadeIn().css("display", "flex");
+    });
+    $('#newrecord-show').click(function () {
+        $('#newrecordmodal').fadeIn().css("display", "flex");
+    });
+    $('#newpayment-show').click(function () {
+        $('#newpaymentmodal').fadeIn().css("display", "flex");
+    });
+    $('#editpayment-show').click(function () {
+        $('#editpaymentmodal').fadeIn().css("display", "flex");
+    });
+    $('#editunit-show').click(function () {
+        $('#editunitrecordmodal').fadeIn().css("display", "flex");
+    });
+
+
+
     $('.close-modal').click(function () {
         $('#login-modal').fadeOut();
         $('#EditModal').fadeOut();
         $('#newrecordmodal').fadeOut();
+        $('#newpaymentmodal').fadeOut();
+        $('#editpaymentmodal').fadeOut();
+        $('#editunitrecordmodal').fadeOut();
+    });
 
-    });
-    $('#edit-show').click(function () {
-        $('#EditModal').fadeIn().css("display", "flex");
-    });
-    $('#ewrecord-show').click(function () {
-        $('#newrecordmodal').fadeIn().css("display", "flex");
-    });
 
 
 });

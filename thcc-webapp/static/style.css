@@ -262,13 +262,13 @@ body {
 
 
 /* ==================== ADD-IMPORT ==================== */
-#content main form .add-import, #login-show, #newrecord-show {
+#content main form .add-import, #login-show, #newrecord-show, #newpayment-show {
     margin-top: 20px;
     display: flex;
     gap: 10px;
 }
 #content main form .add-import button, 
-#login-show button, #newrecord-show button {
+#login-show button, #newrecord-show button, #newpayment-show button {
     flex: 1;
 	width: 36px;
 	height: 100%;
@@ -287,7 +287,7 @@ body {
 	margin-bottom: 15px;
 
 }
-#EditModal .save-button {
+/* #EditModal .save-button {
     background-color: #80CB85;
     border: none;
     color: white;
@@ -313,12 +313,12 @@ body {
     margin: 4px 2px;
     transition-duration: 0.4s;
     cursor: pointer;
-}
+} */
 
 #content main form .add-import button.sortfilter-btn,
 #content main form .add-import button.add-btn,
 #content main form .add-import button.import-btn, 
-#login-show, #newrecord-show  {
+#login-show, #newrecord-show, #newpayment-show  {
     background: #80CB85;
     color: var(--light);
     font-size: 13px;
@@ -493,7 +493,7 @@ body {
 	align-items: center;
 	
 }
-#newrecordmodal {
+#newrecordmodal, #newpaymentmodal {
 	position: fixed;
 	top: 0;
 	bottom: 0;
@@ -501,13 +501,26 @@ body {
 	left: 0;
 	/* background: rgba(0,0,0,0.6); */
 	z-index: 100;
-	display: flex;
+	display: none;
 	justify-content: center;
 	align-items: center;
+	
 }
-/* #newrecordmodal #signup-form {
-	flex-direction: row;
-} */
+
+#editunitrecordmodal, #editpaymentmodal {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	/* background: rgba(0,0,0,0.6); */
+	z-index: 100;
+	display: none;
+	justify-content: center;
+	align-items: center;
+	
+}
+
 .modal {
 	background-color: #f7f7f7;
 	padding: 10px 0px 20px 0;
@@ -575,6 +588,19 @@ body {
 }
 
 .select-box-record {
+	width: 75%;
+	border: 0;
+	border-radius: 3px;
+	color: white;
+	margin: 10px auto;
+	cursor: pointer;
+	font-weight: 800;
+	display: flex;
+	flex-direction: row;
+
+}
+
+.paymentdetails {
 	width: 75%;
 	border: 0;
 	border-radius: 3px;

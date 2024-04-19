@@ -6,6 +6,8 @@
 
 	<!-- ========== Boxicons ========== -->
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet" />
+
 	<!-- ========== My CSS ========== -->
 	<link rel="stylesheet" href="static/style.css">
 
@@ -143,8 +145,6 @@
 				{%endif%}
 				{%endwith%}
 
-			
-
 
 			<div id="login-modal">
 				<div class="modal">
@@ -213,9 +213,6 @@
 										<button class="deleterecord-button" onclick="confirmDelete('{{ user.user_id }}')">
 											<i class='bx bxs-trash'></i></button>
 
-
-										<!-- <button id="edit-show" class="editrecord-button"><i class='bx bxs-edit'></i></button>  
-										<button class="deleterecord-button"><i class='bx bxs-trash' onclick="return confirm('Are You Sure To Delete ?')"></i></i></button>  -->
 									</td>
 								</tr>								
 								{% endfor %}
@@ -236,7 +233,12 @@
 					
 								<form id="edit-user-form" action="/edit" method="POST">
 									<input type="text" class="form-control" id="edit-username" name="username"  required minlength="8">
-									<input type="password" class="form-control" id="edit-password" name="password"  required minlength="8">
+									<div>
+										<input type="password" class="form-control" id="edit-password" name="password"  required minlength="8">
+										<i class="ri-eye-off-line login__eye" id="input-icon"></i>
+									</div>
+									
+
 									<div class="select-box">
 										<select name="user_role" id="edit-userRole" onchange="validateForm()" required>
 											<option hidden>Select User Role</option>
@@ -266,6 +268,7 @@
 	
 	<script src="static/script.js"></script>
 	<script src="static/addnewuser.js"></script>
+	
 	
 	<!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
 

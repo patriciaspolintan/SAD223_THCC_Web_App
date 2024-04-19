@@ -91,16 +91,9 @@ sign_in_btn.addEventListener("click", () => {
 
 
 
-// ==================== ADD NEW RECORD ====================
-$(function () {
-    $('#newrecord-show').click(function () {
-        $('#newrecordmodal').fadeIn().css("display", "flex");
-    });
-    $('.close-modal').click(function () {
-        $('#newrecordmodal').fadeOut();
-    });
+// ==================== QUADRANT BLOCK UNIT ====================
 
-});
+
 
 // ==================== CONCATENATE NAME ====================
 // ??????????????????????????????????????????????????????????
@@ -111,3 +104,5 @@ function concatenateNames() {
     var fullName = firstName + ' ' + lastName;
     alert('Full Name: ' + fullName);
 }
+
+
