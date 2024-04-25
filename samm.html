@@ -1,154 +1,19 @@
-<div class="container">
-    <h2>Unit Location</h2>
+//templates/response.html
+<h3>{{numrows}} Records Found</h3>
+<table class="table table-striped custab">
+  <thead>
+      <tr>
+         <th>Name</th>
+         <th>Email</th>
+         <th>Phone</th>
+      </tr>
+  </thead>
+  <tbody>
+{% for row in employee %}  
+   <tr>
+    <td>{{row.name}}</td>
+    <td>{{row.email}}</td>
+    <td>{{row.phone}}</td>
+   </tr>
+{% endfor %} 
 
-    <form action="#">
-        <select name="" id="country">
-            <option value="">-- Select Quadrant --</option>
-        </select>
-        <select name="" id="state">
-            <option value="">-- Select Block --</option>
-        </select>
-        <select name="" id="city">
-            <option value="">-- Select Unit --</option>
-        </select>
-    </form>
-
-</div>
-
-<style>
-
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #EEEEEE;
-}
-
-.container{
-    text-align: center;
-}
-
-.container h2{
-    font-size: 2vw;
-    margin-bottom: 40px;
-    letter-spacing: 1.2px;
-}
-
-form{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 15px;
-}
-
-form select{
-    width: 450px;
-    padding: 15px;
-    padding-left: 10px;
-    background-color: #fff;
-    border-radius: 10px;
-    border: none;
-    outline: none;
-    font-size: 1.2rem;
-    box-shadow: 0 5px 10px 0 rgb(0,0,0,0.25);
-    cursor: pointer;
-}
-</style>
-
-<script>
-
-var quadrantBlockUnitInfo = {
-    "Quadrant 1": {
-        "Block 1": ["Unit 1", "Unit 2", "Unit 3"],
-        "Block 2": ["Unit 105", "Unit 106", "Unit 107"],
-        "Block 3": ["Unit 189", "Unit 190", "Unit 191"]
-    },
-    "Quadrant 2": {
-        "Block 10": ["Unit 777", "Unit 778", "Unit 779"],
-        "Block 11": ["Unit 861", "Unit 862", "Unit 863"],
-        "Block 12": ["Unit 945", "Unit 946", "Unit 947"]
-    },
-    "Quadrant 3": {
-        "Block 18": ["Unit 1449", "Unit 1450", "Unit 1451"],
-        "Block 19": ["Unit 1533", "Unit 1534", "Unit 1535"],
-        "Block 20": ["Unit 1617", "Unit 1618", "Unit 1619"]
-    }
-}
-
-window.onload = function(){
-    const selectQuadrant = document.getElementById('country'),
-        selectBlock = document.getElementById('state'),
-        selectUnit = document.getElementById('city'),
-        selects = document.querySelectorAll('select')
-
-        selectBlock.disabled = true
-        selectUnit.disabled = true
-
-        selects.forEach(select => {
-            if(select.disabled == true){
-                select.style.cursor = "auto"
-            }
-            else{
-                select.style.cursor = "pointer"
-            }
-        })
-
-        for(let quadrant in quadrantBlockUnitInfo){
-            selectQuadrant.options[selectQuadrant.options.length] = new Option(quadrant, quadrant)
-        }
-
-        // Quadrant change
-        selectQuadrant.onchange = (e) =>{
-            
-            selectBlock.disabled = false
-            selectUnit.disabled = true
-
-            selects.forEach(select => {
-                if(select.disabled == true){
-                    select.style.cursor = "auto"
-                }
-                else{
-                    select.style.cursor = "pointer"
-                }
-            })
-
-            selectBlock.length = 1
-            selectUnit.length = 1
-
-            for(let block in quadrantBlockUnitInfo[e.target.value]){
-                selectBlock.options[selectBlock.options.length] = new Option(block, block)
-            }
-        }
-
-        // Block change
-        selectBlock.onchange = (e) =>{
-            selectUnit.disabled = false
-
-            selects.forEach(select => {
-                if(select.disabled == true){
-                    select.style.cursor = "auto"
-                }
-                else{
-                    select.style.cursor = "pointer"
-                }
-            })
-
-            selectUnit.length = 1
-
-            let units = quadrantBlockUnitInfo[selectQuadrant.value][e.target.value]
-            
-            for(let i=0; i<units.length; i++){
-                selectUnit.options[selectUnit.options.length] = new Option(units[i], units[i])
-            }
-        }
-}
-
-</script>

@@ -1,0 +1,35 @@
+<h3>{{ numrows }} Record(s) Found</h3>
+
+<table>
+    <thead>
+        <tr>
+            <th>User ID</th>
+            <th>User Role</th>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if numrows > 0 %}
+            {% for user in users %}
+            <tr>
+                <td>{{ user.user_id }}</td>
+                <td>{{ user.user_role }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.password }}</td>
+                <td>
+                    <button id="edit-show" class="editrecord-button" onclick="showEditModal('{{ user.user_id }}', '{{ user.username }}', '{{ user.password }}', '{{ user.user_role }}')">
+                        <i class='bx bxs-edit'></i></button>  
+                    <button class="deleterecord-button" onclick="confirmDelete('{{ user.user_id }}')">
+                        <i class='bx bxs-trash'></i></button>
+                </td>
+            </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="5">No records found.</td>
+            </tr>
+        {% endif %}
+    </tbody>
+</table>

@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_sqlalchemy import SQLAlchemy
-# FROM PATT. MALI ATA YUNG SA ROLES KASI AYAW MAGRUN AND HINDI AKO MAKA INSTALL NG 'pip install Flask-User, nakita ko to sa document'==========
-# from flask_user import roles_required  
+# GALING KAY PAT
+from flask_mysqldb import MySQL,MySQLdb
+#
 from flask import jsonify 
 # ==========
 
@@ -25,6 +26,16 @@ app.template_folder = template_folder
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root''@localhost/web'
 #kinopya ko lang to PATT, para ata to sa /update tsaka /delete
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+# PATT
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_DB'] = 'web'
+app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
+
+mysql = MySQL(app)
+#
 
 db = SQLAlchemy(app)
 
@@ -181,6 +192,26 @@ def edit_user(user_id):
 
     return render_template('edit_user.html', user=user)
 
+# search users_mgmt
+# search users_mgmt
+@app.route("/ajaxlivesearch", methods=["POST", "GET"])
+def ajaxlivesearch():
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    if request.method == 'POST':
+        search_word = request.form['query']
+    else:
+        search_word = request.args.get('search_text', '')
+    print(search_word)
+    if search_word == '':
+        numrows = 0
+        html_response = "<h3>No search query entered.</h3>"
+    else:    
+        query = "SELECT * FROM users WHERE username LIKE %s OR password LIKE %s ORDER BY user_id DESC LIMIT 20"
+        cur.execute(query, ('%' + search_word + '%', '%' + search_word + '%'))
+        users = cur.fetchall()
+        numrows = len(users)
+        html_response = render_template('users_mgmt_response.html', users=users, numrows=numrows)
+    return jsonify({'htmlresponse': html_response, 'numrows': numrows})
 
 
 

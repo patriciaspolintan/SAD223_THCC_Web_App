@@ -480,34 +480,8 @@ body {
 
 
 /* ==================== ADD NEW USER ==================== */
-#login-modal, #EditModal {
-	position: fixed;
-	top: 0;
-	bottom: 0;
-	right: 0;
-	left: 0;
-	/* background: rgba(0,0,0,0.6); */
-	z-index: 100;
-	display: none;
-	justify-content: center;
-	align-items: center;
-	
-}
-#newrecordmodal, #newpaymentmodal {
-	position: fixed;
-	top: 0;
-	bottom: 0;
-	right: 0;
-	left: 0;
-	/* background: rgba(0,0,0,0.6); */
-	z-index: 100;
-	display: none;
-	justify-content: center;
-	align-items: center;
-	
-}
-
-#editunitrecordmodal, #editpaymentmodal {
+#login-modal, #newrecordmodal, #newpaymentmodal,
+#editunitrecordmodal, #editpaymentmodal, #EditModal {
 	position: fixed;
 	top: 0;
 	bottom: 0;

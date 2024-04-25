@@ -10,8 +10,9 @@
 
 	<!-- ========== My CSS ========== -->
 	<link rel="stylesheet" href="static/style.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 
 	<style>
 		/* Define styles for flash messages */
@@ -36,7 +37,32 @@
 	
 	<title>THCC Unit Records</title>
 
-
+	<script>
+		$(document).ready(function(){
+		load_data();
+		function load_data(query)
+		{
+		$.ajax({
+			url:"/ajaxlivesearch",
+			method:"POST",
+			data:{query:query},
+			success:function(data)
+			{
+			$('#result').html(data);
+			$("#result").append(data.htmlresponse);
+			}
+		});
+		}
+		$('#search_text').keyup(function(){
+			var search = $(this).val();
+			if(search != ''){
+			load_data(search);
+		}else{
+			load_data();
+		}
+		});
+		});
+		</script>
 
 </head>
 <body>
@@ -123,13 +149,17 @@
 
 
 			<!-- ========== SEARCH ========== -->
-			<form action="#">
+			<form id="searchForm" method="POST" action="/ajaxlivesearch">
 				<div class="form-input">
-					<input type="search" placeholder="Search record">
+					<!-- <input type="search" placeholder="Search record"> -->
+					<input type="text" name="search_text" id="search_text" class="form-control" placeholder="Search records">
 					<button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
+					
+
 				</div>
 
 			</form>
+
 			<!-- ========== END OF SEARCH ========== -->
 
 			<!-- ========== ADD NEW USER OVERLAY ========== -->
@@ -189,9 +219,13 @@
 				{%endwith%}
 
 				<div class="table-data">
-					<div class="order">
+					<div class="order">							
+						<div id="result"></div>
+
 						<table>
+
 							<thead>
+
 								<tr>
 									<th>User ID</th>
 									<th>User Role</th>
@@ -212,12 +246,11 @@
 											<i class='bx bxs-edit'></i></button>  
 										<button class="deleterecord-button" onclick="confirmDelete('{{ user.user_id }}')">
 											<i class='bx bxs-trash'></i></button>
-
 									</td>
+								
 								</tr>								
 								{% endfor %}
 							</tbody>
-							
 						</table>
 					</div>
 
@@ -228,9 +261,6 @@
 							</div>
 							<div class="login-form">
 								<h2>EDIT USER DETAILS</h2>
-
-								
-					
 								<form id="edit-user-form" action="/edit" method="POST">
 									<input type="text" class="form-control" id="edit-username" name="username"  required minlength="8">
 									<div>
@@ -267,7 +297,6 @@
 	
 	
 	<script src="static/script.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 	<script src="static/addnewuser.js"></script>
 	
