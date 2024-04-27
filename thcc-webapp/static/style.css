@@ -495,6 +495,7 @@ body {
 	
 }
 
+
 .modal {
 	background-color: #f7f7f7;
 	padding: 10px 0px 20px 0;
@@ -815,7 +816,7 @@ body {
 }
 
 
-/*==================== USERS MGMT ====================*/
+/*==================== SORT ====================*/
 	
 .table-sortable th {
 	cursor: pointer;
@@ -841,15 +842,15 @@ body {
 
 
 
-/* Import Google font - Poppins */
+/*==================== TOAST NOTIF/FLASH MESSAGE ====================*/
 .flash-messages {
     position: fixed;
-    top: 50px;
+    top: 80px;
     right: 20px;
 }
 
 .flash-message {
-    width: 400px;
+    width: 300px;
     position: relative;
     overflow: hidden;
     border-radius: 5px;
@@ -861,6 +862,16 @@ body {
 	justify-content: space-between;
     animation: show_flash_message 0.3s ease forwards;
 }
+.flash-message #close-btn {
+	cursor: pointer;
+	font-size: 20px;
+	font-weight: bold;
+	background-color: transparent;
+	border-color: transparent;
+	color: var(--dark-grey);
+
+}
+
 
 @keyframes show_flash_message {
     0% {

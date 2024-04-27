@@ -157,7 +157,7 @@
 			<div id="login-modal">
 				<div class="modal">
 					<div class="top-form">
-						<div class="close-modal">&#10006;</div>
+						<div class="close-modal" title="Close">&#10006;</div>
 					</div>
 					<div class="login-form">
 						<h2>ADD NEW USER</h2>
@@ -207,7 +207,7 @@
 						{% for category, message in messages %}
 							<div class="flash-message alert-{{ category }}">
 								{{ message }}
-								<button id="close-btn" onclick="closeFlashMessage(this.parentElement)" title="Close">X</button>
+								<button id="close-btn" onclick="closeFlashMessage(this.parentElement)" title="Close">&#10006;</button>
 							</div>
 						{% endfor %}
 					{% endwith %}
@@ -256,7 +256,7 @@
 					<div id="EditModal">
 						<div class="modal">
 							<div class="top-form">
-								<div class="close-modal">&#10006;</div>
+								<div class="close-modal" title="Close">&#10006;</div>
 							</div>
 							<div class="login-form">
 								<h2>EDIT USER DETAILS</h2>

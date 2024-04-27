@@ -193,7 +193,6 @@ def edit_user(user_id):
     return render_template('edit_user.html', user=user)
 
 # search users_mgmt
-# search users_mgmt
 @app.route("/ajaxlivesearch", methods=["POST", "GET"])
 def ajaxlivesearch():
     cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)

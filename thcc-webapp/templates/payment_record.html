@@ -174,11 +174,10 @@
 					<table>
 						<thead>
 							<tr>
-								<th>CRU Contract No.</th>
+								<th>Record ID</th>
 								<th>Unit Location</th>
 								<th>Name</th>
 								<th>Address</th>
-								<th>CAT Parcel Lot No.</th>
 								<th>Receipt No.</th>
 								<th>Date</th>
 								<th>Amount</th>
@@ -188,7 +187,6 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td></td>
 								<td></td>
 								<td></td>
 								<td></td>
@@ -240,25 +238,42 @@
 								</div>
 							</div>
 							<div class="newpayment-input-box">
+								<label for="unitLocation">Payment Details</label>
+								<div class="select-box">
+									<select name="user_role" id="user_role" required>
+										<option hidden>Select Payment Plan</option>
+										<option>St. Andrew Kim Plan</option>
+										<option>St. Ignatius Kim Plan</option>
+										<option>St. Paul Chong Plan</option>
+										<option>Ven. Choe Thomas Plan</option>
+									</select>
 
-							<label for="unitLocation">Payment Details</label>
-							<div class="select-box">
-								<select name="user_role" id="user_role" required>
-									<option hidden>Select Payment Plan</option>
-									<option>St. Andrew Kim Plan</option>
-									<option>St. Ignatius Kim Plan</option>
-									<option>St. Paul Chong Plan</option>
-									<option>Ven. Choe Thomas Plan</option>
-								</select>
-							</div>
+								</div>
+								<div class="paymentdetails">
+									<select name="user_role" id="user_role" required>
+										<option hidden>Additional Service?</option>
+										<option>No</option>
+										<option>Mass</option>
+										<option>Interment</option>
+										<option>Name Plate and Flower Holder</option>
+										<option>Renewal</option>
+									</select>
 
-							<div class="paymentdetails">
-								
-									<input type="date" class="form-control" name="text" placeholder="Date" >
-									<input type="text" class="form-control" name="text" placeholder="Amount" >
-									<input type="number" class="form-control" name="text" placeholder="Receipt Number" >
 
-							</div>
+									<select name="user_role" id="user_role" required>
+										<option hidden>Downpayment?</option>
+										<option>Yes</option>
+										<option>No</option>
+									</select>
+
+								</div>
+
+								<div class="paymentdetails">
+										<input type="date" class="form-control" name="text" placeholder="Date" >
+										<input type="text" class="form-control" name="text" placeholder="Amount" >
+										<input type="number" class="form-control" name="text" placeholder="Receipt Number" >
+
+								</div>
 							</div>
 
 
