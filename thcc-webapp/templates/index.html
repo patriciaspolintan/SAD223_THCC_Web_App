@@ -23,31 +23,31 @@
 		</a>
 		<ul class="side-menu top">
 			<li class="active">
-				<a href="{{ url_for('index') }}">
+				<a href="{{ url_for('index') }}" title="Dashboard">
 					<i class='bx bxs-dashboard' ></i>
 					<span class="text">Dashboard</span>
 				</a>
 			</li>
 			<li>
-				<a href="{{ url_for('unit_mgmt' ) }}">
+				<a href="{{ url_for('unit_mgmt' ) }}" title="Unit Management">
 					<i class='bx bxs-shopping-bag-alt' ></i>
 					<span class="text">Unit Management</span>
 				</a>
 			</li>
 			<li>
-				<a href="{{ url_for('unit_record' ) }}">
+				<a href="{{ url_for('unit_record' ) }}" title="Unit Records">
 					<i class='bx bxs-folder' ></i>
 					<span class="text">Unit Records</span>
 				</a>
 			</li>
 			<li>
-				<a href="{{ url_for('payment_record' ) }}">
+				<a href="{{ url_for('payment_record' ) }}" title="Payment Records">
 					<i class='bx bxs-bank' ></i>
 					<span class="text">Payment Records</span>
 				</a>
 			</li>
 			<li>
-				<a href="{{ url_for('users_mgmt' ) }}">
+				<a href="{{ url_for('users_mgmt' ) }}" title="Users Management">
 					<i class='bx bxs-user' ></i>
 					<span class="text">Users Management</span>
 				</a>
@@ -55,7 +55,7 @@
 		</ul>
 		<ul class="side-menu">
 			<li>
-				<a href="{{ url_for('login') }}" class="logout">
+				<a href="{{ url_for('login') }}" class="logout" title="Log Out">
 					<i class='bx bxs-log-out-circle' ></i>
 					<span class="text">Logout</span>
 				</a>
@@ -108,7 +108,7 @@
 				</div>
 				<a href="#" class="btn-download">
 					<i class='bx bxs-cloud-download' ></i>
-					<span class="text">Download Report</span>
+					<span class="text" title="Download">Download Report</span>
 				</a>
 			</div>
 

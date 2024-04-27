@@ -60,9 +60,18 @@ function showEditModal(userId, username, password, user_role) {
     document.getElementById('edit-username').value = username;
     document.getElementById('edit-password').value = password;
     document.getElementById('edit-userRole').value = user_role;
-    document.getElementById('EditModal').style.display = 'flex';
 
+    // Setting background color to transparent
+    document.getElementById('EditModal').style.backgroundColor = 'rgba(0, 0, 0, 0)'; // Change alpha value as needed
+
+    // Fading in the modal using jQuery
+    $('#EditModal').fadeIn();
+
+    // Displaying the modal
+    document.getElementById('EditModal').style.display = 'flex';
 }
+
+
 
 
 // ==================== DELETE USER ====================
@@ -133,10 +142,6 @@ document.addEventListener("DOMContentLoaded", function () {
         selectUnit = document.getElementById('unit'),
         selects = document.querySelectorAll('#newrecord-form select')
 
-    const selectQuadrant2 = document.getElementById('quadrant'),
-        selectBlock2 = document.getElementById('block'),
-        selectUnit2 = document.getElementById('unit'),
-        selects2 = document.querySelectorAll('#editrecord-form select')
 
     selectBlock.disabled = true
     selectUnit.disabled = true

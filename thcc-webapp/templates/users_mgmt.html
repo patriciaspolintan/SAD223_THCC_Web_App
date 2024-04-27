@@ -11,29 +11,6 @@
 	<!-- ========== My CSS ========== -->
 	<link rel="stylesheet" href="static/style.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
-
-
-	<style>
-		/* Define styles for flash messages */
-		.alert {
-			padding: 10px;
-			margin-bottom: 10px;
-			border-radius: 5px;
-		}
-		/* Define styles for success messages */
-		.alert-success {
-			background-color: #d4edda;
-			border-color: #c3e6cb;
-			color: #155724;
-		}
-		/* Define styles for error messages */
-		.alert-error {
-			background-color: #f8d7da;
-			border-color: #f5c6cb;
-			color: #721c24;
-		}
-	</style>
 	
 	<title>THCC Unit Records</title>
 
@@ -71,38 +48,38 @@
 
 	<!-- ========== SIDEBAR ========== -->
 	<section id="sidebar" >
-		<a href="{{ url_for('index') }}" class="brand">
+		<a href="{{ url_for('index') }}" class="brand" >
 			<i class='bx bxs-church'></i>
 			<!-- <img src="static/THCC_logo.png" alt="THCC Logo" class="logo-icon"> -->
 			<span class="text">THCC Web App</span>
 		</a>
 		<ul class="side-menu top">
 			<li>
-				<a href="{{ url_for('index') }}">
+				<a href="{{ url_for('index') }}" title="Dashboard">
 					<i class='bx bxs-dashboard' ></i>
 					<span class="text">Dashboard</span>
 				</a>
 			</li>
 			<li>
-				<a href="{{ url_for('unit_mgmt') }}">
+				<a href="{{ url_for('unit_mgmt') }}" title="Unit Management">
 					<i class='bx bxs-shopping-bag-alt' ></i>
 					<span class="text">Unit Management</span>
 				</a>
 			</li>
 			<li >
-				<a href="{{ url_for('unit_record') }}">
+				<a href="{{ url_for('unit_record') }}" title="Unit Record">
 					<i class='bx bxs-folder' ></i>
 					<span class="text">Unit Records</span>
 				</a>
 			</li>
             <li>
-				<a href="{{ url_for('payment_record') }}">
+				<a href="{{ url_for('payment_record') }}" title="Payment Record">
 					<i class='bx bxs-bank' ></i>
 					<span class="text">Payment Records</span>
 				</a>
 			</li>
             <li class="active">
-				<a href="{{ url_for('users_mgmt') }}">
+				<a href="{{ url_for('users_mgmt') }}" title="Users Management">
 					<i class='bx bxs-user' ></i>
 					<span class="text">Users Management</span>
 				</a>
@@ -110,7 +87,7 @@
 		</ul>
 		<ul class="side-menu">
 			<li>
-				<a href="{{ url_for('login') }}" class="logout">
+				<a href="{{ url_for('login') }}" class="logout" title="Log Out">
 					<i class='bx bxs-log-out-circle' ></i>
 					<span class="text">Logout</span>
 				</a>
@@ -127,7 +104,7 @@
 
 		<!-- ========== NAVBAR ========== -->
 		<nav>
-			<i class='bx bx-menu' ></i>
+			<i class='bx bx-menu'></i>
 			<form action="#"></form>
 			<a href="#" class="profile">
                 <i class='bx user-circle' ></i>
@@ -152,8 +129,8 @@
 			<form id="searchForm" method="POST" action="/ajaxlivesearch">
 				<div class="form-input">
 					<!-- <input type="search" placeholder="Search record"> -->
-					<input type="text" name="search_text" id="search_text" class="form-control" placeholder="Search records">
-					<button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
+					<input type="text" name="search_text" id="search_text" class="form-control" placeholder="Search records" title="Enter your search term">
+					<button type="submit" class="search-btn" title="Search"><i class='bx bx-search' ></i></button>
 					
 
 				</div>
@@ -164,7 +141,7 @@
 
 			<!-- ========== ADD NEW USER OVERLAY ========== -->
 			<div class="add-import">
-				<button id="login-show">Add New User<i class='bx bx-plus'></i></button>
+				<button id="login-show" title="Add new user"><i class='bx bx-plus'></i>Add New User</button>
 			</div>
 				<!-- Flash message SA CREATE USER ACCOUNT -->
 				{%with messages = get_flashed_messages(with_categories=true)%}
@@ -174,7 +151,8 @@
 					</div>
 				{%endif%}
 				{%endwith%}
-
+				
+				
 
 			<div id="login-modal">
 				<div class="modal">
@@ -198,7 +176,9 @@
 								</select>
 							</div>
 							<div class="form-element">
-								<button>CREATE NEW USER</button>
+								<ul class="notifications"></ul>
+								<button  class="btn" id="info" title="Create new user">CREATE NEW USER</button>
+							
 							</div>
 						</form>
 					</div>
@@ -210,24 +190,40 @@
 			
 				<!-- ========== USER MANAGEMENT TABLE ========== -->
 				<!-- to display the flash messages (USER UPDATED/DELETED SUCCESSFULLY) -->
-				{%with messages = get_flashed_messages(with_categories=true) %}
+				<!-- {%with messages = get_flashed_messages(with_categories=true) %}
 				{%for category, message in messages%}
 					<div class="alert alert-{{ category }} error-message">
 						{{ message }}
 					</div>
 				{%endfor%}
-				{%endwith%}
+				{%endwith%} -->
+
+
+				<ul class="notifications">
+					<!-- Toast notifications will be added here -->
+				</ul>
+				<div class="flash-messages">
+					{% with messages = get_flashed_messages(with_categories=true) %}
+						{% for category, message in messages %}
+							<div class="flash-message alert-{{ category }}">
+								{{ message }}
+								<button id="close-btn" onclick="closeFlashMessage(this.parentElement)" title="Close">X</button>
+							</div>
+						{% endfor %}
+					{% endwith %}
+				</div>
+				
 
 				<div class="table-data">
 					<div class="order">							
 						<div id="result"></div>
 
-						<table>
+						<table class="table-sortable">
 
 							<thead>
 
 								<tr>
-									<th>User ID</th>
+									<th>User Id</th>
 									<th>User Role</th>
 									<th>Username</th>
 									<th>Password</th>
@@ -242,11 +238,14 @@
 									<td>{{ user.username }}</td>
 									<td>{{ user.password }}</td>
 									<td>
-										<button id="edit-show" class="editrecord-button" onclick="showEditModal('{{ user.user_id }}', '{{ user.username }}', '{{ user.password }}', '{{ user.user_role }}')">
-											<i class='bx bxs-edit'></i></button>  
-										<button class="deleterecord-button" onclick="confirmDelete('{{ user.user_id }}')">
-											<i class='bx bxs-trash'></i></button>
+										<button id="edit-show" class="editrecord-button" onclick="showEditModal('{{ user.user_id }}', '{{ user.username }}', '{{ user.password }}', '{{ user.user_role }}')" title="View and edit record">
+											<i class='bx bxs-edit'></i>
+										</button>  
+										<button class="deleterecord-button" onclick="confirmDelete('{{ user.user_id }}')" title="Delete record">
+											<i class='bx bxs-trash'></i>
+										</button>
 									</td>
+									
 								
 								</tr>								
 								{% endfor %}
@@ -299,7 +298,73 @@
 	<script src="static/script.js"></script>
 
 	<script src="static/addnewuser.js"></script>
-	
+
+<script>
+const closeFlashMessage = (messageElement) => {
+    messageElement.classList.add("hide");
+    setTimeout(() => messageElement.remove(), 500);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const flashMessages = document.querySelectorAll('.flash-message');
+    flashMessages.forEach(message => {
+        setTimeout(() => closeFlashMessage(message), 5000);
+    });
+});
+
+</script>
+
+	<script>
+
+
+
+/**
+ * Sorts a HTML table.
+ *
+ * @param {HTMLTableElement} table The table to sort
+ * @param {number} column The index of the column to sort
+ * @param {boolean} asc Determines if the sorting will be in ascending
+ */
+ function sortTableByColumn(table, column, asc = true) {
+    const dirModifier = asc ? 1 : -1;
+    const tBody = table.tBodies[0];
+    const rows = Array.from(tBody.querySelectorAll("tr"));
+
+    // Sort each row
+    const sortedRows = rows.sort((a, b) => {
+        const aColText = a.querySelector(`td:nth-child(${column + 1})`).textContent.trim();
+        const bColText = b.querySelector(`td:nth-child(${column + 1})`).textContent.trim();
+
+        return aColText > bColText ? (1 * dirModifier) : (-1 * dirModifier);
+    });
+
+    // Remove all existing TRs from the table
+    while (tBody.firstChild) {
+        tBody.removeChild(tBody.firstChild);
+    }
+
+    // Re-add the newly sorted rows
+    tBody.append(...sortedRows);
+
+    // Remember how the column is currently sorted
+    table.querySelectorAll("th").forEach(th => th.classList.remove("th-sort-asc", "th-sort-desc"));
+    table.querySelector(`th:nth-child(${column + 1})`).classList.toggle("th-sort-asc", asc);
+    table.querySelector(`th:nth-child(${column + 1})`).classList.toggle("th-sort-desc", !asc);
+}
+
+document.querySelectorAll(".table-sortable th").forEach(headerCell => {
+    headerCell.addEventListener("click", () => {
+        const tableElement = headerCell.parentElement.parentElement.parentElement;
+        const headerIndex = Array.prototype.indexOf.call(headerCell.parentElement.children, headerCell);
+        const currentIsAscending = headerCell.classList.contains("th-sort-asc");
+
+        sortTableByColumn(tableElement, headerIndex, !currentIsAscending);
+    });
+});
+
+
+
+	</script>
 	
 	<!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
 

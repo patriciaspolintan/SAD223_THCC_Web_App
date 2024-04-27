@@ -507,7 +507,7 @@ body {
 	display: flex;
 	justify-content: flex-end;
 }
-.top-form .close-modal {
+.top-form .close-modal, #flash-messages .close-btn {
 	cursor: pointer;
 	padding: 0 20px;
 	font-size: 20px;
@@ -701,14 +701,14 @@ body {
 	color: #FAF8F8;
 	cursor: pointer;
 	border-color: transparent;
-	/* border-radius: 10px; */
+	border-radius: 5px;
 }
 #content main .table-data .order table tbody tr button.deleterecord-button  {
 	background: #DB504A;
 	color: #FAF8F8;
 	cursor: pointer;
 	border-color: transparent;
-	/* border-radius: 20px; */
+	border-radius: 5px;
 
 }
 #content main .table-data .order table tr td .status {
@@ -780,4 +780,118 @@ body {
 	#content main .table-data .todo .todo-list {
 		min-width: 420px;
 	}
+}
+
+/*==================== TOOLTIPS ====================*/
+
+/* Tooltip container */
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #0C0C1E;
+    color: #f7f7f7;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+/* Show the tooltip text when hovering over the tooltip container */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+
+/*==================== USERS MGMT ====================*/
+	
+.table-sortable th {
+	cursor: pointer;
+}
+
+.table-sortable .th-sort-asc::after {
+	content: "\25b4";
+}
+
+.table-sortable .th-sort-desc::after {
+	content: "\25be";
+}
+
+.table-sortable .th-sort-asc::after,
+.table-sortable .th-sort-desc::after {
+	margin-left: 5px;
+}
+
+.table-sortable .th-sort-asc,
+.table-sortable .th-sort-desc {
+	background: rgba(0, 0, 0, 0.1);
+}
+
+
+
+/* Import Google font - Poppins */
+.flash-messages {
+    position: fixed;
+    top: 50px;
+    right: 20px;
+}
+
+.flash-message {
+    width: 400px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 5px;
+    padding: 16px 17px;
+    margin-bottom: 10px;
+	background-color: #d4edda;
+	border-color: #c3e6cb;
+	color: #155724;
+	justify-content: space-between;
+    animation: show_flash_message 0.3s ease forwards;
+}
+
+@keyframes show_flash_message {
+    0% {
+        transform: translateX(100%);
+    }
+    40% {
+        transform: translateX(-5%);
+    }
+    80% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(-10px);
+    }
+}
+
+.flash-message.hide {
+    animation: hide_flash_message 0.3s ease forwards;
+}
+
+@keyframes hide_flash_message {
+    0% {
+        transform: translateX(-10px);
+    }
+    40% {
+        transform: translateX(0%);
+    }
+    80% {
+        transform: translateX(-5%);
+    }
+    100% {
+        transform: translateX(calc(100% + 20px));
+    }
 }
