@@ -17,7 +17,7 @@
 
 
 	<!-- ========== SIDEBAR ========== -->
-	<section id="sidebar" >
+	<section id="sidebar" class="hide">
 		<a href="{{ url_for('index') }}" class="brand">
 			<i class='bx bxs-church'></i>
 			<span class="text">THCC Web App</span>
@@ -87,19 +87,26 @@
 				<div class="left">
 					<h1>Unit Records</h1>
 				</div>
+				
 			</div>
 
 			<!-- ========== SEARCH ========== -->
-			<form action="#">
+			<form method="post" action="{{ url_for('unit_record') }}" enctype="multipart/form-data" id="upload-form">
 				<div class="form-input">
 					<input type="search" placeholder="Search records" title="Enter your search item">
 					<button type="submit" class="search-btn" title="Search"><i class='bx bx-search' ></i></button>
 				</div>
 
-				<!-- <div class="add-import">
+				<div class="add-import">
 					<button type="sortfilter" class="sortfilter-btn">Filter<i class='bx bx-filter-alt' ></i></button>
-					<button type="improtfile" class="import-btn">Import Records<i class='bx bx-import' ></i></button>
-				</div> -->
+					<!--binago ko yung button kasi need naka input yan kasi kukunin yung file from file manager-->
+					<label for="file-input" class="import-btn" title="Upload file">Import Records<input type="file" name="file" id="file-input" style="display: none;"><i class="bx bx-import"></i></label>
+					
+					<a href="#" class="btn-download">
+						<i class='bx bxs-cloud-download' ></i>
+						<span class="text" title="Download">Download Report</span>
+					</a>
+				</div>
 			</form>
 						
 			<!-- ========== ADD NEW RECORD ========== -->
@@ -116,7 +123,17 @@
 					<div class="login-form">
 						<h2>ADD NEW RECORD</h2>
 
-						<form id="newrecord-form" action="/" method="/">
+						<!-- flash messages -->
+						{% with messages = get_flashed_messages(with_categories=true) %}
+						{% for category, message in messages %}
+						<div class="alert alert-{{ category }}">
+							{{ message }}
+						</div>
+						{% endfor %}
+						{% endwith %}
+
+
+						<form id="newrecord-form" action="/add_record" method="POST">
 								<input type="text" class="form-control" name="text" placeholder="Name">
 								<input type="text" class="form-control" name="text" placeholder="Sitio/Barangay, Municipality, City/Province" >
 							<div class="input-box">
@@ -157,23 +174,27 @@
 								<th>Receipt No.</th>
 								<th>Date</th>
 								<th>Amount</th>
+								<th>Payment Status</th>
 								<th>Action</th>
 
 							</tr>
 						</thead>
 						<tbody>
+							{% for record in unit_records %}
+
 							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
+								<td>{{ record.record_id }}</td>
+								<td>{{ record.unit_location }}</td>
+								<td>{{ record.name }}</td>
+								<td>{{ record.address }}</td>
+								<td>{{ record.receipt }}</td>
+								<td>{{ record.date_paid }}</td>
+								<td>{{ record.amount_paid }}</td>
+								<td>{{ record.payment_status }}</td>
 								<td>
 									<button id="editunit-show" class="editrecord-button" title="View and edit record">
 										<i class='bx bxs-edit'></i></button>  
-									<button class="deleterecord-button" title="Delete record">
+									<button class="deleterecord-button" onclick="confirmDelete('')" title="Delete record">
 										<i class='bx bxs-trash'></i></button>
 
 
@@ -181,6 +202,8 @@
 									<button class="deleterecord-button"><i class='bx bxs-trash' onclick="return confirm('Are You Sure To Delete ?')"></i></i></button>  -->
 								</td>
 							</tr>
+							{% endfor %}
+
 						</tbody>
 					</table>
 				</div>
@@ -195,7 +218,7 @@
 					<div class="login-form">
 						<h2>EDIT RECORD DETAILS</h2>
 
-						<form id="editrecord-form" action="/" method="/">
+						<form id="editrecord-form" action="/update_unit_record" method="POST">
 								<input type="text" class="form-control" name="text" placeholder="Name">
 								<input type="text" class="form-control" name="text" placeholder="Sitio/Barangay, Municipality, City/Province" >
 							<div class="input-box">
@@ -234,7 +257,12 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 	<script src="static/addnewuser.js"></script>
-
+	<script>
+		// Automatically submit the form when a file is selected
+		document.getElementById('file-input').addEventListener('change', function() {
+			document.getElementById('upload-form').submit();
+		});
+	</script>
 
 
 

@@ -154,7 +154,7 @@ img {
 
 .login__input:focus,
 .login__input:valid {
-  border: 2px solid var(--first-color);
+  border: 2px solid #80CB85;
 }
 
 /* ==================== ERROR MESSAGE ==================== */

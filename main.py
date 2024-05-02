@@ -2,9 +2,11 @@ from flask import Flask, render_template, request, redirect, url_for, flash, ses
 from flask_sqlalchemy import SQLAlchemy
 # GALING KAY PAT
 from flask_mysqldb import MySQL,MySQLdb
-#
 from flask import jsonify 
 # ==========
+import pandas  as pd
+from datetime import datetime
+
 
 import os
 # from flask_wtf import FlaskForm
@@ -12,7 +14,8 @@ import os
 # from wtforms.validators import DataRequired, Length, EqualTo
 
 app = Flask(__name__)
-
+UPLOAD_FOLDER = 'uploads'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.secret_key = 'aswecvbuiASgh erer3543'
 
 # configure the path to the static and templates folders
@@ -48,12 +51,7 @@ class User(db.Model):
     password = db.Column(db.String(90), nullable=False)
     user_role = db.Column(db.String(90), nullable=False)
 
-    # COPY PASTE NI PATT ====================
-    # def __init__(self, username, password, user_role):
-    #     self.name = username
-    #     self.email = password
-    #     self.phone = user_role
-    # END NG COPY PASTE NI PATT ====================
+
 
 # login page
 @app.route('/', methods=['GET','POST'])
@@ -105,10 +103,52 @@ def unit_mgmt():
     return render_template('unit_mgmt.html')
 
 # unit record
-@app.route('/unit_record')
-#@roles_required('Admin', 'Columbarium Representative') # ADDED BY PATT
+# @app.route('/unit_record')
+# #@roles_required('Admin', 'Columbarium Representative') # ADDED BY PATT
+# def unit_record():
+#     return render_template('unit_record.html')
+
+# unit record
+# ETO YUNG CODE SA PAG FETCH NG CSV FILE SA TABLE TO DATABASE
+@app.route('/unit_record', methods=['GET', 'POST'])
 def unit_record():
-    return render_template('unit_record.html')
+    if request.method == 'POST':
+        # Handle file upload
+        uploaded_file = request.files['file']
+        if uploaded_file.filename != '':
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], uploaded_file.filename)
+            uploaded_file.save(file_path)
+            parseCSV(file_path)
+            flash('Data inserted successfully!', category='success')
+            return redirect(url_for('unit_record'))
+        else:
+            flash('No file selected!', category='error')
+            return redirect(url_for('unit_record'))
+    unit_records = UnitRecord.query.all()
+    return render_template('unit_record.html', unit_records=unit_records)
+
+def parseCSV(file_path):
+    col_names = ['unit_loc', 'name', 'address', 'receipt_no', 'date_paid', 'amount_paid']
+    csvData = pd.read_csv(file_path, names=col_names, header=None)
+
+    for i, row in csvData.iterrows():
+        # NI CONVERT KO YUNG DATE SA FORMAT NUNG CSV FILE NYO
+        date_paid = pd.to_datetime(row["date_paid"], format="%m/%d/%Y").date()
+        user = UnitRecord(
+            unit_loc=row['unit_loc'],
+            name=row['name'],
+            address=row['address'],
+            receipt_no=row['receipt_no'],
+            date_paid=date_paid, 
+            amount_paid=row['amount_paid']
+        )
+        
+        db.session.add(user)
+
+    db.session.commit()
+    unit_records = UnitRecord.query.all()
+    return render_template('unit_record.html', unit_records=unit_records)
+
 
 # payment record
 @app.route('/payment_record')
@@ -211,6 +251,132 @@ def ajaxlivesearch():
         numrows = len(users)
         html_response = render_template('users_mgmt_response.html', users=users, numrows=numrows)
     return jsonify({'htmlresponse': html_response, 'numrows': numrows})
+
+
+@app.route('/total_sold_units')
+def total_sold_units():
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cur.execute("SELECT COUNT(*) AS total_sold_units FROM unit_mgmt WHERE unit_status = 'sold'")
+    result = cur.fetchone()
+    return jsonify(result)
+
+@app.route('/total_available_units')
+def total_available_units():
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cur.execute("SELECT COUNT(*) AS total_available_units FROM unit_mgmt WHERE unit_status = 'available'")
+    result = cur.fetchone()
+    return jsonify(result)
+
+@app.route('/total_sales')
+def total_sales():
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cur.execute("SELECT SUM(payment_amount) AS total_sales FROM payment_history WHERE is_additional_service = 'FALSE'")
+    result = cur.fetchone()
+    return jsonify(result)
+
+
+
+# db model for unit_record
+class UnitRecord(db.Model):
+    __tablename__ = 'unit_record'
+
+    record_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    unit_location = db.Column(db.String(25), nullable=False)
+    name = db.Column(db.String(255), nullable=False)
+    address = db.Column(db.String(255), nullable=False)
+    receipt = db.Column(db.Integer, default=None)
+    date_paid = db.Column(db.Date, default=None)
+    amount_paid = db.Column(db.Numeric(10, 2), default=None)
+    payment_status = db.Column(db.String(20), default='ongoing payment')  # New column for payment status
+    
+
+# db model for unit_mgmt
+class UnitManagement(db.Model):
+    __tablename__ = 'unit_mgmt'
+
+    unit_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    unit_location = db.Column(db.String(25), nullable=False)
+    unit_status = db.Column(db.Enum('sold', 'available'), default='available')
+
+# add unit record
+@app.route('/add_record', methods=['GET', 'POST'])
+def add_record():
+    if request.method == 'POST':
+        name = request.form.get('name')
+        address = request.form.get('address')
+        quadrant = request.form.get('quadrant')
+        block = request.form.get('block')
+        unit = request.form.get('unit')
+        
+        if not (name and address and quadrant and block and unit):
+            flash('Please fill in all required fields', category='error')
+            return redirect(url_for('unit_record'))
+        
+        unit_location = f'{quadrant} / {block} / {unit}'
+        
+        try:
+            # create a new UnitRecord instance with NULL values for receipt, date_paid, and amount_paid
+            new_record = UnitRecord(unit_location=unit_location, name=name, address=address, receipt=None, date_paid=None, amount_paid=None)
+            db.session.add(new_record)
+            
+            unit_mgmt_entry = UnitManagement.query.filter_by(unit_location=unit_location).first()
+            if unit_mgmt_entry:
+                # update the unit_status to 'sold'
+                unit_mgmt_entry.unit_status = 'sold'
+            
+            db.session.commit()
+            flash('Record added successfully', category='success')
+        except Exception as e:
+            flash('An error occurred while adding the record', category='error')
+            print(e)
+            return redirect(url_for('unit_record'))  
+        
+        return redirect(url_for('unit_record'))   
+
+
+@app.route('/update_unit_record', methods=['POST'])
+def update_unit_record():
+    if request.method == 'POST':
+        record_id = request.form.get('record_id')
+        name = request.form.get('name')
+        address = request.form.get('address')
+        unit_location = request.form.get('unit_location')
+        receipt = request.form.get('receipt')
+        date_paid = request.form.get('date_paid')
+        amount_paid = request.form.get('amount_paid')
+
+        unit_record = UnitRecord.query.get(record_id)
+        if unit_record:
+            unit_record.name = name
+            unit_record.address = address
+            unit_record.unit_location = unit_location
+            unit_record.receipt = receipt
+            unit_record.date_paid = date_paid
+            unit_record.amount_paid = amount_paid
+
+            db.session.commit()
+
+    return redirect(request.referrer or url_for('unit_record'))
+
+
+@app.route('/delete_unit_record', methods=['POST'])
+def delete_unit_record():
+    if request.method == 'POST':
+        record_id = request.form.get('record_id')
+        unit_record = UnitRecord.query.get(record_id)
+
+        if unit_record:
+            db.session.delete(unit_record)
+
+            db.session.commit()
+            flash('Record deleted successfully', category='success')
+        else:
+            flash('Record not found', category='error')
+
+    
+    return redirect(request.referrer or url_for('unit_record'))
+
+
 
 
 
