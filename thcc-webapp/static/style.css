@@ -318,8 +318,13 @@ body {
 #content main form .add-import button.sortfilter-btn,
 #content main form .add-import button.add-btn,
 #content main form .add-import button.import-btn, 
+<<<<<<< HEAD
 #login-show, #newrecord-show, #newpayment-show, .import-btn  {
 	background: #80CB85;
+=======
+#login-show, #newrecord-show, #newpayment-show, .import-btn, .btn-download  {
+    background: #80CB85;
+>>>>>>> be145067d9d8fb8bec34b73084ea786e34fcd75b
     color: var(--light);
     font-size: 13px;
     border: none;
@@ -971,6 +976,7 @@ body {
         transform: translateX(calc(100% + 20px));
     }
 }
+<<<<<<< HEAD
 .sortfilter-btn {
 	background: #80CB85;
     color: var(--light);
@@ -1019,3 +1025,7 @@ body {
 	transform: translateY(-50%);
 	color: #fff;
   }
+=======
+
+
+>>>>>>> be145067d9d8fb8bec34b73084ea786e34fcd75b

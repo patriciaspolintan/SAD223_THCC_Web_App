@@ -180,6 +180,8 @@
 								<th>Receipt No.</th>
 								<th>Date</th>
 								<th>Amount</th>
+								<th>Payment Status</th>
+
 								<th>Action</th>
 
 							</tr>
@@ -187,6 +189,7 @@
 						<tbody>
 							{% for record in payment_records %}
 							<tr>
+<<<<<<< HEAD
 								<td>{{ record.record_id }}</td>
 								<td>{{ record.unit_location }}</td>
 								<td>{{ record.name }}</td>
@@ -194,6 +197,16 @@
 								<td>{{ record.receipt }}</td>
 								<td>{{ record.date_paid }}</td>
 								<td>{{ record.amount_paid }}</td>
+=======
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+>>>>>>> be145067d9d8fb8bec34b73084ea786e34fcd75b
 								<td>
 									<button id="editpayment-show" class="editrecord-button" title="View and edit record">
 										<i class='bx bxs-edit-alt'></i></button>  
@@ -261,18 +274,31 @@
 									<div class="paymentdetails">
 										<div class="select-box-record">
 											<select name="user_role" id="user_role" required>
+<<<<<<< HEAD
 												<option hidden>Unit Payment</option>
 												<!-- <option>Unit Payment</option> -->
+=======
+												<option hidden>Additional Service?</option>
+												<option>No</option>
+>>>>>>> be145067d9d8fb8bec34b73084ea786e34fcd75b
 												<option>Mass</option>
 												<option>Interment</option>
 												<option>Name Plate and Flower Holder</option>
 												<option>Renewal</option>
 											</select>
+<<<<<<< HEAD
 											<!-- <select name="user_role" id="user_role" required>
 												<option hidden>Downpayment?</option>
 												<option>Yes</option>
 												<option>No</option>
 											</select> -->
+=======
+											<select name="user_role" id="user_role" required>
+												<option hidden>Downpayment?</option>
+												<option>Yes</option>
+												<option>No</option>
+											</select>
+>>>>>>> be145067d9d8fb8bec34b73084ea786e34fcd75b
 										</div>
 										
 									</div>
@@ -299,12 +325,26 @@
 													<th>Installment Plan ID</th>
 													<th>Payment Date</th>
 													<th>Payment Amount</th>
+<<<<<<< HEAD
+=======
+													<th>Is Additional Service</th>
+													<th>Additional Service Name</th>
+													<th>Additional Service Amount</th>
+													<th>Additional Service Date</th>
+													<th>Is Downpayment</th>
+>>>>>>> be145067d9d8fb8bec34b73084ea786e34fcd75b
 													<th>Remaining Balance</th>
 												</tr>
 											</thead>
 											<tbody>
 												<tr>
+<<<<<<< HEAD
 													
+=======
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
 													<td></td>
 													<td></td>
 													<td></td>
@@ -312,7 +352,35 @@
 													<td></td>
 													<td></td>
 												</tr>
+												<tr>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+												</tr>
+												<tr>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+>>>>>>> be145067d9d8fb8bec34b73084ea786e34fcd75b
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+												</tr>
+<<<<<<< HEAD
 												
+=======
+>>>>>>> be145067d9d8fb8bec34b73084ea786e34fcd75b
 											</tbody>
 										</table>
 									</div>

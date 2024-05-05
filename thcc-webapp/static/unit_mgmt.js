@@ -174,7 +174,11 @@ function handleTableClick(event) {
                     }
                     j += 2; // skip the next two cells as they are combined with the current one.
                 } else {
+<<<<<<< HEAD
                     cell.textContent = 1 + (i * 17) + j;// empty cell
+=======
+                    cell.textContent = " 100 "; // empty cell
+>>>>>>> be145067d9d8fb8bec34b73084ea786e34fcd75b
                 }
                 // unique cell id for each cell for differentiation purposes.
                 cell.id = `${tableId}-popup-unit${i}${j}`;
@@ -251,7 +255,11 @@ function handleTableClick(event) {
                     j += 2;
                 }
                 else {
+<<<<<<< HEAD
                     cell.textContent = 105 + (i * 12) + j;; // empty cell
+=======
+                    cell.textContent = "2900"; // empty cell
+>>>>>>> be145067d9d8fb8bec34b73084ea786e34fcd75b
 
                 }
                 cell.id = `${tableId}-popup-unit${i}${j}`;
@@ -268,7 +276,11 @@ function handleTableClick(event) {
                 cell.id = `${tableId}-popup-unit${i}${j}`;
 
                 cell.classList.add("popup-standard-cell");
+<<<<<<< HEAD
                 cell.textContent = 105 + (i * 12) + j;
+=======
+                cell.textContent = "999";
+>>>>>>> be145067d9d8fb8bec34b73084ea786e34fcd75b
             }
         }
     }

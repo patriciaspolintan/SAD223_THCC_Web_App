@@ -158,6 +158,21 @@
 								<p>Units Available</p>
 							</span>`;
 					});
+<<<<<<< HEAD
+=======
+
+				fetch('/total_sales')
+					.then(response => response.json())
+					.then(data => {
+						document.getElementById('totalSales').innerHTML = `
+							<i class='bx bxs-shopping-bag'></i>
+							<span class="text">
+								<h3>${data.total_sales}</h3>
+								<p>Total Sales</p>
+							</span>`;
+					});
+				</script>
+>>>>>>> be145067d9d8fb8bec34b73084ea786e34fcd75b
 
 				fetch('/total_sales')
 					.then(response => response.json())
