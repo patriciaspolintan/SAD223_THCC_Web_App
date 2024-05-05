@@ -14,40 +14,41 @@
 	
 	<title>THCC Unit Records</title>
 
-	<script>
-		$(document).ready(function(){
-		load_data();
-		function load_data(query)
-		{
-		$.ajax({
-			url:"/ajaxlivesearch",
-			method:"POST",
-			data:{query:query},
-			success:function(data)
-			{
-			$('#result').html(data);
-			$("#result").append(data.htmlresponse);
-			}
-		});
-		}
-		$('#search_text').keyup(function(){
-			var search = $(this).val();
-			if(search != ''){
-			load_data(search);
-		}else{
-			load_data();
-		}
-		});
-		});
-		</script>
+	
 
 </head>
 <body>
+	<script>
+		$(document).ready(function(){
+    function load_data(query) {
+        $.ajax({
+            url: "/ajaxlivesearch",
+            method: "POST",
+            data: {query: query},
+            success: function(data) {
+                $('#result').html(data);
+                $("#result").append(data.htmlresponse);
+                // Check if search query is not empty
+                if (query !== '') {
+                    $('#users_table').hide(); // Hide the users table
+                } else {
+                    $('#users_table').show(); // Show the users table
+                }
+            }
+        });
+    }
+    
+    $('#search_text').keyup(function() {
+        var search = $(this).val();
+        load_data(search);
+    });
+});
+		</script>
 
 
 
 	<!-- ========== SIDEBAR ========== -->
-	<section id="sidebar" >
+	<section id="sidebar" class="hide">
 		<a href="{{ url_for('index') }}" class="brand" >
 			<i class='bx bxs-church'></i>
 			<!-- <img src="static/THCC_logo.png" alt="THCC Logo" class="logo-icon"> -->
@@ -130,13 +131,12 @@
 				<div class="form-input">
 					<!-- <input type="search" placeholder="Search record"> -->
 					<input type="text" name="search_text" id="search_text" class="form-control" placeholder="Search records" title="Enter your search term">
-					<button type="submit" class="search-btn" title="Search"><i class='bx bx-search' ></i></button>
+					<button type="submit" id="search_btn" class="search-btn" title="Search"><i class='bx bx-search' ></i></button>
 					
 
 				</div>
 
 			</form>
-
 			<!-- ========== END OF SEARCH ========== -->
 
 			<!-- ========== ADD NEW USER OVERLAY ========== -->
@@ -214,11 +214,12 @@
 				</div>
 				
 
+				
 				<div class="table-data">
 					<div class="order">							
 						<div id="result"></div>
 
-						<table class="table-sortable">
+						<table id="users_table" class="table-sortable">
 
 							<thead>
 
@@ -231,6 +232,7 @@
 								</tr>
 							</thead>
 							<tbody>
+								
 								{% for user in users %}
 								<tr>
 									<td>{{ user.user_id }}</td>

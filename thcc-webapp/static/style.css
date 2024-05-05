@@ -318,18 +318,29 @@ body {
 #content main form .add-import button.sortfilter-btn,
 #content main form .add-import button.add-btn,
 #content main form .add-import button.import-btn, 
-#login-show, #newrecord-show, #newpayment-show  {
-    background: #80CB85;
+#login-show, #newrecord-show, #newpayment-show, .import-btn  {
+	background: #80CB85;
     color: var(--light);
     font-size: 13px;
     border: none;
     outline: none;
-    border-radius: 36px;
+    border-radius: 5px;
     cursor: pointer;
 	padding: 4px 8px;
 	margin-bottom: 15px;
 }
-
+.btn-download {
+    display: inline-block;
+	background: #80CB85;
+    color: var(--light);
+    font-size: 13px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    cursor: pointer;
+	padding: 4px 8px;
+	margin-bottom: 15px;
+}
 #content main form .add-import button.sort-filter-btn:hover,
 #content main form .add-import button.add-record-btn:hover,
 #content main form .add-import button.import-records-btn:hover {
@@ -481,7 +492,7 @@ body {
 
 /* ==================== ADD NEW USER ==================== */
 #login-modal, #newrecordmodal, #newpaymentmodal,
-#editunitrecordmodal, #editpaymentmodal, #EditModal {
+#editunitrecordmodal, #EditModal {
 	position: fixed;
 	top: 0;
 	bottom: 0;
@@ -495,7 +506,34 @@ body {
 	
 }
 
+/* EDIT PAYMENT MODAL */
+#editpaymentmodal {
+	position: fixed;
+    width: 80%;
+    height: 80%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+	bottom: 0;
+	right: 0;
+    transform: translate(-50%, -50%);
+    overflow: auto;
+	z-index: 100;
+	display: none;
+	justify-content: center;
+	align-items: center;
+	
+}
 
+#editpaymentmodal .modal {
+
+	padding: 10px 0px 20px 0;
+	border-radius: 10px;
+	width: auto;
+	text-align: center;
+	max-width: 100%;
+    max-height: 100%;
+}
 .modal {
 	background-color: #f7f7f7;
 	padding: 10px 0px 20px 0;
@@ -575,7 +613,7 @@ body {
 
 }
 
-.paymentdetails {
+#editpaymentmodal .modal .paymentdetails {
 	width: 75%;
 	border: 0;
 	border-radius: 3px;
@@ -587,6 +625,9 @@ body {
 	flex-direction: row;
 
 }
+
+
+
 .select-box-record select {
     width: 100%;
     padding: 12px;
@@ -596,6 +637,30 @@ body {
 	display: flex;
 	flex-direction: row;
 
+}
+
+
+
+.paymentdiv-container {
+    display: flex;
+}
+
+.paymentdiv {
+    flex: 1;
+    padding: 0 10px; /* Adjust padding as needed */
+}
+
+.paymentdetails {
+    display: flex;
+    flex-direction: column;
+}
+
+.newpayment-input-box {
+    margin-bottom: 10px; /* Adjust margin as needed */
+}
+
+.form-element {
+    margin-top: 20px; /* Adjust margin as needed */
 }
 
 /* ==================== END OF ADD NEW USER ==================== */
@@ -906,3 +971,51 @@ body {
         transform: translateX(calc(100% + 20px));
     }
 }
+.sortfilter-btn {
+	background: #80CB85;
+    color: var(--light);
+    font-size: 13px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    cursor: pointer;
+	padding: 5px;
+	margin-bottom: 15px;
+	margin-right: 10px;
+	display: flex;
+    align-items: center;
+  }
+  
+  .sortfilter-btn option {
+	background-color: white;
+	color: black;
+  }
+
+  .combo-box {
+	position: relative;
+	display: inline-block;
+  }
+  
+  .sortfilter-btn {
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	border: 1px solid #ccc;
+	padding: 5px 30px 5px 10px;
+	font-size: 14px;
+	cursor: pointer;
+	width: 150px; 
+  }
+  
+  .sortfilter-btn option {
+	background-color: white;
+	color: black;
+  }
+  
+  .bx-filter-alt {
+	position: absolute;
+	top: 35%;
+	right: 20px; 
+	transform: translateY(-50%);
+	color: #fff;
+  }

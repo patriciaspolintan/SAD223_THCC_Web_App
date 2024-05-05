@@ -1,0 +1,48 @@
+<!-- <h3>{{ numrows }} Record(s) Found</h3> -->
+
+<table>
+    <table>
+        <thead>
+            <tr>
+                <th>Record ID</th>
+                <th>Unit Location</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Receipt No.</th>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Action</th>
+
+            </tr>
+        </thead>
+    <tbody>
+        {% if numrows > 0 %}
+            {% for record in unit_records %}
+
+            <tr>
+                <td>{{ record.record_id }}</td>
+                <td>{{ record.unit_location }}</td>
+                <td>{{ record.name }}</td>
+                <td>{{ record.address }}</td>
+                <td>{{ record.receipt }}</td>
+                <td>{{ record.date_paid }}</td>
+                <td>{{ record.amount_paid }}</td>
+                <td>
+                    <button id="editunit-show" class="editrecord-button" onclick="showEditModal('{{record.record_id}}','{{record.name}}','{{record.address}}','{{record.unit_location}}')" title="View and edit record">
+                        <i class='bx bxs-edit'></i>  
+                    <button class="deleterecord-button" onclick="confirmDelete2('{{ record.record_id }}')" title="Delete record">
+                        <i class='bx bxs-trash'></i></button>
+
+
+                <!-- <button id="edit-show" class="editrecord-button"><i class='bx bxs-edit'></i></button>  
+                <button class="deleterecord-button"><i class='bx bxs-trash' onclick="return confirm('Are You Sure To Delete ?')"></i></i></button>  -->
+             </td>
+            </tr>
+            {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="5">No records found.</td>
+                </tr>
+            {% endif %}
+    </tbody>
+</table> 

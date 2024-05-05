@@ -6,18 +6,67 @@
 
 	<!-- ========== Boxicons ========== -->
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 	<!-- ========== My CSS ========== -->
 	<link rel="stylesheet" href="static/style.css">
 
 	<title>THCC Unit Records</title>
 </head>
 <body>
+	<script>
+        function downloadRecords() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/download', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.responseType = 'blob';
 
+            xhr.onload = function() {
+                if (this.status === 200) {
+                    var blob = new Blob([xhr.response], { type: 'application/pdf' });
+                    var link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = 'records.pdf';
+                    link.click();
+                }
+            };
+
+            // Send an empty request body as we want all records
+            xhr.send(JSON.stringify({}));
+        }
+    </script>
+	<script>
+		$(document).ready(function(){
+    function load_data(query) {
+        $.ajax({
+            url: "/ajaxlivesearchunitrec",
+            method: "POST",
+            data: {query: query},
+            success: function(data) {
+                $('#result').html(data);
+                $("#result").append(data.htmlresponse);
+                // Check if search query is not empty
+                if (query !== '') {
+                    $('#users_table').hide(); // Hide the users table
+                } else {
+                    $('#users_table').show(); // Show the users table
+                }
+            }
+        });
+    }
+    
+    $('#search_text').keyup(function() {
+        var search = $(this).val();
+        load_data(search);
+    });
+});
+		</script>
 
 
 
 	<!-- ========== SIDEBAR ========== -->
-	<section id="sidebar" >
+	<section id="sidebar" class="hide">
 		<a href="{{ url_for('index') }}" class="brand">
 			<i class='bx bxs-church'></i>
 			<span class="text">THCC Web App</span>
@@ -82,6 +131,57 @@
 		<!-- ========== END OF NAVBAR ========== -->
 	
 		<!-- ========== MAIN ========== -->
+		<!-- {% with messages = get_flashed_messages(with_categories=true) %}
+		<style>
+			.alert {
+				padding: 10px;
+				margin-bottom: 10px;
+				border: 1px solid #00ff00;
+				background-color: #ccffcc;
+				color: #006600;
+				font-weight: bold;
+				font-size: 12px;
+				width: 1000px;
+				margin-left: 10px;
+				margin-top: 20px;
+			}
+			.alert.alert-error {
+            background-color: rgba(253, 253, 78, 0.733);
+            border-color: #FFD700; 
+            color: #2c2a2a; 
+        }
+		</style>
+	
+	
+		{% for category, message in messages %}
+			<div class="alert alert-{{ category }}">
+				{{ message }}
+			</div>
+		{% endfor %}
+	{% endwith %} -->
+
+
+	<ul class="notifications">
+		<!-- Toast notifications will be added here -->
+	</ul>
+	<div class="flash-messages">
+		{% with messages = get_flashed_messages(with_categories=true) %}
+			{% for category, message in messages %}
+				<div class="flash-message alert-{{ category }}">
+					{{ message }}
+					<button id="close-btn" onclick="closeFlashMessage(this.parentElement)" title="Close">&#10006;</button>
+				</div>
+			{% endfor %}
+		{% endwith %}
+	</div>
+
+	
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+		setTimeout(() => {
+			$(".alert").hide();
+		}, 3000);
+	</script>
 		<main>
 			<div class="head-title">
 				<div class="left">
@@ -90,23 +190,38 @@
 			</div>
 
 			<!-- ========== SEARCH ========== -->
-			<form action="#">
+			<form id="searchForm" method="POST" action="/ajaxlivesearchunitrec">
 				<div class="form-input">
-					<input type="search" placeholder="Search records" title="Enter your search item">
-					<button type="submit" class="search-btn" title="Search"><i class='bx bx-search' ></i></button>
+					<input type="search" name="search_text" id="search_text" placeholder="Search records" title="Enter your search item">
+					<button type="submit" class="search-btn" title="Search" disabled><i class='bx bx-search'></i></button>
 				</div>
+			</form>
+			<form method="post" action="{{ url_for('unit_record') }}" enctype="multipart/form-data" id="upload-form">
+				
 
-				<!-- <div class="add-import">
-					<button type="sortfilter" class="sortfilter-btn">Filter<i class='bx bx-filter-alt' ></i></button>
-					<button type="improtfile" class="import-btn">Import Records<i class='bx bx-import' ></i></button>
-				</div> -->
+				<div class="add-import">
+					<div class="combo-box">
+						<select id="sortfilter" class="sortfilter-btn">
+						  <option value="" disabled selected>Filter</option>
+						  <option value="quadrant">Quadrant</option>
+						  <option value="block">Block</option>
+						  <option value="unit">Unit</option>
+						</select>
+						<i class='bx bx-filter-alt'></i>
+					  </div>
+					<!--binago ko yung button kasi need naka input yan kasi kukunin yung file from file manager-->
+					<label for="file-input" class="import-btn" title="Upload file">Import Records<input type="file" name="file" id="file-input" style="display: none;"><i class="bx bx-import"></i></label>
+				</div>
 			</form>
 						
 			<!-- ========== ADD NEW RECORD ========== -->
 			<div class="add-import">
 				<button id="newrecord-show" title="Add new record"><i class='bx bx-plus'></i>Add New Record</button>
 			</div>
-
+			<a href="#" class="btn-download">
+				<i class='bx bxs-cloud-download' ></i>
+				<span onclick="downloadRecords()" class="text" title="Download" >Download Report</span>
+			</a>
 			<div id="newrecordmodal">
 				<div class="modal">
 					<div class="top-form">
@@ -116,19 +231,19 @@
 					<div class="login-form">
 						<h2>ADD NEW RECORD</h2>
 
-						<form id="newrecord-form" action="/" method="/">
-								<input type="text" class="form-control" name="text" placeholder="Name">
-								<input type="text" class="form-control" name="text" placeholder="Sitio/Barangay, Municipality, City/Province" >
+						<form id="newrecord-form" action="/add_unitrecord" method="POST">
+								<input type="text" class="form-control" name="name" placeholder="Name">
+								<input type="text" class="form-control" name="address" placeholder="Sitio/Barangay, Municipality, City/Province" >
 							<div class="input-box">
 								<label for="unitLocation">Unit Location:</label>
 								<div class="select-box-record">
-										<select name="" id="quadrant">
+										<select name="quadrant" id="quadrant">
 											<option value="">Quadrant</option>
 										</select>
-										<select name="" id="block">
+										<select name="block" id="block">
 											<option value="">Block</option>
 										</select>
-										<select name="" id="unit">
+										<select name="unit" id="unit">
 											<option value="">Unit</option>
 										</select>
 								</div>
@@ -145,9 +260,10 @@
 			<!-- ========== END OF SEARCH ========== -->
 
 			<div class="table-data">
-				<div class="order">
-					
-					<table>
+				<div class="order">							
+					<div id="result"></div>
+
+					<table id="users_table" class="table-sortable">
 						<thead>
 							<tr>
 								<th>Record ID</th>
@@ -157,23 +273,27 @@
 								<th>Receipt No.</th>
 								<th>Date</th>
 								<th>Amount</th>
+								<th>Payment Status</th>
 								<th>Action</th>
 
 							</tr>
 						</thead>
 						<tbody>
+							{% for record in unit_records %}
+
 							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
+								<td>{{ record.record_id }}</td>
+								<td>{{ record.unit_location }}</td>
+								<td>{{ record.name }}</td>
+								<td>{{ record.address }}</td>
+								<td>{{ record.receipt }}</td>
+								<td>{{ record.date_paid }}</td>
+								<td>{{ record.amount_paid }}</td>
+								<td>{{ record.payent_status }}</td>
 								<td>
-									<button id="editunit-show" class="editrecord-button" title="View and edit record">
-										<i class='bx bxs-edit'></i></button>  
-									<button class="deleterecord-button" title="Delete record">
+									<button id="editunit-show" class="editrecord-button" onclick="showEditModal('{{record.record_id}}','{{record.name}}','{{record.address}}','{{record.unit_location}}')" title="View and edit record">
+										<i class='bx bxs-edit'></i>  
+									<button class="deleterecord-button" onclick="confirmDelete2('{{ record.record_id }}')" title="Delete record">
 										<i class='bx bxs-trash'></i></button>
 
 
@@ -181,11 +301,13 @@
 									<button class="deleterecord-button"><i class='bx bxs-trash' onclick="return confirm('Are You Sure To Delete ?')"></i></i></button>  -->
 								</td>
 							</tr>
+							{% endfor %}
+
 						</tbody>
 					</table>
 				</div>
 			</div>
-
+			
 			<div id="editunitrecordmodal">
 				<div class="modal">
 					<div class="top-form">
@@ -195,19 +317,19 @@
 					<div class="login-form">
 						<h2>EDIT RECORD DETAILS</h2>
 
-						<form id="editrecord-form" action="/" method="/">
-								<input type="text" class="form-control" name="text" placeholder="Name">
-								<input type="text" class="form-control" name="text" placeholder="Sitio/Barangay, Municipality, City/Province" >
-							<div class="input-box">
+						<form id="editrecord-form" action="/update_unit_record" method="POST">
+								<input type="text" class="form-control" name="name" placeholder="Name" id="edit-name">
+								<input type="text" class="form-control" name="address" placeholder="Sitio/Barangay, Municipality, City/Province" id="edit-address">
+							<div class="input-box" >
 								<label for="unitLocation2">Unit Location:</label>
 								<div class="select-box-record">
-										<select name="quadrant2" id="quadrant2">
+										<select name="quadrant2" id="edit-quadrant">
 											<option value="">Quadrant</option>
 										</select>
-										<select name="block2" id="block2">
+										<select name="block2" id="edit-block">
 											<option value="">Block</option>
 										</select>
-										<select name="unit2" id="unit2">
+										<select name="unit2" id="edit-unit">
 											<option value="">Unit</option>
 										</select>
 								</div>
@@ -234,7 +356,44 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 	<script src="static/addnewuser.js"></script>
-
+	<script>
+		document.getElementById('file-input').addEventListener('change', function() {
+			document.getElementById('upload-form').submit();
+		});
+	function showEditModal(record_id, name, address,unit_location) {
+	var parts = unit_location.split('/');
+    var quadrant = parts[0].trim();
+    var block = parts[1].trim();
+    var unit = parts[2].trim();
+    document.getElementById('editrecord-form').action = '/update_unit_record/' + record_id;
+    document.getElementById('edit-name').value = name;
+    document.getElementById('edit-address').value = address;
+    document.getElementById('edit-quadrant').value = quadrant;
+    document.getElementById('edit-block').value = block;
+    document.getElementById('edit-unit').value = unit;
+    document.getElementById('editunitrecordmodal').style.backgroundColor = 'rgba(0, 0, 0, 0)';
+    $('#editunitrecordmodal').fadeIn();
+    document.getElementById('editunitrecordmodal').style.display = 'flex';
+}	
+	document.getElementById("sortfilter").addEventListener("change", function() {
+  var selectedValue = this.value;
+  // Do something with the selected value, like filtering or sorting.
+});
+	</script>
+	<script>
+		const closeFlashMessage = (messageElement) => {
+			messageElement.classList.add("hide");
+			setTimeout(() => messageElement.remove(), 500);
+		}
+		
+		document.addEventListener("DOMContentLoaded", () => {
+			const flashMessages = document.querySelectorAll('.flash-message');
+			flashMessages.forEach(message => {
+				setTimeout(() => closeFlashMessage(message), 5000);
+			});
+		});
+		
+		</script>
 
 
 
