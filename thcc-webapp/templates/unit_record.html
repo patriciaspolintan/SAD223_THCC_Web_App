@@ -6,6 +6,7 @@
 
 	<!-- ========== Boxicons ========== -->
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+
 	<!-- ========== My CSS ========== -->
 	<link rel="stylesheet" href="static/style.css">
 
@@ -13,11 +14,15 @@
 </head>
 <body>
 
-
+<style>
+	.bold-label {
+    font-weight: 500;
+}
+</style>
 
 
 	<!-- ========== SIDEBAR ========== -->
-	<section id="sidebar" >
+	<section id="sidebar" class="hide">
 		<a href="{{ url_for('index') }}" class="brand">
 			<i class='bx bxs-church'></i>
 			<span class="text">THCC Web App</span>
@@ -31,7 +36,7 @@
 			</li>
 			<li>
 				<a href="{{ url_for('unit_mgmt') }}" title="Unit Management">
-					<i class='bx bxs-shopping-bag-alt' ></i>
+					<i class='bx bxs-collection' ></i>
 					<span class="text">Unit Management</span>
 				</a>
 			</li>
@@ -82,6 +87,52 @@
 		<!-- ========== END OF NAVBAR ========== -->
 	
 		<!-- ========== MAIN ========== -->
+		<!-- {% with messages = get_flashed_messages(with_categories=true) %}
+		<style>
+			.alert {
+				padding: 10px;
+				margin-bottom: 10px;
+				border: 1px solid #00ff00;
+				background-color: #ccffcc;
+				color: #006600;
+				font-weight: bold;
+				font-size: 12px;
+				width: 1000px;
+				margin-left: 10px;
+				margin-top: 20px;
+			}
+			.alert.alert-error {
+            background-color: rgba(253, 253, 78, 0.733);
+            border-color: #FFD700; 
+            color: #2c2a2a; 
+        }
+		</style>
+	
+	
+		{% for category, message in messages %}
+			<div class="alert alert-{{ category }}">
+				{{ message }}
+			</div>
+		{% endfor %}
+	{% endwith %} -->
+
+
+	<ul class="notifications">
+		<!-- Toast notifications will be added here -->
+	</ul>
+	<div class="flash-messages">
+		{% with messages = get_flashed_messages(with_categories=true) %}
+			{% for category, message in messages %}
+				<div class="flash-message alert-{{ category }}">
+					{{ message }}
+					<button id="close-btn" onclick="closeFlashMessage(this.parentElement)" title="Close">&#10006;</button>
+				</div>
+			{% endfor %}
+		{% endwith %}
+	</div>
+
+	
+
 		<main>
 			<div class="head-title">
 				<div class="left">
@@ -90,23 +141,34 @@
 			</div>
 
 			<!-- ========== SEARCH ========== -->
-			<form action="#">
+			<form id="searchForm" method="POST" action="/ajaxlivesearchunitrec">
 				<div class="form-input">
-					<input type="search" placeholder="Search records" title="Enter your search item">
-					<button type="submit" class="search-btn" title="Search"><i class='bx bx-search' ></i></button>
+					<input type="search" name="search_text" id="search_text" placeholder="Search records" title="Enter your search item">
+					<!-- <button type="submit" class="search-btn" title="Search" disabled></button> -->
 				</div>
-
-				<!-- <div class="add-import">
-					<button type="sortfilter" class="sortfilter-btn">Filter<i class='bx bx-filter-alt' ></i></button>
-					<button type="improtfile" class="import-btn">Import Records<i class='bx bx-import' ></i></button>
-				</div> -->
 			</form>
-						
-			<!-- ========== ADD NEW RECORD ========== -->
+
+			<!-- ========== ADD/FILTER/DOWNLAOD NEW RECORD ========== -->
 			<div class="add-import">
-				<button id="newrecord-show" title="Add new record"><i class='bx bx-plus'></i>Add New Record</button>
+				<button id="newrecord-show" title="Add new record">Add New Record</button>
+				<button class="filter-btn" title="Print search results" onclick="printSearchResults()" >Print Search Results</button>
 			</div>
 
+			<form method="post" action="{{ url_for('unit_record') }}" enctype="multipart/form-data" id="upload-form">
+				
+				<div class="add-import">
+					
+					<!--binago ko yung button kasi need naka input yan kasi kukunin yung file from file manager-->
+					<label for="file-input" class="import-btn" title="Upload file">Import Records<input type="file" name="file" id="file-input" style="display: none;"></label>
+				
+					<a href="#" class="btn-download">
+						<span onclick="downloadRecords()" class="text" title="Download" >Download Records</span>
+						<!-- <i class='bx bxs-cloud-download' ></i> -->
+					</a>
+				</div>
+			</form>
+			
+			<!-- ========== NEW RECORD MODAL ========== -->
 			<div id="newrecordmodal">
 				<div class="modal">
 					<div class="top-form">
@@ -116,19 +178,19 @@
 					<div class="login-form">
 						<h2>ADD NEW RECORD</h2>
 
-						<form id="newrecord-form" action="/" method="/">
-								<input type="text" class="form-control" name="text" placeholder="Name">
-								<input type="text" class="form-control" name="text" placeholder="Sitio/Barangay, Municipality, City/Province" >
+						<form id="newrecord-form" action="/add_unitrecord" method="POST">
+								<input type="text" class="form-control" name="name" placeholder="Name">
+								<input type="text" class="form-control" name="address" placeholder="Sitio/Barangay, Municipality, City/Province" >
 							<div class="input-box">
-								<label for="unitLocation">Unit Location:</label>
+								<label for="unitLocation" class="bold-label">Unit Location:</label>
 								<div class="select-box-record">
-										<select name="" id="quadrant">
+										<select name="quadrant" id="quadrant">
 											<option value="">Quadrant</option>
 										</select>
-										<select name="" id="block">
+										<select name="block" id="block">
 											<option value="">Block</option>
 										</select>
-										<select name="" id="unit">
+										<select name="unit" id="unit">
 											<option value="">Unit</option>
 										</select>
 								</div>
@@ -142,12 +204,74 @@
 					
 				</div>
 			</div>
-			<!-- ========== END OF SEARCH ========== -->
+			<!-- ========== END OF NEW RECORD MODAL ========== -->
+
+			<img src="/webapp/thcc-webapp/static/columb_logo.png" class="logo" alt="logo" style="height: 40px; width:200px">
+			<div class="header1" style="font-size:x-large; font-weight:500">
+				THE PARISH OF NUESTRO SENOR JESUCRISTO AND </div>
+			<div class="header2"  style="font-size:x-large; font-weight:500">
+				THE DIOCESAN SHRINE OF SAINT ANDREW KIM TAE-GON </div>
+
+			<style>
+					@media print{
+						body *{
+							visibility: hidden;
+						} .print-container,.main .table * {
+							visibility: visible;
+						} .print-container, .name  {
+							visibility: visible;
+						} .print-container, #foot{
+							visibility: visible;
+						}
+						.main{
+							position: absolute;
+							left:10px;
+							top:200px;
+							width: 1100px;
+						
+						}
+
+						.print-container, .header1{
+							visibility: visible;
+							position: fixed;
+							top: 60px;
+							margin-left: 28%;
+						} .print-container, .logo{
+							visibility: visible;
+							position: fixed;
+							top: 0px;
+						
+						}  .print-container, .header2{
+							visibility: visible;
+							position: fixed;
+							top: 90px;
+							margin-left: 33%ss;
+						}
+					}
+					.f6{
+						font-size: 10pt;
+					} @media screen{
+						.Footer{
+						display: none;
+						} .header1{
+						display: none;
+						} .logo{
+						display: none;
+						} .header2{
+						display: none;
+						}  .Footer1{
+						display: none;
+						}.Footer2{
+						display: none;
+						}
+					}
+			</style>
+
 
 			<div class="table-data">
-				<div class="order">
-					
-					<table>
+				<div class="order">							
+					<div id="result"></div>
+					<table id="users_table" class="table-sortable">
 						<thead>
 							<tr>
 								<th>Record ID</th>
@@ -157,35 +281,61 @@
 								<th>Receipt No.</th>
 								<th>Date</th>
 								<th>Amount</th>
+								<th>Payment Status</th>
 								<th>Action</th>
-
 							</tr>
 						</thead>
 						<tbody>
+							{% for record in unit_records %}
 							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
+								<td>{{ record.record_id }}</td>
+								<td>{{ record.unit_location }}</td>
+								<td>{{ record.name }}</td>
+								<td>{{ record.address }}</td>
+								<td>{{ record.receipt }}</td>
+								<td>{{ record.date_paid }}</td>
+								<td>{{ record.amount_paid }}</td>
+								<td>{{ record.payment_status }}</td>
 								<td>
-									<button id="editunit-show" class="editrecord-button" title="View and edit record">
-										<i class='bx bxs-edit'></i></button>  
-									<button class="deleterecord-button" title="Delete record">
+									<button id="editunit-show" class="editrecord-button" onclick="showEditModal('{{record.record_id}}','{{record.name}}','{{record.address}}','{{record.unit_location}}')" title="View and edit record">
+										<i class='bx bxs-edit'></i>  
+									<button class="deleterecord-button" onclick="confirmDelete2('{{ record.record_id }}')" title="Delete record">
 										<i class='bx bxs-trash'></i></button>
-
-
-									<!-- <button id="edit-show" class="editrecord-button"><i class='bx bxs-edit'></i></button>  
-									<button class="deleterecord-button"><i class='bx bxs-trash' onclick="return confirm('Are You Sure To Delete ?')"></i></i></button>  -->
 								</td>
 							</tr>
+							{% endfor %}
 						</tbody>
 					</table>
 				</div>
 			</div>
 
+
+			<!-- PAGINATION -->
+		<!-- Pagination controls -->
+		{% if unit_records.has_prev %}
+			<a href="{{ url_for('unit_record', page=unit_records.prev_num) }}">Previous</a>
+		{% endif %}
+
+		<!-- Display pagination numbers -->
+		{% for num in unit_records.iter_pages() %}
+			{% if num %}
+				{% if unit_records.page == num %}
+					<strong>{{ num }}</strong>
+				{% else %}
+					<a href="{{ url_for('unit_record', page=num) }}">{{ num }}</a>
+				{% endif %}
+			{% else %}
+				...
+			{% endif %}
+		{% endfor %}
+
+		<!-- Next page link -->
+		{% if unit_records.has_next %}
+			<a href="{{ url_for('unit_record', page=unit_records.next_num) }}">Next</a>
+		{% endif %}
+
+
+			<!-- ========== EDIT RECORD MODAL ========== -->
 			<div id="editunitrecordmodal">
 				<div class="modal">
 					<div class="top-form">
@@ -195,19 +345,19 @@
 					<div class="login-form">
 						<h2>EDIT RECORD DETAILS</h2>
 
-						<form id="editrecord-form" action="/" method="/">
-								<input type="text" class="form-control" name="text" placeholder="Name">
-								<input type="text" class="form-control" name="text" placeholder="Sitio/Barangay, Municipality, City/Province" >
-							<div class="input-box">
+						<form id="editrecord-form" action="/update_unit_record" method="POST">
+								<input type="text" class="form-control" name="name" placeholder="Name" id="edit-name">
+								<input type="text" class="form-control" name="address" placeholder="Sitio/Barangay, Municipality, City/Province" id="edit-address">
+							<div class="input-box" >
 								<label for="unitLocation2">Unit Location:</label>
 								<div class="select-box-record">
-										<select name="quadrant2" id="quadrant2">
+										<select name="quadrant2" id="edit-quadrant">
 											<option value="">Quadrant</option>
 										</select>
-										<select name="block2" id="block2">
+										<select name="block2" id="edit-block">
 											<option value="">Block</option>
 										</select>
-										<select name="unit2" id="unit2">
+										<select name="unit2" id="edit-unit">
 											<option value="">Unit</option>
 										</select>
 								</div>
@@ -218,22 +368,183 @@
 							</div>
 						</form>
 					</div>
-					
 				</div>
 			</div>
+
 
 		</main>
 		<!-- ========== END OF MAIN ========== -->
 	</section>
 	<!-- ========== END OF CONTENT ========== -->
 
-
-
-
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-pagination/1.2.7/jquery.pagination.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="static/script.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
 	<script src="static/addnewuser.js"></script>
+	<script>
+	document.getElementById('file-input').addEventListener('change', function() {
+		document.getElementById('upload-form').submit();
+	});
+	
+	function showEditModal(record_id, name, address,unit_location) {
+		var parts = unit_location.split('/');
+		var quadrant = parts[0].trim();
+		var block = parts[1].trim();
+		var unit = parts[2].trim();
+		document.getElementById('editrecord-form').action = '/update_unit_record/' + record_id;
+		document.getElementById('edit-name').value = name;
+		document.getElementById('edit-address').value = address;
+		document.getElementById('edit-quadrant').value = quadrant;
+		document.getElementById('edit-block').value = block;
+		document.getElementById('edit-unit').value = unit;
+		document.getElementById('editunitrecordmodal').style.backgroundColor = 'rgba(0, 0, 0, 0)';
+		$('#editunitrecordmodal').fadeIn();
+		document.getElementById('editunitrecordmodal').style.display = 'flex';
+	}	
+	
+	// document.getElementById("sortfilter").addEventListener("change", function() {
+	// var selectedValue = this.value;
+	// Do something with the selected value, like filtering or sorting.
+	// });
+	</script>
+	<script>
+		const closeFlashMessage = (messageElement) => {
+			messageElement.classList.add("hide");
+			setTimeout(() => messageElement.remove(), 500);
+		}
+		
+		document.addEventListener("DOMContentLoaded", () => {
+			const flashMessages = document.querySelectorAll('.flash-message');
+			flashMessages.forEach(message => {
+				setTimeout(() => closeFlashMessage(message), 5000);
+			});
+		});	
+	</script>
+	<script>
+        function downloadRecords() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/download', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.responseType = 'blob';
+
+            xhr.onload = function() {
+                if (this.status === 200) {
+                    var blob = new Blob([xhr.response], { type: 'application/pdf' });
+                    var link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = 'records.pdf';
+                    link.click();
+                }
+            };
+
+            // Send an empty request body as we want all records
+            xhr.send(JSON.stringify({}));
+        }
+    </script>
+	<script>
+		$(document).ready(function(){
+			function load_data(query) {
+				$.ajax({
+					url: "/ajaxlivesearchunitrec",
+					method: "POST",
+					data: {query: query},
+					success: function(data) {
+						$('#result').html(data);
+						$("#result").append(data.htmlresponse);
+						// Check if search query is not empty
+						if (query !== '') {
+							$('#users_table').hide(); // Hide the users table
+						} else {
+							$('#users_table').show(); // Show the users table
+						}
+					}
+				});
+			}
+			
+			$('#search_text').keyup(function() {
+				var search = $(this).val();
+				load_data(search);
+			});
+		});
+	</script>
+	<script>
+		setTimeout(() => {
+			$(".alert").hide();
+		}, 3000);
+	</script>
+
+<script>
+	function search() {
+    const category = $('#category').val();
+    if (category) {
+        $.get('/search_results', { category: category }, function(data) {
+            $('#search-results-modal .modal-body').html(data.table);
+            $('#search-results-modal').modal('show');
+        });
+    }
+}
+
+function printToPdf() {
+    const printContents = document.getElementById('search-results-table').innerHTML;
+    const originalContents = document.body.innerHTML;
+    document.body.innerHTML = printContents;
+    window.print();
+    document.body.innerHTML = originalContents;
+}
+
+
+function printSearchResults() {
+  // Get the search results table
+  const searchResultsTable = document.getElementById('search-results-table');
+
+  // Create a new window with the modified search results
+  const printWindow = window.open('', '', 'width=800,height=600');
+  printWindow.document.write('<html><head><style>');
+
+  // Add styles for printing
+  printWindow.document.write(`
+    @media print {
+      body {
+        font-family: Arial, sans-serif; /* Change font style here */
+        font-size: 5pt; /* Smaller font size */
+        color: #333; /* Change font color here */
+      }
+      #search-results-table tr { /* Add margin-bottom to table rows */
+        margin-bottom: 5px; /* Adjust spacing as needed */
+      }
+      #search-results-table th:last-child, #search-results-table td:last-child {
+        display: none !important;
+      }
+      /* Header title style */
+      .print-header {
+        text-align: center;
+        font-size: 18pt; /* Adjust header font size */
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+    }
+  `);
+
+  printWindow.document.write('</style></head><body>');
+
+  // Add header title
+  printWindow.document.write('<h1 class="print-header">Unit Record Report</h1>');
+  printWindow.document.write(searchResultsTable.outerHTML);
+  printWindow.document.write('</body></html>');
+  printWindow.document.close();
+
+  // Print the new window
+  printWindow.print();
+
+  // Close the print window
+  printWindow.close();
+}
+
+
+
+</script>
+
 
 
 

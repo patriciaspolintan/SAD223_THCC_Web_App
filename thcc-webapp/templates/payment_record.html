@@ -6,6 +6,7 @@
 
 	<!-- ========== Boxicons ========== -->
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+
 	<!-- ========== My CSS ========== -->
 	<link rel="stylesheet" href="static/style.css">
 
@@ -13,10 +14,10 @@
 </head>
 <body>
 
-
+	
 
 	<!-- ========== SIDEBAR ========== -->
-	<section id="sidebar" >
+	<section id="sidebar" class="hide">
 		<a href="{{ url_for('index') }}" class="brand">
 			<i class='bx bxs-church'></i>
 			<span class="text">THCC Web App</span>
@@ -30,7 +31,7 @@
 			</li>
 			<li>
 				<a href="{{ url_for('unit_mgmt') }}" title="Unit Management">
-					<i class='bx bxs-shopping-bag-alt' ></i>
+					<i class='bx bxs-collection' ></i>
 					<span class="text">Unit Management</span>
 				</a>
 			</li>
@@ -65,7 +66,6 @@
 	<!-- ========== END OF SIDEBAR ========== -->
 
 
-
 	<!-- ========== CONTENT ========== -->
 	<section id="content">
 
@@ -94,84 +94,36 @@
 
 
 			<!-- ========== SEARCH ========== -->
-			<form action="#">
+			<form id="searchForm" method="POST" action="/ajaxlivesearchpaymentrec">
 				<div class="form-input">
-					<input type="search" placeholder="Search record" title="Enter your search item">
-					<button type="submit" class="search-btn" title="Search"><i class='bx bx-search' ></i></button>
+					<input type="search" name="search_text" id="search_text" placeholder="Search records" title="Enter your search item">
+					<!-- <button type="submit" class="search-btn" title="Search" disabled></button> -->
 				</div>
-
 			</form>
-			<!-- ========== END OF SEARCH ========== -->
 
-			<!-- <div class="add-import">
-				<button id="newpayment-show">Add New Payment<i class='bx bx-plus'></i></button>
-
+			<!-- ========== ADD/FILTER/DOWNLAOD NEW RECORD ========== -->
+			<div class="add-import">
+				<button id="newrecord-show" class="filter-btn" title="Print search results"  onclick="printSearchResults()">Print Search Results</button>
 			</div>
 
-			<div id="newpaymentmodal">
-				<div class="modal">
-					<div class="top-form">
-						<div class="close-modal">&#10006;</div>
-					</div>
+			<form method="post" action="{{ url_for('unit_record') }}" enctype="multipart/form-data" id="upload-form">
+				<div class="add-import">
 
-					<div class="login-form">
-						<h2>ADD NEW PAYMENT</h2>
-
-						<form id="newpayment-form" action="/" method="/">
-							<input type="text" class="form-control" name="text" placeholder="Name">
-							<input type="text" class="form-control" name="text" placeholder="Sitio/Barangay, Municipality, City/Province" >
-							
-							<div class="newpayment-input-box">
-								<label for="unitLocation">Unit Location:</label>
-								<div class="select-box-record">
-										<select name="" id="quadrant">
-											<option value="">Quadrant</option>
-										</select>
-										<select name="" id="block">
-											<option value="">Block</option>
-										</select>
-										<select name="" id="unit">
-											<option value="">Unit</option>
-										</select>
-								</div>
-							</div>
-							<div class="newpayment-input-box">
-
-															<label for="unitLocation">Payment Details</label>
-							<div class="select-box">
-								<select name="user_role" id="user_role" required>
-									<option hidden>Select Payment Plan</option>
-									<option>St. Andrew Kim Plan</option>
-									<option>St. Ignatius Kim Plan</option>
-									<option>St. Paul Chong Plan</option>
-									<option>Ven. Choe Thomas Plan</option>
-								</select>
-							</div>
-
-							<div class="paymentdetails">
-								
-									<input type="date" class="form-control" name="text" placeholder="Date" >
-									<input type="text" class="form-control" name="text" placeholder="Amount" >
-									<input type="number" class="form-control" name="text" placeholder="Receipt Number" >
-
-							</div>
-							</div>
-
-
-							<div class="form-element">
-								<button >ADD NEW PAYMENT</button>						
-							</div>
-						</form>
-					</div>
-					
+					<a href="#" class="btn-download">
+						<span onclick="downloadRecords()" class="text" title="Download" >Download Records</span>
+						<!-- <i class='bx bxs-cloud-download' ></i> -->
+					</a>
 				</div>
-			</div> -->
+			</form>
+			
 
-
+			
+			<!-- ========== END OF SEARCH ========== -->
 			<div class="table-data">
 				<div class="order">
-					
-					<table>
+					<div id="result"></div>
+
+					<table id="users_table" class="table-sortable">
 						<thead>
 							<tr>
 								<th>Record ID</th>
@@ -181,34 +133,63 @@
 								<th>Receipt No.</th>
 								<th>Date</th>
 								<th>Amount</th>
+								<th >Payment Plan </th>
+								<th>Payment Status </th>
 								<th>Action</th>
-
 							</tr>
 						</thead>
 						<tbody>
+							{% for record in payment_records %}
 							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
+								<td>{{ record.record_id }}</td>
+								<td>{{ record.unit_location }}</td>
+								<td>{{ record.name }}</td>
+								<td>{{ record.address }}</td>
+								<td>{{ record.receipt }}</td>
+								<td>{{ record.date_paid }}</td>
+								<td>{{ record.amount_paid }}</td>
+								<td>{{ record.plan_id }}</td>
+								<td>{{ record.payment_status }}</td>
 								<td>
-									<button id="editpayment-show" class="editrecord-button" title="View and edit record">
-										<i class='bx bxs-edit'></i></button>  
-									<button class="deleterecord-button" title="Delete record">
-										<i class='bx bxs-trash'></i></button>
-
-
-									<!-- <button id="edit-show" class="editrecord-button"><i class='bx bxs-edit'></i></button>  
-									<button class="deleterecord-button"><i class='bx bxs-trash' onclick="return confirm('Are You Sure To Delete ?')"></i></i></button>  -->
+									<!-- <button id="editpayment-show" class="editrecord-button"  title="View and edit payment record">
+										<i class='bx bxs-edit-alt'></i></button>   -->
+										<button class="editpayment-show editrecord-button" title="View and edit payment record">
+											<i class='bx bxs-edit-alt'></i>
+										</button>
+										
+									<!-- <button class="deleterecord-button" onclick="return confirm('Are You Sure To Delete ?')" title="Delete record">
+										<i class='bx bxs-trash-alt'></i></button> -->
 								</td>
 							</tr>
+							{% endfor %}
 						</tbody>
 					</table>
 				</div>
             </div>
+
+				<!-- Pagination controls -->
+				{% if payment_records.has_prev %}
+					<a href="{{ url_for('payment_record', page=payment_records.prev_num) }}">Previous</a>
+				{% endif %}
+
+				<!-- Display pagination numbers -->
+				{% for num in payment_records.iter_pages() %}
+					{% if num %}
+						{% if payment_records.page == num %}
+							<strong>{{ num }}</strong>
+						{% else %}
+							<a href="{{ url_for('payment_record', page=num) }}">{{ num }}</a>
+						{% endif %}
+					{% else %}
+						...
+					{% endif %}
+				{% endfor %}
+
+				<!-- Next page link -->
+				{% if payment_records.has_next %}
+					<a href="{{ url_for('payment_record', page=payment_records.next_num) }}">Next</a>
+				{% endif %}
+
 
 
 			<div id="editpaymentmodal">
@@ -218,73 +199,157 @@
 					</div>
 
 					<div class="login-form">
-						<h2>EDIT PAYMENT DETAILS</h2>
+						<!-- <h2>EDIT PAYMENT DETAILS</h2> -->
+						<form id="editpayment-form" action="" method="">
+							<div class="paymentdiv-container">
+								<div class="paymentdiv">
+									<!-- First column -->
+									<!-- <label for="unitLocation" class="bold-label">Personal Information</label>
+									<input type="text" class="form-control" name="text" placeholder="Name" disabled>
+									<input type="text" class="form-control" name="text" placeholder="Sitio/Barangay, Municipality, City/Province" disabled>
+									<div class="newpayment-input-box">
+										<label for="unitLocation" class="bold-label">Unit Location</label>
+										<div class="select-box-record">
+											<select name="" id="quadrant" disabled>
+												<option value="">Quadrant</option>
+											</select>
+											<select name="" id="block" disabled>
+												<option value="">Block</option>
+											</select>
+											<select name="" id="unit" disabled>
+												<option value="">Unit</option>
+											</select>
+										</div>
+									</div>
+									<div class="newpayment-input-box">
+										<label for="unitLocation" class="bold-label">Payment Plan</label>
+										<div class="select-box">
+											<select name="user_role" id="user_role" required>
+												<option hidden>Select Payment Plan</option>
+												<option>St. Andrew Kim Plan</option>
+												<option>St. Ignatius Kim Plan</option>
+												<option>St. Paul Chong Plan</option>
+												<option>Ven. Choe Thomas Plan</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-element">
+										<button>SET PAYMENT PLAN</button>
+									</div>
+								</div> -->
 
-						<form id="editpayment-form" action="/" method="/">
-								<input type="text" class="form-control" name="text" placeholder="Name">
-								<input type="text" class="form-control" name="text" placeholder="Sitio/Barangay, Municipality, City/Province" >							
-							<div class="newpayment-input-box">
-								<label for="unitLocation">Unit Location</label>
-								<div class="select-box-record" >
-										<select name="" id="quadrant">
-											<option value="">Quadrant</option>
-										</select>
-										<select name="" id="block">
-											<option value="">Block</option>
-										</select>
-										<select name="" id="unit">
-											<option value="">Unit</option>
-										</select>
+								<!-- Second column -->
+								<div class="paymentdiv">
+									<label for="unitLocation" class="bold-label">Add New Payment</label>
+									<div class="paymentdetails">
+										<div class="select-box-record">
+											<select name="user_role" id="user_role" required>
+												<option hidden>Payment Type</option>
+												<option>Unit Payment</option>
+												<option>Interment</option>
+												<option>Name Plate and Flower Holder</option>
+												<option>Mass</option>
+												<option>Renewal</option>
+											</select>
+										</div>
+									</div>
+									<div class="paymentdetails">
+										<input type="date" class="form-control" name="text" placeholder="Date">
+										<input type="text" class="form-control" name="text" placeholder="Amount">
+									</div>
+									<div class="form-element">
+										<button id="receipt-show">ADD NEW PAYMENT</button>
+									</div>
 								</div>
 							</div>
-							<div class="newpayment-input-box">
-								<label for="unitLocation">Payment Details</label>
-								<div class="select-box">
-									<select name="user_role" id="user_role" required>
-										<option hidden>Select Payment Plan</option>
-										<option>St. Andrew Kim Plan</option>
-										<option>St. Ignatius Kim Plan</option>
-										<option>St. Paul Chong Plan</option>
-										<option>Ven. Choe Thomas Plan</option>
-									</select>
 
+							<!-- PAYMENT HISTORY -->
+							<!-- <div class="paymenthistory">
+								<div class="table-data">
+									<div class="order">
+										<label for="unitLocation" class="bold-label">Payment History</label>
+										<table>
+											<thead>
+												<tr>
+													<th>Payment ID</th>
+													<th>Installment Plan ID</th>
+													<th>Payment Type</th>
+													<th>Payment Date</th>
+													<th>Payment Amount</th>
+													<th>Receipt</th>
+													<th>Remaining Balance</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+												</tr>
+												
+											</tbody>
+										</table>
+									</div>
 								</div>
-								<div class="paymentdetails">
-									<select name="user_role" id="user_role" required>
-										<option hidden>Additional Service?</option>
-										<option>No</option>
-										<option>Mass</option>
-										<option>Interment</option>
-										<option>Name Plate and Flower Holder</option>
-										<option>Renewal</option>
-									</select>
-
-
-									<select name="user_role" id="user_role" required>
-										<option hidden>Downpayment?</option>
-										<option>Yes</option>
-										<option>No</option>
-									</select>
-
-								</div>
-
-								<div class="paymentdetails">
-										<input type="date" class="form-control" name="text" placeholder="Date" >
-										<input type="text" class="form-control" name="text" placeholder="Amount" >
-										<input type="number" class="form-control" name="text" placeholder="Receipt Number" >
-
-								</div>
-							</div>
-
-
-							<div class="form-element">
-								<button >SAVE CHANGES</button>						
-							</div>
+								
+							</div> -->
+							
+							
 						</form>
 					</div>
-					
 				</div>
 			</div>
+
+			<!-- RECEIPT MODAL -->
+			<div id="receiptmodal">
+				<div class="modal">
+					<div class="top-form">
+						<div class="close-modal" title="Close">&#10006;</div>
+					</div>
+
+					<div class="receipt-form">
+						<h2>RECEIPT</h2>
+
+						<form id="receipt-form" action="/" method="/">
+									<label for="unitLocation" class="bold-label">Record Information</label>
+									<input type="text" class="form-control" name="name" placeholder="Name" >
+									<input type="text" class="form-control" name="address" placeholder="Sitio/Barangay, Municipality, City/Province" >
+									<div class="input-box">
+										<label for="unitLocation" class="bold-label">Unit Location</label>
+										<div class="select-box-record">
+												<select name="quadrant" id="quadrant" >
+													<option value="">Quadrant</option>
+												</select>
+												<select name="block" id="block" >
+													<option value="">Block</option>
+												</select>
+												<select name="unit" id="unit" >
+													<option value="">Unit</option>
+												</select>
+										</div>
+									</div>
+									<input type="text" class="form-control" name="type" placeholder="Payment Type" >
+									<input type="number" class="form-control" name="amount" placeholder="Amount Paid" >
+									<input type="date" class="form-control" name="date" placeholder="Date Paid" >
+
+								<div class="form-element">
+									<button>CLOSE</button>						
+								</div>
+						
+						</form>
+					</div>
+				</div>
+			</div>
+
+
+
+
+
 
 		</main>
 		<!-- ========== END OF MAIN ========== -->
@@ -294,13 +359,172 @@
 
 
 
-
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="static/script.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
 	<script src="static/addnewuser.js"></script>
+	<script>
+		$(document).ready(function(){
+			function load_data(query) {
+				$.ajax({
+					url: "/ajaxlivesearchpaymentrec",
+					type: 'POST',
+					data: JSON.stringify({query: query}),
+					contentType: 'application/json',
+					success: function(data) {
+						$('#result').html(data.htmlresponse);
+						// Check if search query is not empty
+						if (query!== '') {
+							$('#users_table').hide(); // Hide the users table
+						} else {
+							$('#users_table').show(); // Show the users table
+						}
+					}
+				});
+			}
+			
+			$('#search_text').keyup(function() {
+				var search = $(this).val();
+				load_data(search);
+			});
+		});
+	</script>
+<script>
+	function search() {
+    const category = $('#category').val();
+    if (category) {
+        $.get('/search_results', { category: category }, function(data) {
+            $('#search-results-modal .modal-body').html(data.table);
+            $('#search-results-modal').modal('show');
+        });
+		}
+	}
 
+	function printToPdf() {
+		const printContents = document.getElementById('search-results-table').innerHTML;
+		const originalContents = document.body.innerHTML;
+		document.body.innerHTML = printContents;
+		window.print();
+		document.body.innerHTML = originalContents;
+	}
+
+
+	function printSearchResults() {
+  // Get the search results table
+  const searchResultsTable = document.getElementById('search-results-table');
+
+  // Create a new window with the modified search results
+  const printWindow = window.open('', '', 'width=800,height=600');
+  printWindow.document.write('<html><head><style>');
+
+  // Add styles for printing
+  printWindow.document.write(`
+    @media print {
+      body {
+        font-family: Arial, sans-serif; /* Change font style here */
+        font-size: 5pt; /* Smaller font size */
+        color: #333; /* Change font color here */
+		display: !important
+      }
+      #search-results-table tr { /* Add margin-bottom to table rows */
+        margin-bottom: 5px; /* Adjust spacing as needed */
+      }
+      #search-results-table th:last-child, #search-results-table td:last-child {
+        display: none !important;
+      }
+      /* Header title style */
+      .print-header {
+        text-align: center;
+        font-size: 18pt; /* Adjust header font size */
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+    }
+  `);
+
+  printWindow.document.write('</style></head><body>');
+
+  // Add header title
+  printWindow.document.write('<h1 class="print-header">Unit Record Report</h1>');
+  printWindow.document.write(searchResultsTable.outerHTML);
+  printWindow.document.write('</body></html>');
+  printWindow.document.close();
+
+  // Print the new window
+  printWindow.print();
+
+  // Close the print window
+  printWindow.close();
+}
+
+
+
+</script>
+<script>
+	function downloadRecords() {
+		var xhr = new XMLHttpRequest();
+		xhr.open('POST', '/download', true);
+		xhr.setRequestHeader('Content-Type', 'application/json');
+		xhr.responseType = 'blob';
+
+		xhr.onload = function() {
+			if (this.status === 200) {
+				var blob = new Blob([xhr.response], { type: 'application/pdf' });
+				var link = document.createElement('a');
+				link.href = window.URL.createObjectURL(blob);
+				link.download = 'records.pdf';
+				link.click();
+			}
+		};
+
+		// Send an empty request body as we want all records
+		xhr.send(JSON.stringify({}));
+	}
+</script>
+
+<script>
+	function sortTableByColumn(table, column, asc = true) {
+	const dirModifier = asc? 1 : -1;
+	const tBody = table.tBodies[0];
+	const rows = Array.from(tBody.querySelectorAll("tr"));
 	
+	// Sort each row
+	const sortedRows = rows.sort((a, b) => {
+		const aColText = a.querySelector(`td:nth-child(${column + 1})`).textContent.trim();
+		const bColText = b.querySelector(`td:nth-child(${column + 1})`).textContent.trim();
+	
+		return aColText > bColText? (1 * dirModifier) : (-1 * dirModifier);
+	});
+	
+	// Remove all existing TRs from the table
+	while (tBody.firstChild) {
+		tBody.removeChild(tBody.firstChild);
+	}
+	
+	// Re-add the newly sorted rows
+	tBody.append(...sortedRows);
+	
+	// Remember how the column is currently sorted
+	table.querySelectorAll("th").forEach(th => th.classList.remove("th-sort-asc", "th-sort-desc"));
+	table.querySelector(`th:nth-child(${column + 1})`).classList.toggle("th-sort-asc", asc);
+	table.querySelector(`th:nth-child(${column + 1})`).classList.toggle("th-sort-desc",!asc);
+	}
+	
+	document.querySelectorAll(".table-sortable th").forEach((headerCell, index) => {
+	if (index === 7 || index === 8) { // Only sort Payment Plan (7) and Payment Status (8)
+		headerCell.addEventListener("click", () => {
+		const tableElement = headerCell.parentElement.parentElement.parentElement;
+		const headerIndex = Array.prototype.indexOf.call(headerCell.parentElement.children, headerCell);
+		const currentIsAscending = headerCell.classList.contains("th-sort-asc");
+	
+		sortTableByColumn(tableElement, headerIndex,!currentIsAscending);
+		});
+	}
+	});
+	
+	</script>
+
+
 
 </body>
 </html>

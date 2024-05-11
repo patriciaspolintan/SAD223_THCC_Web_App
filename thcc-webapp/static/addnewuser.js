@@ -12,11 +12,14 @@ $(function () {
     $('#newpayment-show').click(function () {
         $('#newpaymentmodal').fadeIn().css("display", "flex");
     });
-    $('#editpayment-show').click(function () {
+    $('.editpayment-show').click(function () {
         $('#editpaymentmodal').fadeIn().css("display", "flex");
     });
     $('#editunit-show').click(function () {
         $('#editunitrecordmodal').fadeIn().css("display", "flex");
+    });
+    $('#receipt-show').click(function () {
+        $('#receiptmodal').fadeIn().css("display", "flex");
     });
 
 
@@ -29,6 +32,8 @@ $(function () {
         $('#editpaymentmodal').fadeOut();
         $('#editunitrecordmodal').fadeOut();
         $('#flash-message').fadeOut();
+        $('#receiptmodal').fadeOut();
+
 
     });
 
@@ -86,7 +91,17 @@ function confirmDelete(userId) {
         // You can add an alert or any other behavior here if needed
     }
 }
-
+function confirmDelete2(recordId) {
+    // Prompt the user for confirmation
+    if (confirm("Are you sure you want to delete this Record?")) {
+        // If confirmed, redirect to the delete URL
+        var deleteUrl3 = '/delete2/' + recordId;
+        window.location.href = deleteUrl3;
+    } else {
+        // If not confirmed, do nothing
+        // You can add an alert or any other behavior here if needed
+    }
+}
 
 // ==================== DROPDOWN
 var quadrantBlockUnitInfo = {
@@ -141,6 +156,7 @@ document.addEventListener("DOMContentLoaded", function () {
         selectBlock = document.getElementById('block'),
         selectUnit = document.getElementById('unit'),
         selects = document.querySelectorAll('#newrecord-form select')
+
 
 
     selectBlock.disabled = true
@@ -201,7 +217,55 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    const selectQuadrant = document.getElementById('edit-quadrant'),
+        selectBlock = document.getElementById('edit-block'),
+        selectUnit = document.getElementById('edit-unit'),
+        selects = document.querySelectorAll('#editrecord-form select')
 
+    // Disable block and unit selects initially
+    selectBlock.disabled = true
+    selectUnit.disabled = true
+
+    // Enable/disable selects based on their state
+    selects.forEach(select => {
+        select.style.cursor = select.disabled ? "auto" : "pointer";
+    });
+
+    // Populate quadrants
+    for (let quadrant in quadrantBlockUnitInfo) {
+        selectQuadrant.options[selectQuadrant.options.length] = new Option(quadrant, quadrant)
+    }
+
+    // Quadrant change event
+    selectQuadrant.onchange = (e) => {
+        selectBlock.disabled = false
+        selectUnit.disabled = true
+        selects.forEach(select => {
+            select.style.cursor = select.disabled ? "auto" : "pointer";
+        });
+        selectBlock.length = 1
+        selectUnit.length = 1
+        // Populate blocks based on selected quadrant
+        for (let block in quadrantBlockUnitInfo[e.target.value]) {
+            selectBlock.options[selectBlock.options.length] = new Option(block, block)
+        }
+    }
+
+    // Block change event
+    selectBlock.onchange = (e) => {
+        selectUnit.disabled = false
+        selects.forEach(select => {
+            select.style.cursor = select.disabled ? "auto" : "pointer";
+        });
+        selectUnit.length = 1
+        // Populate units based on selected quadrant and block
+        let units = quadrantBlockUnitInfo[selectQuadrant.value][e.target.value]
+        for (let i = 0; i < units.length; i++) {
+            selectUnit.options[selectUnit.options.length] = new Option(units[i], units[i])
+        }
+    }
+});
 // ==================== SHOW PASSWORD
 const showHiddenPassword = (inputPassword, inputIcon) => {
     const input = document.getElementById(inputPassword),

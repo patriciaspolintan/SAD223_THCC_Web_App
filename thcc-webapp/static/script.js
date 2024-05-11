@@ -106,7 +106,23 @@ function concatenateNames() {
 }
 // ??????????????????????????????????????????????????????????
 
-// ==================== SORT TABLE
+// ==================== ROLE LOGIN
+function getUserRoleFromServer() {
+    const username = 'your_username'; // Replace with actual username retrieval (e.g., from cookies)
 
-
+    return fetch('/get_user_role', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username })
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                console.error('Error fetching user role:', data.error);
+                // Handle error (e.g., display a generic error message)
+                return 'unknown';
+            }
+            return data.role;
+        });
+}
 

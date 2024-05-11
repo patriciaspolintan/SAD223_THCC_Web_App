@@ -8,7 +8,7 @@
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 	<!-- My CSS -->
 	<link rel="stylesheet" href="static/style.css">
-	<link rel="stylesheet" href="static/clone.css">
+	<link rel="stylesheet" href="static/unit_mgmt.css">
 
 
 	<title>THCC Unit Management</title>
@@ -18,7 +18,7 @@
 
 
 	<!-- ========== SIDEBAR ========== -->
-	<section id="sidebar" >
+	<section id="sidebar" class="hide">
 		<a href="{{ url_for('index') }}" class="brand">
 			<i class='bx bxs-church'></i>
 			<span class="text">THCC Web App</span>
@@ -32,7 +32,7 @@
 			</li>
 			<li class="active">
 				<a href="{{ url_for('unit_mgmt') }}" title="Unit Management">
-					<i class='bx bxs-shopping-bag-alt' ></i>
+					<i class='bx bxs-collection' ></i>
 					<span class="text">Unit Management</span>
 				</a>
 			</li>
@@ -107,1004 +107,427 @@
 			</div>
 
 			<ul class="box-info">
-				<li>
-					<i class='bx bxs-shopping-bag' ></i>
+				<li id="unitsSold">
+					<i class='bx bxs-shopping-bag'></i>
 					<span class="text">
-						<h3>337</h3>
+						<h3>Loading...</h3>
 						<p>Units Sold</p>
 					</span>
 				</li>
-				<li>
-					<i class='bx bxs-shopping-bag' ></i>
+				<li id="unitsAvailable">
+					<i class='bx bxs-shopping-bag'></i>
 					<span class="text">
-						<h3>2,608</h3>
-						<p>Units Availabe</p>
+						<h3>Loading...</h3>
+						<p>Units Available</p>
 					</span>
 				</li>
-				<li>
-					<i class='bx bxs-shopping-bag' ></i>
+				<li id="totalSales">
+					<i class='bx bxs-shopping-bag'></i>
 					<span class="text">
-						<h3>₱12,382,000</h3>
+						<h3>Loading...</h3>
 						<p>Total Sales</p>
 					</span>
 				</li>
 			</ul>
 
-			<table class="Bone">
-				<tbody><tr>
-					<p  class="door">DOOR</p>
-					<p class="dooor">DOOR</p>  
-					<h6 class="bonelabel">Q-1/B-1/U-1-104</h6>
-					<td class="eight"style="background-color: gray;">88</td> </tr>
-					<tr>
-					<td class="nine" style="background-color: gray;">89</td>                                                                               
-					<tr>
-					<td class="ten" style="background-color: gray;">90</td>
-					<tr>
-					<td class="one" style="background-color: gray;">91</td> 
-					<tr>
-					<td class="two" style="background-color: gray;">92</td>
-					<tr>
-					<td class="tree" style="background-color: gray;">93</td>
-					<tr>
-					<td class="four" style="background-color: gray;">94</td>
-					<tr>
-					<td class="five" style="background-color: gray;">95</td>
-					<tr>
-					<td class="six" style="background-color: gray;">96</td>
-					<tr>
-					<td class="seven" style="background-color: gray;">97</td>
-					<tr>
-					<td class="eightt" style="background-color: gray;">98</td>
-					<tr>
-					<td class="ninee" style="background-color: gray;">99</td>
-					<tr>
-					<td class="tenn" style="background-color: gray;">100</td>      
-					<tr>
-					<td class="eleven" style="background-color: gray;">101</td> 
-					<tr>
-					<td class="twelve" style="background-color: gray;">102</td> 
-					<tr>
-					<td class="thirteen" style="background-color: gray;">103</td> 
-					<tr>
-					<td class="fourteen" style="background-color: gray;">104</td>                                                                                 
-				</tbody>
-			</table>
-			
-			
-			<table class="Btwo">
-				<tbody><tr>
-					<h6 class="btwolabel">Q-1/B-2/U-105-188</h6>
-					<td style="background-color: gray;">177</td>
-			
-					</tr>
-					<tr>
-					<td style="background-color: gray;">178</td>                                                                               
-					<tr>
-					<td style="background-color: gray;">179</td>
-					<tr>
-					<td style="background-color: gray;">180</td> 
-					<tr>
-					<td style="background-color: gray;">181</td>
-					<tr>
-					<td style="background-color: gray;">182</td>
-					<tr>
-					<td style="background-color: gray;">183</td>
-					<tr>
-					<td style="background-color: gray;">184</td>
-					<tr>
-					<td style="background-color: gray;">185</td>
-					<tr>
-					<td style="background-color: gray;">186</td>
-					<tr>
-					<td style="background-color: gray;">187</td>
-					<tr>
-					<td style="background-color: gray;">188</td>
-				</tbody>
-			</table>
-			
-			<table class="Btreefour">
-			<tbody><tr>
-			<h6 class="btreelabel">Q-1/B-3/U-189-272</h6>  
-			<h6 class="bfourlabel">Q-1/B-4/U-273-356</h6>
-			
-			<td style="background-color: gray;">345</td>
-											<td style="background-color: gray;">272</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">346</td>
-											<td style="background-color: gray;">271</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">347</td>
-											<td style="background-color: gray;">270</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">348</td>
-											<td style="background-color: gray;">269</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">349</td>
-											<td style="background-color: gray;">268</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">350</td>
-											<td style="background-color: gray;">267</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">351</td>
-											<td style="background-color: gray;">266</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">352</td>
-											<td style="background-color: gray;">265</td>
-			</tr>
-			<tr>
-			<td  style="background-color: gray;">353</td>
-											<td style="background-color: gray;">264</td>
-			</tr>
-			<tr>
-			<td  style="background-color: gray;">354</td>
-											<td  style="background-color: gray;">263</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">355</td>
-											<td style="background-color: gray;">262</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">356</td>
-											<td style="background-color: gray;">261</td>
-			</tr>
-			</tbody></table>
-			<table class="Bfivesix">
-			<tbody><tr>
-			<h6 class="bfivelabel">Q-1/B-5/U-357-440</h6>
-			<h6 class="bsixlabel">Q-1/B-6/U-441-524</h6>
-			
-			<td   style="background-color: gray;">513</td>
-											<td style="background-color: gray;">440</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">514</td>
-											<td style="background-color: gray;">439</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">515</td>
-											<td style="background-color: gray;">438</td>
-			</tr>
-			<tr>
-			<td  style="background-color: gray;">516</td>
-											<td style="background-color: gray;">437</td>
-			</tr>
-			<tr>
-			<td  style="background-color: gray;">517</td>
-											<td style="background-color: gray;">436</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">518</td>
-											<td style="background-color: gray;">435</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">519</td>
-											<td style="background-color: gray;">434</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">520</td>
-											<td style="background-color: gray;">433</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">521</td>
-											<td style="background-color: gray;">432</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">522</td>
-											<td style="background-color: gray;">431</td>
-			</tr>
-			<tr>
-			<td class="text-center col-11" style="background-color: gray;">523</td>
-											<td class="text-center col-24" style="background-color: gray;">430</td>
-			</tr>
-			<tr>
-			<td class="text-center col-12" style="background-color: gray;">524</td>
-											<td class="text-center col-23" style="background-color: gray;">428</td>
-			</tr>
-			</tbody></table>
-			<table class="Bseveneight">
-			<tbody><tr>
-			<h6 class="bsevenlabel">Q-1/B-7/U-525-608</h6>
-			<h6 class="beightlabel">Q-1/B-8/U-609-692</h6>
-			<td   style="background-color: gray;">681</td>
-										<td class="text-center col-34" style="background-color: gray;">608</td>
-			</tr>
-			<tr>
-			<td class="text-center col-2" style="background-color: gray;">682</td>
-										<td class="text-center col-33" style="background-color: gray;">607</td>
-			</tr>
-			<tr>
-			<td class="text-center col-3" style="background-color: gray;">683</td>
-										<td class="text-center col-32" style="background-color: gray;">606</td>
-			</tr>
-			<tr>
-			<td class="text-center col-4" style="background-color: gray;">684</td>
-										<td class="text-center col-31" style="background-color: gray;">605</td>
-			</tr>
-			<tr>
-			<td class="text-center col-5" style="background-color: gray;">685</td>
-										<td class="text-center col-30" style="background-color: gray;">604</td>
-			</tr>
-			<tr>
-			<td class="text-center col-6" style="background-color: gray;">686</td>
-										<td class="text-center col-29" style="background-color: gray;">603</td>
-			</tr>
-			<tr>
-			<td class="text-center col-7" style="background-color: gray;">687</td>
-										<td class="text-center col-28" style="background-color: gray;">602</td>
-			</tr>
-			<tr>
-			<td class="text-center col-8" style="background-color: gray;">688</td>
-										<td class="text-center col-27" style="background-color: gray;">601</td>
-			</tr>
-			<tr>
-			<td class="text-center col-9" style="background-color: gray;">689</td>
-										<td class="text-center col-26" style="background-color: gray;">600</td>
-			</tr>
-			<tr>
-			<td class="text-center col-10" style="background-color: gray;">690</td>
-										<td class="text-center col-25" style="background-color: gray;">599</td>
-			</tr>
-			<tr>
-			<td class="text-center col-11" style="background-color: gray;">691</td>
-										<td class="text-center col-24" style="background-color: gray;">598</td>
-			</tr>
-			<tr>
-			<td class="text-center col-12" style="background-color: gray;">692</td>
-										<td class="text-center col-23" style="background-color: gray;">597</td>
-			</tr>
-			</tbody></table>
-			
-			
-			
-			
-			
-			<table class="Bnine">
-			<tbody>
-			<h6 class="bninelabel">Q-1/B-9/U-693-776</h6>
-			<tr>
-			<td   style="background-color: gray;">776</tr>
-			<tr>
-			<td  style="background-color: gray;">775</td>                                                                               
-			<tr>
-			<td  style="background-color: gray;">774</td>
-			<tr>
-			<td  style="background-color: gray;">773</td> 
-			<tr>
-			<td style="background-color: gray;">772</td>
-			<tr>
-			<td  style="background-color: gray;">771</td>
-			<tr>
-			<td  style="background-color: gray;">770</td>
-			<tr>
-			<td style="background-color: gray;">769</td>
-			<tr>
-			<td style="background-color: gray;">768</td>
-			<tr>
-			<td  style="background-color: gray;">767</td>
-			<tr>
-			<td  style="background-color: gray;">766</td>
-			<tr>
-			<td  style="background-color: gray;">765</td>
-			</tbody></table>
-			
-			<table class="Bseventeen">
-			<tbody>
-			<h6 class="bseventeenlabel">Q-2/B-17/U-1365-1448</h6>
-			<tr>
-			<td   style="background-color: gray;">1448</tr>
-			<tr>
-			<td  style="background-color: gray;">1447</td>                                                                               
-			<tr>
-			<td  style="background-color: gray;">1446</td>
-			<tr>
-			<td  style="background-color: gray;">1445</td> 
-			<tr>
-			<td style="background-color: gray;">1444</td>
-			<tr>
-			<td  style="background-color: gray;">1443</td>
-			<tr>
-			<td  style="background-color: gray;">1442</td>
-			<tr>
-			<td style="background-color: gray;">1441</td>
-			<tr>
-			<td style="background-color: gray;">1440</td>
-			<tr>
-			<td  style="background-color: gray;">1439</td>
-			<tr>
-			<td  style="background-color: gray;">1438</td>
-			<tr>
-			<td  style="background-color: gray;">1437</td>
-			</tbody></table>
-			
-			
-			<table class="Bfifteensixteen">
-			<tbody><tr>
-			<h6 class="bfifteenlabel">Q-2/B-15/U-1197-1280</h6>
-			<h6 class="bsixteenlabel">Q-2/B-16/U-1281-1364</h6>
-			<td   style="background-color: gray;">1353</td>
-										<td class="text-center col-34" style="background-color: gray;">1280</td>
-			</tr>
-			<tr>
-			<td class="text-center col-2" style="background-color: gray;">1354</td>
-										<td class="text-center col-33" style="background-color: gray;">1279</td>
-			</tr>
-			<tr>
-			<td class="text-center col-3" style="background-color: gray;">1355</td>
-										<td class="text-center col-32" style="background-color: gray;">1278</td>
-			</tr>
-			<tr>
-			<td class="text-center col-4" style="background-color: gray;">1356</td>
-										<td class="text-center col-31" style="background-color: gray;">1277</td>
-			</tr>
-			<tr>
-			<td class="text-center col-5" style="background-color: gray;">1357</td>
-										<td class="text-center col-30" style="background-color: gray;">1276</td>
-			</tr>
-			<tr>
-			<td class="text-center col-6" style="background-color: gray;">1358</td>
-										<td class="text-center col-29" style="background-color: gray;">1275</td>
-			</tr>
-			<tr>
-			<td class="text-center col-7" style="background-color: gray;">1359</td>
-										<td class="text-center col-28" style="background-color: gray;">1274</td>
-			</tr>
-			<tr>
-			<td class="text-center col-8" style="background-color: gray;">1360</td>
-										<td class="text-center col-27" style="background-color: gray;">1273</td>
-			</tr>
-			<tr>
-			<td class="text-center col-9" style="background-color: gray;">1361</td>
-										<td class="text-center col-26" style="background-color: gray;">1272</td>
-			</tr>
-			<tr>
-			<td class="text-center col-10" style="background-color: gray;">1362</td>
-										<td class="text-center col-25" style="background-color: gray;">1271</td>
-			</tr>
-			<tr>
-			<td class="text-center col-11" style="background-color: gray;">1363</td>
-										<td class="text-center col-24" style="background-color: gray;">1270</td>
-			</tr>
-			<tr>
-			<td class="text-center col-12" style="background-color: gray;">1364</td>
-										<td class="text-center col-23" style="background-color: gray;">1269</td>
-			</tr>
-			</tbody></table>
-			
-			</tbody></table>
-			<table class="Bterteenfourteen">
-			<tbody><tr>
-			<h6 class="bterteenlabel">Q-2/B-13/U-1029-1112</h6>
-			<h6 class="bfourteenlabel">Q-2/B-14/U-1113-1196</h6>
-			
-			<td   style="background-color: gray;">1185</td>
-										<td style="background-color: gray;">1112</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">1186</td>
-										<td style="background-color: gray;">1111</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">1187</td>
-										<td style="background-color: gray;">1110</td>
-			</tr>
-			<tr>
-			<td  style="background-color: gray;">1188</td>
-										<td style="background-color: gray;">1109</td>
-			</tr>
-			<tr>
-			<td  style="background-color: gray;">1189</td>
-										<td style="background-color: gray;">1108</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">1190</td>
-										<td style="background-color: gray;">1107</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">1191</td>
-										<td style="background-color: gray;">1106</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">1192</td>
-										<td style="background-color: gray;">1105</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">1193</td>
-										<td style="background-color: gray;">1104</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">1194</td>
-										<td style="background-color: gray;">1103</td>
-			</tr>
-			<tr>
-			<td class="text-center col-11" style="background-color: gray;">1195</td>
-										<td class="text-center col-24" style="background-color: gray;">1102</td>
-			</tr>
-			<tr>
-			<td class="text-center col-12" style="background-color: gray;">1196</td>
-										<td class="text-center col-23" style="background-color: gray;">1101</td>
-			</tr>
-			</tbody></table>
-			
-			<table class="Beleventwelve">
-			<tbody><tr>
-			<h6 class="belevenlabel">Q-2/B-11/U-861-944</h6>  
-			<h6 class="btwelvelabel">Q-2/B-12/U-945-1028</h6>
-			
-			<td style="background-color: gray;">1017</td>
-										<td style="background-color: gray;">944</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">1018</td>
-										<td style="background-color: gray;">943</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">1019</td>
-										<td style="background-color: gray;">942</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">1020</td>
-										<td style="background-color: gray;">941</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">1021</td>
-										<td style="background-color: gray;">940</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">1022</td>
-										<td style="background-color: gray;">939</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">1023</td>
-										<td style="background-color: gray;">938</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">1024</td>
-										<td style="background-color: gray;">937</td>
-			</tr>
-			<tr>
-			<td  style="background-color: gray;">1025</td>
-										<td style="background-color: gray;">936</td>
-			</tr>
-			<tr>
-			<td  style="background-color: gray;">1026</td>
-										<td  style="background-color: gray;">935</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">1027</td>
-										<td style="background-color: gray;">934</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">1028</td>
-										<td style="background-color: gray;">933</td>
-			</tr>
-			</tbody></table>
-			
-			<table class="Bten">
-			<tbody><tr>
-			<h6 class="btenlabel">Q-2/B-10/U-777-860</h6>
-			<td style="background-color: gray;">849</td>
-										
-			</tr>
-			<tr>
-			<td style="background-color: gray;">850</td>                                                                               
-			<tr>
-			<td style="background-color: gray;">851</td>
-			<tr>
-			<td style="background-color: gray;">852</td> 
-			<tr>
-			<td style="background-color: gray;">853</td>
-			<tr>
-			<td style="background-color: gray;">854</td>
-			<tr>
-			<td style="background-color: gray;">855</td>
-			<tr>
-			<td style="background-color: gray;">856</td>
-			<tr>
-			<td style="background-color: gray;">857</td>
-			<tr>
-			<td style="background-color: gray;">858</td>
-			<tr>
-			<td style="background-color: gray;">859</td>
-			<tr>
-			<td style="background-color: gray;">860</td>
-			</tbody></table>
-			
-			<table class="Btwentyfive">
-			<tbody>
-			<h6 class="btwentyfivelabel">Q-3/B-25/U-2037-2120</h6>
-			<tr>
-			<td   style="background-color: gray;">2120</tr>
-			<tr>
-			<td  style="background-color: gray;">2119</td>                                                                               
-			<tr>
-			<td  style="background-color: gray;">2118</td>
-			<tr>
-			<td  style="background-color: gray;">2117</td> 
-			<tr>
-			<td style="background-color: gray;">2116</td>
-			<tr>
-			<td  style="background-color: gray;">2115</td>
-			<tr>
-			<td  style="background-color: gray;">2114</td>
-			<tr>
-			<td style="background-color: gray;">2113</td>
-			<tr>
-			<td style="background-color: gray;">2112</td>
-			<tr>
-			<td  style="background-color: gray;">2111</td>
-			<tr>
-			<td  style="background-color: gray;">2110</td>
-			<tr>
-			<td  style="background-color: gray;">2109</td>
-			</tbody></table>
-			
-			
-			<table class="Btwentytreeandfour">
-			<tbody><tr>
-			<h6 class="btwentytreelabel">Q-3/B-23/U-1869-1952</h6>
-			<h6 class="btwentyfourlabel">Q-3/B-24/U-1953-2036</h6>
-			<td   style="background-color: gray;">2025</td>
-										<td class="text-center col-34" style="background-color: gray;">1952</td>
-			</tr>
-			<tr>
-			<td class="text-center col-2" style="background-color: gray;">2026</td>
-										<td class="text-center col-33" style="background-color: gray;">1951</td>
-			</tr>
-			<tr>
-			<td class="text-center col-3" style="background-color: gray;">2027</td>
-										<td class="text-center col-32" style="background-color: gray;">1950</td>
-			</tr>
-			<tr>
-			<td class="text-center col-4" style="background-color: gray;">2028</td>
-										<td class="text-center col-31" style="background-color: gray;">1949</td>
-			</tr>
-			<tr>
-			<td class="text-center col-5" style="background-color: gray;">2029</td>
-										<td class="text-center col-30" style="background-color: gray;">1948</td>
-			</tr>
-			<tr>
-			<td class="text-center col-6" style="background-color: gray;">2030</td>
-										<td class="text-center col-29" style="background-color: gray;">1947</td>
-			</tr>
-			<tr>
-			<td class="text-center col-7" style="background-color: gray;">2031</td>
-										<td class="text-center col-28" style="background-color: gray;">1946</td>
-			</tr>
-			<tr>
-			<td class="text-center col-8" style="background-color: gray;">2032</td>
-										<td class="text-center col-27" style="background-color: gray;">1945</td>
-			</tr>
-			<tr>
-			<td class="text-center col-9" style="background-color: gray;">2033</td>
-										<td class="text-center col-26" style="background-color: gray;">1944</td>
-			</tr>
-			<tr>
-			<td class="text-center col-10" style="background-color: gray;">2034</td>
-										<td class="text-center col-25" style="background-color: gray;">1943</td>
-			</tr>
-			<tr>
-			<td class="text-center col-11" style="background-color: gray;">2035</td>
-										<td class="text-center col-24" style="background-color: gray;">1942</td>
-			</tr>
-			<tr>
-			<td class="text-center col-12" style="background-color: gray;">2036</td>
-										<td class="text-center col-23" style="background-color: gray;">1941</td>
-			</tr>
-			</tbody></table>
-			
-			</tbody></table>
-			<table class="Btwentyoneandtwo">
-			<tbody><tr>
-			<h6 class="btwentyonelabel">Q-3/B-21/U-1701-1784</h6>
-			<h6 class="btwentytwolabel">Q-3/B-22/U-1785-1868</h6>
-			
-			<td   style="background-color: gray;">1857</td>
-										<td style="background-color: gray;">1784</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">1858</td>
-										<td style="background-color: gray;">1783</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">1859</td>
-										<td style="background-color: gray;">1782</td>
-			</tr>
-			<tr>
-			<td  style="background-color: gray;">1860</td>
-										<td style="background-color: gray;">1781</td>
-			</tr>
-			<tr>
-			<td  style="background-color: gray;">1861</td>
-										<td style="background-color: gray;">1780</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">1862</td>
-										<td style="background-color: gray;">1779</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">1863</td>
-										<td style="background-color: gray;">1778</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">1864</td>
-										<td style="background-color: gray;">1777</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">1865</td>
-										<td style="background-color: gray;">1776</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">1866</td>
-										<td style="background-color: gray;">1775</td>
-			</tr>
-			<tr>
-			<td class="text-center col-11" style="background-color: gray;">1867</td>
-										<td style="background-color: gray;">1774</td>
-			</tr>
-			<tr>
-			<td class="text-center col-12" style="background-color: gray;">1868</td>
-										<td style="background-color: gray;">1773</td>
-			</tr>
-			</tbody></table>
-			
-			<table class="Bninteentwenty">
-			<tbody><tr>
-			<h6 class="bnineteenlabel">Q-3/B-19/U-1533-1616</h6>  
-			<h6 class="btwentylabel">Q-3/B-20/U-1617-1700</h6>
-			
-			<td style="background-color: gray;">1689</td>
-										<td style="background-color: gray;">1616</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">1690</td>
-										<td style="background-color: gray;">1615</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">1691</td>
-										<td style="background-color: gray;">1614</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">1692</td>
-										<td style="background-color: gray;">1613</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">1693</td>
-										<td style="background-color: gray;">1612</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">1694</td>
-										<td style="background-color: gray;">1611</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">1695</td>
-										<td style="background-color: gray;">1610</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">1696</td>
-										<td style="background-color: gray;">1609</td>
-			</tr>
-			<tr>
-			<td  style="background-color: gray;">1697</td>
-										<td style="background-color: gray;">1608</td>
-			</tr>
-			<tr>
-			<td  style="background-color: gray;">1698</td>
-										<td  style="background-color: gray;">1607</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">1699</td>
-										<td style="background-color: gray;">1606</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">1700</td>
-										<td style="background-color: gray;">1605</td>
-			</tr>
-			</tbody></table>
-			
-			<table class="Beighteen">
-			<tbody><tr>
-			<h6 class="beighteenlabel">Q-3/B-18/U-1449-1532</h6>
-			<td style="background-color: gray;">1521</td>
-										
-			</tr>
-			<tr>
-			<td style="background-color: gray;">1522</td>                                                                               
-			<tr>
-			<td style="background-color: gray;">1523</td>
-			<tr>
-			<td style="background-color: gray;">1524</td> 
-			<tr>
-			<td style="background-color: gray;">1525</td>
-			<tr>
-			<td style="background-color: gray;">1526</td>
-			<tr>
-			<td style="background-color: gray;">1527</td>
-			<tr>
-			<td style="background-color: gray;">1528</td>
-			<tr>
-			<td style="background-color: gray;">1529</td>
-			<tr>
-			<td style="background-color: gray;">1530</td>
-			<tr>
-			<td style="background-color: gray;">1531</td>
-			<tr>
-			<td style="background-color: gray;">1532</td>
-			</tbody></table>
-			<table class="Bthirtytree">
-			<tbody>
-			<h6 class="bthirtytreelabel">Q-4/B-33/U-2709-2792</h6>
-			<tr>
-			<td   style="background-color: gray;">2781</tr>
-			<tr>
-			<td  style="background-color: gray;">2782</td>                                                                               
-			<tr>
-			<td  style="background-color: gray;">2783</td>
-			<tr>
-			<td  style="background-color: gray;">2784</td> 
-			<tr>
-			<td style="background-color: gray;">2785</td>
-			<tr>
-			<td  style="background-color: gray;">2786</td>
-			<tr>
-			<td  style="background-color: gray;">2787</td>
-			<tr>
-			<td style="background-color: gray;">2788</td>
-			<tr>
-			<td style="background-color: gray;">2789</td>
-			<tr>
-			<td  style="background-color: gray;">2790</td>
-			<tr>
-			<td  style="background-color: gray;">2791</td>
-			<tr>
-			<td  style="background-color: gray;">2792</td>
-			</tbody></table>
-			
-			
-			<table class="Bthirtyonetwo">
-			<tbody><tr>
-			<h6 class="bthirtyone">Q-4/B-31/U-2541-2624</h6>
-			<h6 class="bthirtytwolabel">Q-4/B-32/U-2625-2708</h6>
-			<td   style="background-color: gray;">2697</td>
-										<td class="text-center col-34" style="background-color: gray;">2624</td>
-			</tr>
-			<tr>
-			<td class="text-center col-2" style="background-color: gray;">2698</td>
-										<td class="text-center col-33" style="background-color: gray;">2623</td>
-			</tr>
-			<tr>
-			<td class="text-center col-3" style="background-color: gray;">2699</td>
-										<td class="text-center col-32" style="background-color: gray;">2622</td>
-			</tr>
-			<tr>
-			<td class="text-center col-4" style="background-color: gray;">2700</td>
-										<td class="text-center col-31" style="background-color: gray;">2621</td>
-			</tr>
-			<tr>
-			<td class="text-center col-5" style="background-color: gray;">2701</td>
-										<td class="text-center col-30" style="background-color: gray;">2620</td>
-			</tr>
-			<tr>
-			<td class="text-center col-6" style="background-color: gray;">2702</td>
-										<td class="text-center col-29" style="background-color: gray;">2619</td>
-			</tr>
-			<tr>
-			<td class="text-center col-7" style="background-color: gray;">2703</td>
-										<td class="text-center col-28" style="background-color: gray;">2618</td>
-			</tr>
-			<tr>
-			<td class="text-center col-8" style="background-color: gray;">2704</td>
-										<td class="text-center col-27" style="background-color: gray;">2617</td>
-			</tr>
-			<tr>
-			<td class="text-center col-9" style="background-color: gray;">2705</td>
-										<td class="text-center col-26" style="background-color: gray;">2616</td>
-			</tr>
-			<tr>
-			<td class="text-center col-10" style="background-color: gray;">2706</td>
-										<td class="text-center col-25" style="background-color: gray;">2615</td>
-			</tr>
-			<tr>
-			<td class="text-center col-11" style="background-color: gray;">2707</td>
-										<td class="text-center col-24" style="background-color: gray;">2614</td>
-			</tr>
-			<tr>
-			<td class="text-center col-12" style="background-color: gray;">2708</td>
-										<td class="text-center col-23" style="background-color: gray;">2613</td>
-			</tr>
-			</tbody></table>
-			
-			</tbody></table>
-			<table class="Btwentyninezero">
-			<tbody><tr>
-			<h6 class="btwentyninelabel">Q-4/B-29/U-2372-2456</h6>
-			<h6 class="btreezerolabel">Q-4/B-30/U-2457-2540</h6>
-			
-			<td   style="background-color: gray;">2529</td>
-										<td style="background-color: gray;">2456</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">2530</td>
-										<td style="background-color: gray;">2455</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">2531</td>
-										<td style="background-color: gray;">2454</td>
-			</tr>
-			<tr>
-			<td  style="background-color: gray;">2532</td>
-										<td style="background-color: gray;">2453</td>
-			</tr>
-			<tr>
-			<td  style="background-color: gray;">2533</td>
-										<td style="background-color: gray;">2452</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">2534</td>
-										<td style="background-color: gray;">2451</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">2535</td>
-										<td style="background-color: gray;">2450</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">2536</td>
-										<td style="background-color: gray;">2449</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">2537</td>
-										<td style="background-color: gray;">2448</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">2538</td>
-										<td style="background-color: gray;">2447</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">2539</td>
-										<td class="text-center col-24" style="background-color: gray;">2446</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">2540</td>
-										<td class="text-center col-23" style="background-color: gray;">2445</td>
-			</tr>
-			</tbody></table>
-			
-			<table class="Btwentyseveneight">
-			<tbody><tr>
-			<h6 class="btwentysevenlabel">Q-4/B-27/U-2205-2288</h6>  
-			<h6 class="btwentyeightlabel">Q-4/B-28/U-2289-2372</h6>
-			
-			<td style="background-color: gray;">2361</td>
-										<td style="background-color: gray;">2288</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">2362</td>
-										<td style="background-color: gray;">2287</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">2363</td>
-										<td style="background-color: gray;">2286</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">2364</td>
-										<td style="background-color: gray;">2285</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">2365</td>
-										<td style="background-color: gray;">2284</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">2366</td>
-										<td style="background-color: gray;">2283</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">2367</td>
-										<td style="background-color: gray;">2282</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">2368</td>
-										<td style="background-color: gray;">2281</td>
-			</tr>
-			<tr>
-			<td  style="background-color: gray;">2369</td>
-										<td style="background-color: gray;">2280</td>
-			</tr>
-			<tr>
-			<td  style="background-color: gray;">2370</td>
-										<td  style="background-color: gray;">2279</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">2371</td>
-										<td style="background-color: gray;">2278</td>
-			</tr>
-			<tr>
-			<td style="background-color: gray;">2372</td>
-										<td style="background-color: gray;">2277</td>
-			</tr>
-			</tbody></table>
-			
-			<table class="Btwentysix">
-			<tbody><tr>
-			<h6 class="btwentysixlabel">Q-4/B-26/U-2121-2204</h6>
-			<td style="background-color: gray;">2193</td>
-										
-			</tr>
-			<tr>
-			<td style="background-color: gray;">2194</td>                                                                               
-			<tr>
-			<td style="background-color: gray;">2195</td>
-			<tr>
-			<td style="background-color: gray;">2196</td> 
-			<tr>
-			<td style="background-color: gray;">2197</td>
-			<tr>
-			<td style="background-color: gray;">2198</td>
-			<tr>
-			<td style="background-color: gray;">2199</td>
-			<tr>
-			<td style="background-color: gray;">2200</td>
-			<tr>
-			<td style="background-color: gray;">2201</td>
-			<tr>
-			<td style="background-color: gray;">2202</td>
-			<tr>
-			<td style="background-color: gray;">2203</td>
-			<tr>
-			<td style="background-color: gray;">2204</td>
-			</tbody></table>
-			<table class="Btreefour">
-			<tbody><tr>
-			<h6 class="last">Q-4/B-34/U-2793-2945</h6>
-			<td class="twoninefourfive"style="background-color: gray;">2948</td> </tr>
-			<tr>
-			<td class="twoninefourfour" style="background-color: gray;">2945</td>                                                                               
-			<tr>
-			<td class="twoninefourtree" style="background-color: gray;">2944</td>
-			<tr>
-			<td class="twoninefourtwo" style="background-color: gray;">2943</td> 
-			<tr>
-			<td class="twoninefourone" style="background-color: gray;">2942</td>
-			<tr>
-			<td class="twoninefourty" style="background-color: gray;">2941</td>
-			<tr>
-			<td class="twoninetreenine" style="background-color: gray;">2940</td>
-			<tr>
-			<td class="twoninetreeeight" style="background-color: gray;">2939</td>
-			<tr>
-			<td class="twoninetreeseven" style="background-color: gray;">2938</td>
-			<tr>
-			<td class="twoninetreesix" style="background-color: gray;">2937</td>
-			<tr>
-			<td class="twoninetreefive" style="background-color: gray;">2936</td>
-			<tr>
-			<td class="twoninetreefour" style="background-color: gray;">2935</td>
-			<tr>
-			<td class="twoninetreetree" style="background-color: gray;">2934</td>      
-			<tr>
-			<td class="twoninetreetwo" style="background-color: gray;">2933</td> 
-			<tr>
-			<td class="twoninetreeone" style="background-color: gray;">2932</td> 
-			<tr>
-			<td class="twoninetree" style="background-color: gray;">2931</td> 
-			<tr>
-			<td class="twoninetwentynine" style="background-color: gray;">2929</td>                                                                          
-			</tbody></table>
+			<script>
+				// Fetch units sold and available from Flask backend
+				fetch('/total_sold_units')
+					.then(response => response.json())
+					.then(data => {
+						document.getElementById('unitsSold').innerHTML = `
+							<i class='bx bxs-shopping-bag'></i>
+							<span class="text">
+								<h3>${data.total_sold_units}</h3>
+								<p>Units Sold</p>
+							</span>`;
+					});
+				
+				fetch('/total_available_units')
+					.then(response => response.json())
+					.then(data => {
+						document.getElementById('unitsAvailable').innerHTML = `
+							<i class='bx bxs-shopping-bag'></i>
+							<span class="text">
+								<h3>${data.total_available_units}</h3>
+								<p>Units Available</p>
+							</span>`;
+					});
+
+				fetch('/total_sales')
+					.then(response => response.json())
+					.then(data => {
+						document.getElementById('totalSales').innerHTML = `
+							<i class='bx bxs-shopping-bag'></i>
+							<span class="text">
+								<h3>${data.total_sales}</h3>
+								<p>Total Sales</p>
+							</span>`;
+					});
+            </script>
 
 		</main>
 		<!-- ========== END OF MAIN ========== -->
 
+        <!-- ============= UNITS ============== -->
+        <div class="units">
+            <div class="horizontal-units">
+                <p>Q-1/B-1/U-1-104</p>
+                <table id="Q1-B1-U-1-104" class="units-container">
+                    <tr></tr>
+                </table>
+            </div>
+
+            <!-- FIRST ROW OF THE VERTICAL UNITS -->
+            <div class="vertical-units">
+                <!-- First Column of the Vertical Units -->
+                <div class="first-col">
+                    <table id="Q1-B9-U-693-776" class="units-container">
+                        <tr></tr>
+                    </table>
+                    <p class="info-right">Q-1/B-9/U-693-776</p>
+                </div>
+                
+                <!-- Second Column of the Vertical Units -->
+                <div class="second-col">
+                    <div class="info-left-container">
+                        <p class="info-left">Q-1/B-8/U-609-692</p>
+                    </div>
+
+                    <table id="Q1-B8-U-609-692" class="units-container">
+                        <tr></tr>
+                    </table>
+                    <table id="Q1-B7-U-525-608" class="units-container adjacent-table">
+                        <tr></tr>
+                    </table>
+                    <p class="info-right">Q-1/B-7/U-525-608</p>
+                </div>
+                
+                <!-- Third Column of the Vertical Units -->
+                <div class="third-col">
+                    <div class="info-left-container">
+                        <p class="info-left">Q-1/B-6/U-441-524</p>
+                    </div>
+                    <table id="Q1-B6-U-441-524" class="units-container">
+                        <tr></tr>
+                    </table>
+                    <table id="Q1-B5-U-357-440" class="units-container adjacent-table">
+                        <tr></tr>
+                    </table>
+                    <p class="info-right">Q-1/B-5/U-357-440</p>
+                </div>
+                
+                <!-- Fourth Column of the Vertical Units -->
+                <div class="fourth-col">
+                    <div class="info-left-container">
+                        <p class="info-left">Q-1/B-4/U-273-356</p>
+                    </div>
+                    <table id="Q1-B4-U-273-356" class="units-container">
+                        <tr></tr>
+                    </table>
+                    <table id="Q1-B3-U-189-272" class="units-container">
+                        <tr></tr>
+                    </table>
+                    <p class="info-right">Q-1/B-3/U-189-272</p>
+                </div>
+                
+                <!-- Fifth Column of the Vertical Units -->
+                <div class="fifth-col">
+                    <table id="Q1-B2-U-105-188" class="units-container">
+                        <tr></tr>
+                    </table>
+                    <p class="info-right">Q-1/B-2/U-105-188</p>
+                </div>
+
+                <table id="legend">
+                    <tr id="legend-available">
+                        <td id="legend-available-color" class="legend-color"></td>
+                        <td>Available</td>
+                    </tr>
+                    <tr id="legend-sold">
+                        <td id="legend-sold-color"></td>
+                        <td>Sold</td>
+                    </tr>
+
+                </table>
+            </div>
+
+            <!-- SECOND ROW OF THE VERTICAL UNITS -->
+            <div class="vertical-units">
+                <!-- First Column of the Vertical Units -->
+                <div class="first-col">
+                    <table id="Q2-B17-U-1365-1448" class="units-container">
+                        <tr></tr>
+                    </table>
+                    <p class="info-right">Q-2/B-17/U-1365-1448</p>
+                </div>
+                
+                <!-- Second Column of the Vertical Units -->
+                <div class="second-col">
+                    <div class="info-left-container">
+                        <p class="info-left">Q-2/B-16/U-1281-1364</p>
+                    </div>
+
+                    <table id="Q2-B16-U-1281-1364" class="units-container">
+                        <tr></tr>
+                    </table>
+                    <table id="Q2-B15-U-1197-1280" class="units-container">
+                        <tr></tr>
+                    </table>
+                    <p class="info-right">Q-2/B-15/U-1197-1280</p>
+                </div>
+                
+                <!-- Third Column of the Vertical Units -->
+                <div class="third-col">
+                    <div class="info-left-container">
+                        <p class="info-left">Q-2/B-14/U-1113-1196</p>
+                    </div>
+                    <table id="Q2-B14-U-1113-1196" class="units-container">
+                        <tr></tr>
+                    </table>
+                    <table id="Q2-B13-U-1029-1112" class="units-container">
+                        <tr></tr>
+                    </table>
+                    <p class="info-right">Q-2/B-13/U-1029-1112</p>
+                </div>
+                
+                <!-- Fourth Column of the Vertical Units -->
+                <div class="fourth-col">
+                    <div class="info-left-container">
+                        <p class="info-left">Q-2/B-12/U-945-1028</p>
+                    </div>
+                    <table id="Q2-B12-U-945-1028" class="units-container">
+                        <tr></tr>
+                    </table>
+                    <table id="Q2-B11-U-861-944" class="units-container">
+                        <tr></tr>
+                    </table>
+                    <p class="info-right">Q-2/B-11/U-861-944</p>
+                </div>
+                
+                <!-- Fifth Column of the Vertical Units -->
+                <div class="fifth-col">
+                    <table id="Q2-B10-U-777-860" class="units-container">
+                        <tr></tr>
+                    </table>
+                    <p class="info-right">Q-2/B-10/U-777-860</p>
+                </div>
+
+                <table id="legend" class="filler-table">
+                    <tr id="legend-available">
+                        <td id="legend-available-color" class="legend-color"></td>
+                        <td>Available</td>
+                    </tr>
+                    <tr id="legend-sold">
+                        <td id="legend-sold-color"></td>
+                        <td>Sold</td>
+                    </tr>
+                    <tr id="legend-not-available">
+                        <td id="legend-not-available-color"></td>
+                        <td>Not Available</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- THIRD ROW OF THE VERTICAL UNITS -->
+            <div class="vertical-units">
+                <!-- First Column of the Vertical Units -->
+                <div class="first-col">
+                    <table id="Q3-B25-U-2037-2120" class="units-container">
+                        <tr></tr>
+                    </table>
+                    <p class="info-right">Q-3/B-25/U-2037-2120</p>
+                </div>
+                
+                <!-- Second Column of the Vertical Units -->
+                <div class="second-col">
+                    <div class="info-left-container">
+                        <p class="info-left">Q-3/B-24/U-1953-2036</p>
+                    </div>
+
+                    <table id="Q3-B24-U-1953-2036" class="units-container">
+                        <tr></tr>
+                    </table>
+                    <table id="Q3-B23-U-1869-1952" class="units-container">
+                        <tr></tr>
+                    </table>
+                    <p class="info-right">Q-3/B-23/U-1869-1952</p>
+                </div>
+                
+                <!-- Third Column of the Vertical Units -->
+                <div class="third-col">
+                    <div class="info-left-container">
+                        <p class="info-left">Q-3/B-22/U-1785-1868</p>
+                    </div>
+                    <table id="Q3-B22-U-1785-1868" class="units-container">
+                        <tr></tr>
+                    </table>
+                    <table id="Q3-B21-U-1701-1784" class="units-container">
+                        <tr></tr>
+                    </table>
+                    <p class="info-right">Q-3/B-21/U-1701-1784</p>
+                </div>
+                
+                <!-- Fourth Column of the Vertical Units -->
+                <div class="fourth-col">
+                    <div class="info-left-container">
+                        <p class="info-left">Q-3/B-20/U-1617-1700</p>
+                    </div>
+                    <table id="Q3-B20-U-1617-1700" class="units-container">
+                        <tr></tr>
+                    </table>
+                    <table id="Q3-B19-U-1533-1616" class="units-container">
+                        <tr></tr>
+                    </table>
+                    <p class="info-right">Q-3/B-19/U-1533-1616</p>
+                </div>
+                
+                <!-- Fifth Column of the Vertical Units -->
+                <div class="fifth-col">
+                    <table id="Q3-B18-U-1449-1532" class="units-container">
+                        <tr></tr>
+                    </table>
+                    <p class="info-right">Q-3/B-18/U-1449-1532</p>
+                </div>
+
+                <table id="legend" class="filler-table">
+                    <tr id="legend-available">
+                        <td id="legend-available-color" class="legend-color"></td>
+                        <td>Available</td>
+                    </tr>
+                    <tr id="legend-sold">
+                        <td id="legend-sold-color"></td>
+                        <td>Sold</td>
+                    </tr>
+                    <tr id="legend-not-available">
+                        <td id="legend-not-available-color"></td>
+                        <td>Not Available</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- FOURTH ROW OF THE VERTICAL UNITS -->
+            <div class="vertical-units">
+                <!-- First Column of the Vertical Units -->
+                <div class="first-col">
+                    <table id="Q4-B33-U-2709-2792" class="units-container">
+                        <tr></tr>
+                    </table>
+                    <p class="info-right">Q-4/B-33/U-2709-2792</p>
+                </div>
+                
+                <!-- Second Column of the Vertical Units -->
+                <div class="second-col">
+                    <div class="info-left-container">
+                        <p class="info-left">Q-4/B-32/U-2625-2708</p>
+                    </div>
+
+                    <table id="Q4-B32-U-2625-2708" class="units-container">
+                        <tr></tr>
+                    </table>
+                    <table id="Q4-B31-U-2541-2624" class="units-container">
+                        <tr></tr>
+                    </table>
+                    <p class="info-right">Q-4/B-31/U-2541-2624</p>
+                </div>
+                
+                <!-- Third Column of the Vertical Units -->
+                <div class="third-col">
+                    <div class="info-left-container">
+                        <p class="info-left">Q-4/B-30/U-2457-2540</p>
+                    </div>
+                    <table id="Q4-B30-U-2457-2540" class="units-container">
+                        <tr></tr>
+                    </table>
+                    <table id="Q4-B29-U-2372-2456" class="units-container">
+                        <tr></tr>
+                    </table>
+                    <p class="info-right">Q-4/B-29/U-2372-2456</p>
+                </div>
+                
+                <!-- Fourth Column of the Vertical Units -->
+                <div class="fourth-col">
+                    <div class="info-left-container">
+                        <p class="info-left">Q-4/B-28/U-2289-2372</p>
+                    </div>
+                    <table id="Q4-B28-U-2289-2372" class="units-container">
+                        <tr></tr>
+                    </table>
+                    <table id="Q4-B27-U-2205-2288" class="units-container">
+                        <tr></tr>
+                    </table>
+                    <p class="info-right">Q-4/B-27/U-2205-2288</p>
+                </div>
+                
+                <!-- Fifth Column of the Vertical Units -->
+                <div class="fifth-col">
+                    <table id="Q4-B26-U-2121-2204" class="units-container">
+                        <tr></tr>
+                    </table>
+                    <p class="info-right">Q-4/B-26/U-2121-2204</p>
+                </div>
+
+                <table id="legend" class="filler-table">
+                    <tr id="legend-available">
+                        <td id="legend-available-color" class="legend-color"></td>
+                        <td>Available</td>
+                    </tr>
+                    <tr id="legend-sold">
+                        <td id="legend-sold-color"></td>
+                        <td>Sold</td>
+                    </tr>
+                    <tr id="legend-not-available">
+                        <td id="legend-not-available-color"></td>
+                        <td>Not Available</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- LAST ROW (HORIZONTAL UNIT) -->
+            <div class="horizontal-units">
+                <div class="info-top">
+                    <p>Q-4/B-34/U-2793-2945</p>
+                </div>
+                <table id="Q4-B34-U-2793-2945" class="units-container">
+                    <tr></tr>
+                </table>
+            </div>
+
+        </div>
+        <!-- ========== END OF UNITS ========== -->
+
+
 	</section>
-	<!-- ========== END OF CONTENT ========== -->
+	<!-- ========== CONTENT ========== -->
+
+            <!-- ==========  POP UP   ==============-->
+            <div class="overlay hidden" id="overlay"></div>
+            <div class="popup hidden" id="popup">
+                <div class="popup-header">
+                    <h2></h2>
+                    <h2 class="popup-header-close-button" id="popup-header-close-button">X</h2>
+                </div>
+                <hr class="separator-solid">
+                <div class="popup-content" id="popup-content"></div>
+                <div class="popup-footer">
+                    <div class="popup-legend">
+                        <div class="popup-footer-purchased footer-legend-container">
+                            <div class="popup-footer-purchased-color footer-color"></div>
+                            <p>Sold</p>
+                        </div>
+                        <div class="popup-footer-standard footer-legend-container">
+                            <div class="popup-footer-standard-color footer-color"></div>
+                            <p>Available</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+	<!-- ========== END OF POPUP ========== -->
 
 
 
 	<script src="static/script.js"></script>
+	<script src="static/unit_mgmt.js"></script>
+
 </body>
 </html>

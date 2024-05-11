@@ -14,40 +14,14 @@
 	
 	<title>THCC Unit Records</title>
 
-	<script>
-		$(document).ready(function(){
-		load_data();
-		function load_data(query)
-		{
-		$.ajax({
-			url:"/ajaxlivesearch",
-			method:"POST",
-			data:{query:query},
-			success:function(data)
-			{
-			$('#result').html(data);
-			$("#result").append(data.htmlresponse);
-			}
-		});
-		}
-		$('#search_text').keyup(function(){
-			var search = $(this).val();
-			if(search != ''){
-			load_data(search);
-		}else{
-			load_data();
-		}
-		});
-		});
-		</script>
+	
 
 </head>
 <body>
 
 
-
 	<!-- ========== SIDEBAR ========== -->
-	<section id="sidebar" >
+	<section id="sidebar" class="hide">
 		<a href="{{ url_for('index') }}" class="brand" >
 			<i class='bx bxs-church'></i>
 			<!-- <img src="static/THCC_logo.png" alt="THCC Logo" class="logo-icon"> -->
@@ -62,7 +36,7 @@
 			</li>
 			<li>
 				<a href="{{ url_for('unit_mgmt') }}" title="Unit Management">
-					<i class='bx bxs-shopping-bag-alt' ></i>
+					<i class='bx bxs-collection' ></i>
 					<span class="text">Unit Management</span>
 				</a>
 			</li>
@@ -130,18 +104,17 @@
 				<div class="form-input">
 					<!-- <input type="search" placeholder="Search record"> -->
 					<input type="text" name="search_text" id="search_text" class="form-control" placeholder="Search records" title="Enter your search term">
-					<button type="submit" class="search-btn" title="Search"><i class='bx bx-search' ></i></button>
+					<button type="submit" id="search_btn" class="search-btn" title="Search"></button>
 					
 
 				</div>
 
 			</form>
-
 			<!-- ========== END OF SEARCH ========== -->
 
 			<!-- ========== ADD NEW USER OVERLAY ========== -->
 			<div class="add-import">
-				<button id="login-show" title="Add new user"><i class='bx bx-plus'></i>Add New User</button>
+				<button id="login-show" title="Add new user">Add New User</button>
 			</div>
 				<!-- Flash message SA CREATE USER ACCOUNT -->
 				{%with messages = get_flashed_messages(with_categories=true)%}
@@ -171,7 +144,7 @@
 								<select name="user_role" id="user_role" required>
 									<option hidden>Select User Role</option>
 									<option>IT Administrator</option>
-									<option>Columbarium Representative</option>
+									<option>Columbarium Coordinator</option>
 									<option>Cashier</option>
 								</select>
 							</div>
@@ -214,14 +187,12 @@
 				</div>
 				
 
+				
 				<div class="table-data">
 					<div class="order">							
 						<div id="result"></div>
-
-						<table class="table-sortable">
-
+						<table id="users_table" class="table-sortable">
 							<thead>
-
 								<tr>
 									<th>User Id</th>
 									<th>User Role</th>
@@ -231,6 +202,7 @@
 								</tr>
 							</thead>
 							<tbody>
+								
 								{% for user in users %}
 								<tr>
 									<td>{{ user.user_id }}</td>
@@ -253,6 +225,11 @@
 						</table>
 					</div>
 
+
+
+
+
+					
 					<div id="EditModal">
 						<div class="modal">
 							<div class="top-form">
@@ -272,7 +249,7 @@
 										<select name="user_role" id="edit-userRole" onchange="validateForm()" required>
 											<option hidden>Select User Role</option>
 											<option>IT Administrator</option>
-											<option>Columbarium Representative</option>
+											<option>Columbarium Coordinator</option>
 											<option>Cashier</option>
 										</select>
 									</div>
@@ -298,76 +275,89 @@
 	<script src="static/script.js"></script>
 
 	<script src="static/addnewuser.js"></script>
-
 <script>
-const closeFlashMessage = (messageElement) => {
-    messageElement.classList.add("hide");
-    setTimeout(() => messageElement.remove(), 500);
-}
+	const closeFlashMessage = (messageElement) => {
+		messageElement.classList.add("hide");
+		setTimeout(() => messageElement.remove(), 500);
+	}
 
-document.addEventListener("DOMContentLoaded", () => {
-    const flashMessages = document.querySelectorAll('.flash-message');
-    flashMessages.forEach(message => {
-        setTimeout(() => closeFlashMessage(message), 5000);
-    });
-});
+	document.addEventListener("DOMContentLoaded", () => {
+		const flashMessages = document.querySelectorAll('.flash-message');
+		flashMessages.forEach(message => {
+			setTimeout(() => closeFlashMessage(message), 5000);
+		});
+	});
 
 </script>
 
 	<script>
+	function sortTableByColumn(table, column, asc = true) {
+		const dirModifier = asc ? 1 : -1;
+		const tBody = table.tBodies[0];
+		const rows = Array.from(tBody.querySelectorAll("tr"));
 
+		// Sort each row
+		const sortedRows = rows.sort((a, b) => {
+			const aColText = a.querySelector(`td:nth-child(${column + 1})`).textContent.trim();
+			const bColText = b.querySelector(`td:nth-child(${column + 1})`).textContent.trim();
 
+			return aColText > bColText ? (1 * dirModifier) : (-1 * dirModifier);
+		});
 
-/**
- * Sorts a HTML table.
- *
- * @param {HTMLTableElement} table The table to sort
- * @param {number} column The index of the column to sort
- * @param {boolean} asc Determines if the sorting will be in ascending
- */
- function sortTableByColumn(table, column, asc = true) {
-    const dirModifier = asc ? 1 : -1;
-    const tBody = table.tBodies[0];
-    const rows = Array.from(tBody.querySelectorAll("tr"));
+		// Remove all existing TRs from the table
+		while (tBody.firstChild) {
+			tBody.removeChild(tBody.firstChild);
+		}
 
-    // Sort each row
-    const sortedRows = rows.sort((a, b) => {
-        const aColText = a.querySelector(`td:nth-child(${column + 1})`).textContent.trim();
-        const bColText = b.querySelector(`td:nth-child(${column + 1})`).textContent.trim();
+		// Re-add the newly sorted rows
+		tBody.append(...sortedRows);
 
-        return aColText > bColText ? (1 * dirModifier) : (-1 * dirModifier);
-    });
+		// Remember how the column is currently sorted
+		table.querySelectorAll("th").forEach(th => th.classList.remove("th-sort-asc", "th-sort-desc"));
+		table.querySelector(`th:nth-child(${column + 1})`).classList.toggle("th-sort-asc", asc);
+		table.querySelector(`th:nth-child(${column + 1})`).classList.toggle("th-sort-desc", !asc);
+	}
 
-    // Remove all existing TRs from the table
-    while (tBody.firstChild) {
-        tBody.removeChild(tBody.firstChild);
-    }
+	document.querySelectorAll(".table-sortable th").forEach(headerCell => {
+		headerCell.addEventListener("click", () => {
+			const tableElement = headerCell.parentElement.parentElement.parentElement;
+			const headerIndex = Array.prototype.indexOf.call(headerCell.parentElement.children, headerCell);
+			const currentIsAscending = headerCell.classList.contains("th-sort-asc");
 
-    // Re-add the newly sorted rows
-    tBody.append(...sortedRows);
-
-    // Remember how the column is currently sorted
-    table.querySelectorAll("th").forEach(th => th.classList.remove("th-sort-asc", "th-sort-desc"));
-    table.querySelector(`th:nth-child(${column + 1})`).classList.toggle("th-sort-asc", asc);
-    table.querySelector(`th:nth-child(${column + 1})`).classList.toggle("th-sort-desc", !asc);
-}
-
-document.querySelectorAll(".table-sortable th").forEach(headerCell => {
-    headerCell.addEventListener("click", () => {
-        const tableElement = headerCell.parentElement.parentElement.parentElement;
-        const headerIndex = Array.prototype.indexOf.call(headerCell.parentElement.children, headerCell);
-        const currentIsAscending = headerCell.classList.contains("th-sort-asc");
-
-        sortTableByColumn(tableElement, headerIndex, !currentIsAscending);
-    });
-});
-
-
+			sortTableByColumn(tableElement, headerIndex, !currentIsAscending);
+		});
+	});
 
 	</script>
-	
-	<!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
 
+	
+	
+	<script>
+		$(document).ready(function(){
+			function load_data(query) {
+				$.ajax({
+					url: "/ajaxlivesearch",
+					method: "POST",
+					data: {query: query},
+					success: function(data) {
+						$('#result').html(data);
+						$("#result").append(data.htmlresponse);
+						// Check if search query is not empty
+						if (query !== '') {
+							$('#users_table').hide(); // Hide the users table
+						} else {
+							$('#users_table').show(); // Show the users table
+						}
+					}
+				});
+			}
+			
+			$('#search_text').keyup(function() {
+				var search = $(this).val();
+				load_data(search);
+			});
+		});
+	</script>
 
 </body>
 </html>

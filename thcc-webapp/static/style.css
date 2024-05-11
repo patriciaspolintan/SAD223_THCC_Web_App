@@ -237,13 +237,13 @@ body {
 	height: 100%;
 	border: none;
 	background: #F4F2F0;
-	border-radius: 36px 0 0 36px;
+	border-radius: 36px 36px 36px 36px;
 	outline: none;
 	width: 100%;
 	color: #082431;
 	font-size: 13px;
 }
-#content main form .form-input button {
+/* #content main form .form-input button {
 	width: 36px;
 	height: 100%;
 	display: flex;
@@ -256,7 +256,7 @@ body {
 	outline: none;
 	border-radius: 0 36px 36px 0;
 	cursor: pointer;
-}
+} */
 /* ==================== END OF FORM-INPUT ==================== */
 
 
@@ -315,26 +315,41 @@ body {
     cursor: pointer;
 } */
 
-#content main form .add-import button.sortfilter-btn,
+/* #content main form .add-import button.sortfilter-btn,
 #content main form .add-import button.add-btn,
-#content main form .add-import button.import-btn, 
-#login-show, #newrecord-show, #newpayment-show  {
-    background: #80CB85;
+#login-show, #newrecord-show, #newpayment-show, .import-btn  {
+	background: #80CB85;
     color: var(--light);
     font-size: 13px;
     border: none;
     outline: none;
-    border-radius: 36px;
+    border-radius: 5px;
+    cursor: pointer;
+	padding: 5px;
+	margin-bottom: 15px;
+	margin-right: 10px;
+	display: flex;
+    align-items: center;
+} */
+/* .btn-download {
+    display: inline-block;
+	background: #80CB85;
+    color: var(--light);
+    font-size: 13px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
     cursor: pointer;
 	padding: 4px 8px;
 	margin-bottom: 15px;
-}
+} */
 
-#content main form .add-import button.sort-filter-btn:hover,
+
+/* #content main form .add-import button.sort-filter-btn:hover,
 #content main form .add-import button.add-record-btn:hover,
 #content main form .add-import button.import-records-btn:hover {
-    background: #5a9d67; /* hover background */
-}
+    background: #5a9d67; 
+} */
 /* ==================== END OF ADD-IMPORT ==================== */
 
 
@@ -343,42 +358,6 @@ body {
 
 
 /* ==================== END OF ADD NEW USER ERROR MESSAGE ==================== */
-
-
-
-/* ========== NAVBAR ========== */
-/* #content nav .profile img {
-	width: 36px;
-	height: 36px;
-	object-fit: cover;
-	border-radius: 50%;
-} */
-
-/* #content nav .switch-mode {
-	display: block;
-	min-width: 50px;
-	height: 25px;
-	border-radius: 25px;
-	background: var(--grey);
-	cursor: pointer;
-	position: relative;
-}
-#content nav .switch-mode::before {
-	content: '';
-	position: absolute;
-	top: 2px;
-	left: 2px;
-	bottom: 2px;
-	width: calc(25px - 4px);
-	background: var(--blue);
-	border-radius: 50%;
-	transition: all .3s ease;
-}
-#content nav #switch-mode:checked + .switch-mode::before {
-	left: calc(100% - (25px - 4px) - 2px);
-} */
-/* ========== END OF NAVBAR ========== */
-
 
 
 /* ==================== MAIN ==================== */
@@ -481,18 +460,43 @@ body {
 
 /* ==================== ADD NEW USER ==================== */
 #login-modal, #newrecordmodal, #newpaymentmodal,
-#editunitrecordmodal, #editpaymentmodal, #EditModal {
+#editunitrecordmodal, #EditModal, #receiptmodal {
 	position: fixed;
 	top: 0;
 	bottom: 0;
 	right: 0;
 	left: 0;
-	/* background: rgba(0,0,0,0.6); */
 	z-index: 100;
 	display: none;
 	justify-content: center;
 	align-items: center;
-	
+}
+
+/* EDIT PAYMENT MODAL */
+#editpaymentmodal  {
+	position: fixed;
+    width: 80%;
+    height: 80%;
+    top: 50%;
+    left: 50%;
+	bottom: 0;
+	right: 0;
+    transform: translate(-50%, -50%);
+    overflow: auto;
+	z-index: 100;
+	display: none;
+	justify-content: center;
+	align-items: center;
+
+}
+
+#editpaymentmodal .modal {
+    padding: 10px 0px 40px 0; /* Adjust the padding-bottom value to add space */
+    border-radius: 10px;
+    width: auto;
+    text-align: center;
+    max-width: 100%;
+    max-height: 100%;
 }
 
 
@@ -566,16 +570,24 @@ body {
 	width: 75%;
 	border: 0;
 	border-radius: 3px;
-	color: white;
+	color: #0C0C1E;
 	margin: 10px auto;
 	cursor: pointer;
-	font-weight: 800;
 	display: flex;
 	flex-direction: row;
-
 }
 
-.paymentdetails {
+.select-box-payment input[type="radio"] {
+    display: inline-block; /* Display the radio buttons in a row */
+    margin-right: 10px; /* Add some space between each radio button */
+}
+
+.select-box-payment label {
+    display: inline-block; /* Display the labels in a row */
+}
+
+
+#editpaymentmodal .modal .paymentdetails {
 	width: 75%;
 	border: 0;
 	border-radius: 3px;
@@ -587,6 +599,9 @@ body {
 	flex-direction: row;
 
 }
+
+
+
 .select-box-record select {
     width: 100%;
     padding: 12px;
@@ -594,8 +609,32 @@ body {
     border-radius: 3px;
     background-color: #fff;
 	display: flex;
-	flex-direction: row;
+	/* flex-direction: row; */
 
+}
+
+
+
+.paymentdiv-container {
+    display: flex;
+}
+
+.paymentdiv {
+    flex: 1;
+    padding: 0 10px; /* Adjust padding as needed */
+}
+
+.paymentdetails {
+    display: flex;
+    /* flex-direction: column; */
+}
+
+.newpayment-input-box {
+    margin-bottom: 10px; /* Adjust margin as needed */
+}
+
+.form-element {
+    margin-top: 20px; /* Adjust margin as needed */
 }
 
 /* ==================== END OF ADD NEW USER ==================== */
@@ -818,27 +857,34 @@ body {
 
 /*==================== SORT ====================*/
 	
-.table-sortable th {
+/* .table-sortable th::after {
+	content: "\25b4"; 
+	margin-left: 5px;
 	cursor: pointer;
-}
+  } */
 
-.table-sortable .th-sort-asc::after {
-	content: "\25b4";
-}
+  .table-sortable th:nth-child(8)::after,
+  .table-sortable th:nth-child(9)::after {
+	content: "\2195"; /* Unicode character for bx bx-sort-alt-2 */
+	margin-left: 5px;
+	color: #333; /* Darker color */
+	font-weight: 900;
+  }
 
-.table-sortable .th-sort-desc::after {
-	content: "\25be";
-}
 
-.table-sortable .th-sort-asc::after,
+/* .table-sortable .th-sort-desc::after {
+	content: "<i class='bx bx-sort-alt-2'></i>";
+} */
+
+/* .table-sortable .th-sort-asc::after,
 .table-sortable .th-sort-desc::after {
 	margin-left: 5px;
-}
+} */
 
-.table-sortable .th-sort-asc,
+/* .table-sortable .th-sort-asc,
 .table-sortable .th-sort-desc {
 	background: rgba(0, 0, 0, 0.1);
-}
+} */
 
 
 
@@ -906,3 +952,76 @@ body {
         transform: translateX(calc(100% + 20px));
     }
 }
+
+
+
+.add-import i,
+.btn-download i,
+.import-btn i {
+	color: red;
+	margin-left: 20px;
+	font-size: 15px;
+}
+
+.sortfilter-btn, #content main form .add-import button.add-btn,
+#login-show, #newrecord-show, #newpayment-show, .import-btn, .btn-download,  .filter-btn {
+	background: #80CB85;
+    color: var(--light);
+    font-size: 14px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    cursor: pointer;
+	padding: 5px;
+	margin-bottom: 15px;
+	margin-right: 10px;
+	display: flex;
+    align-items: center;
+	width: auto;
+  }
+  
+  .sortfilter-btn option {
+	background-color: white;
+	color: black;
+  }
+
+  .combo-box {
+	position: relative;
+	display: inline-block;
+  }
+  
+  .sortfilter-btn {
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	/* border: 1px solid #ccc;
+	padding: 5px 30px 5px 10px;
+	font-size: 14px;
+	cursor: pointer;
+	width: 100px;  */
+  }
+  
+  .sortfilter-btn option {
+	background-color: white;
+	color: black;
+  }
+  
+  .bx-filter-alt {
+	position: absolute;
+	top: 35%;
+	right: 20px; 
+	transform: translateY(-50%);
+  }
+
+
+  .bold-label {
+    font-weight: 500;
+}
+
+
+/* PRINTING PDF */
+
+		
+
+
+
