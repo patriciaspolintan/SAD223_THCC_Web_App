@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 # imports
+=======
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
 from flask import Flask, render_template, request, redirect, url_for, flash, session,Response,send_file
 from flask_sqlalchemy import SQLAlchemy
 from flask_mysqldb import MySQL,MySQLdb
@@ -12,6 +15,7 @@ from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.units import inch
 from reportlab.platypus.tables import Table, TableStyle, colors
+<<<<<<< HEAD
 from reportlab.platypus import Paragraph
 from io import StringIO
 import tempfile
@@ -32,13 +36,20 @@ from sqlalchemy.orm import relationship
 
 from flask_paginate import Pagination, get_page_parameter
 from flask_cors import cross_origin
+=======
+import tempfile
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
 # from flask_wtf import FlaskForm
 # from wtforms import StringField, PasswordField, SelectField
 # from wtforms.validators import DataRequired, Length, EqualTo
 
+<<<<<<< HEAD
 
 app = Flask(__name__)
 CORS(app)
+=======
+app = Flask(__name__)
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
 db_url = "mysql+mysqldb://root@localhost/web"
 engine = create_engine(db_url)
 UPLOAD_FOLDER = 'uploads'
@@ -86,6 +97,7 @@ class User(db.Model):
 # db model for unit_record
 class UnitRecord(db.Model):
     __tablename__ = 'unit_record'
+<<<<<<< HEAD
 
     record_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     unit_location = db.Column(db.String(25), nullable=False)
@@ -98,7 +110,18 @@ class UnitRecord(db.Model):
     plan_id = db.Column(db.Integer, default=None)
 
 # ============================================================
+=======
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
 
+    record_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    unit_location = db.Column(db.String(25), nullable=False)
+    name = db.Column(db.String(255), nullable=False)
+    address = db.Column(db.String(255), nullable=False)
+    receipt = db.Column(db.Integer, default=None)
+    date_paid = db.Column(db.Date, default=None)
+    amount_paid = db.Column(db.Numeric(10, 2), default=None)
+    payment_status = db.Column(db.String(20), default='ongoing payment')  # New column for payment status
+    
 # login page
 @app.route('/', methods=['GET','POST'])
 def login():
@@ -154,6 +177,7 @@ def index():
 def unit_mgmt():
     return render_template('unit_mgmt.html')
 
+<<<<<<< HEAD
 # ============================================================
 
 # unit record
@@ -205,6 +229,57 @@ def parseCSV(file_path):
     return render_template('unit_record.html', unit_records=unit_records)
 
 # ============================================================
+=======
+# unit record
+# @app.route('/unit_record')
+# #@roles_required('Admin', 'Columbarium Representative') # ADDED BY PATT
+# def unit_record():
+#     return render_template('unit_record.html')
+
+# unit record
+# ETO YUNG CODE SA PAG FETCH NG CSV FILE SA TABLE TO DATABASE
+@app.route('/unit_record', methods=['GET', 'POST'])
+def unit_record():
+    if request.method == 'POST':
+        # Handle file upload
+        uploaded_file = request.files['file']
+        if uploaded_file.filename != '':
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], uploaded_file.filename)
+            uploaded_file.save(file_path)
+            parseCSV(file_path)
+            flash('Data inserted successfully!', category='success')
+            return redirect(url_for('unit_record'))
+        else:
+            flash('No file selected!', category='error')
+            return redirect(url_for('unit_record'))
+    unit_records = UnitRecord.query.all()
+    return render_template('unit_record.html', unit_records=unit_records)
+
+def parseCSV(file_path):
+    col_names = ['unit_location', 'name', 'address', 'receipt', 'date_paid', 'amount_paid']
+    csvData = pd.read_csv(file_path, names=col_names, header=None)
+
+    for i, row in csvData.iterrows():
+        # NI CONVERT KO YUNG DATE SA FORMAT NUNG CSV FILE NYO
+        date_pd = pd.to_datetime(row["date_paid"], format="%m/%d/%Y").date()
+        userrec = UnitRecord(
+            unit_location=row['unit_location'],
+            name=row['name'],
+            address=row['address'],
+            receipt=row['receipt'],
+            date_paid=date_pd, 
+            amount_paid=row['amount_paid']
+        )
+        
+        db.session.add(userrec)
+
+    db.session.commit()
+    unit_records = UnitRecord.query.all()
+    return render_template('unit_record.html', unit_records=unit_records)
+
+
+
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
 
 # users management
 @app.route('/users_mgmt')
@@ -425,6 +500,137 @@ def payment_record():
 # SEARCH 
 
 # search users_mgmt
+
+
+
+@app.route('/total_sold_units')
+def total_sold_units():
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cur.execute("SELECT COUNT(*) AS total_sold_units FROM unit_mgmt WHERE unit_status = 'sold'")
+    result = cur.fetchone()
+    return jsonify(result)
+
+@app.route('/total_available_units')
+def total_available_units():
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cur.execute("SELECT COUNT(*) AS total_available_units FROM unit_mgmt WHERE unit_status = 'available'")
+    result = cur.fetchone()
+    return jsonify(result)
+
+@app.route('/total_sales')
+def total_sales():
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cur.execute("SELECT SUM(payment_amount) AS total_sales FROM payment_history WHERE is_additional_service = 'FALSE'")
+    result = cur.fetchone()
+    return jsonify(result)
+
+
+
+
+
+# db model for unit_mgmt
+class UnitManagement(db.Model):
+    __tablename__ = 'unit_mgmt'
+
+    unit_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    unit_location = db.Column(db.String(25), nullable=False)
+    unit_status = db.Column(db.Enum('sold', 'available'), default='available')
+
+# add unit record
+@app.route('/add_unitrecord', methods=['GET', 'POST'])
+def add_record():
+    if request.method == 'POST':
+        name = request.form.get('name')
+        address = request.form.get('address')
+        quadrant = request.form.get('quadrant')
+        block = request.form.get('block')
+        unit = request.form.get('unit')
+        
+        if not (name and address and quadrant and block and unit):
+            flash('Please fill in all required fields', category='error')
+            return redirect(url_for('unit_record'))
+        
+        unit_location = f'{quadrant} / {block} / {unit}'
+        
+        try:
+            new_record = UnitRecord(unit_location=unit_location, name=name, address=address)
+            db.session.add(new_record)
+            db.session.commit()
+            flash('Record added successfully', category='success')
+        except Exception as e:
+            flash('An error occurred while adding the record', category='error')
+            print(e)
+            return redirect(url_for('unit_record'))
+        
+        return redirect(url_for('unit_record'))
+
+
+@app.route('/update_unit_record/<int:record_id>', methods=['POST'])
+def update_unit_record(record_id):
+    record = UnitRecord.query.get(record_id)
+    if not record:
+        flash("Record not found", category='error')
+        return redirect(url_for('unit_record'))
+
+    if request.method == 'POST':
+        # Retrieve form data
+        name = request.form.get('name')
+        address = request.form.get('address')
+        quadrant = request.form.get('quadrant2')
+        block = request.form.get('block2')
+        unit = request.form.get('unit2')
+        
+        # Update record fields
+        if name:
+            record.name = name
+        if address:
+            record.address = address
+        
+        if quadrant and block and unit:
+            record.unit_location = f"{quadrant} / {block} / {unit}"
+        else:
+            flash("Quadrant, block, and unit are required fields", category='error')
+            return redirect(request.referrer)
+
+        try:
+            # Commit changes to the database
+            db.session.commit()
+            flash("Record details updated successfully", category='success')
+        except Exception as e:
+            db.session.rollback()
+            flash(f"An error occurred: {str(e)}", category='error')
+            return redirect(request.referrer)
+
+        return redirect(url_for('unit_record'))
+
+    # If request method is not POST, render the template with the record data
+    return render_template('unit_record.html', record=record)
+
+
+
+@app.route('/delete2/<int:record_id>', methods=['GET', 'POST'])
+def delete_unit_record(record_id):
+    record = UnitRecord.query.get(record_id)
+    
+    if record:
+        try:
+            db.session.delete(record)
+            db.session.commit()
+            flash("Record deleted successfully.", category='success')
+        except Exception as e:
+            db.session.rollback()
+            flash(f"An error occurred: {str(e)}", category='error')
+    else:
+        flash("Record not found", category='error')
+    return redirect(url_for('unit_record'))
+@app.route('/payment_record')
+def payment_record():
+    payment_records = UnitRecord.query.all()
+    return render_template('payment_record.html', payment_records=payment_records)
+
+
+
+# search users_mgmt
 @app.route("/ajaxlivesearch", methods=["POST", "GET"])
 def ajaxlivesearch():
     cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -481,10 +687,106 @@ def ajaxlivesearchunitrec():
         html_response = render_template('unit_mgmt_response.html', unit_records=unit_records, numrows=numrows)
     return jsonify({'htmlresponse': html_response, 'numrows': numrows})
 
+<<<<<<< HEAD
 # ============================================================
 
 # download pdf
 logging.basicConfig(level=logging.ERROR)
+=======
+# search unit_rec
+@app.route("/ajaxlivesearchunitrec", methods=["POST", "GET"])
+def ajaxlivesearchunitrec():
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    if request.method == 'POST':
+        search_word = request.form['query']
+    else:
+        search_word = request.args.get('search_text', '')
+    print(search_word)
+    if search_word == '':
+        numrows = 0
+        html_response = ""
+    else:    
+        query = "SELECT * FROM unit_record WHERE name LIKE %s OR address LIKE %s OR unit_location LIKE %s OR CAST(record_id AS CHAR) LIKE %s ORDER BY record_id DESC LIMIT 20"
+        cur.execute(query, ('%' + search_word + '%', '%' + search_word + '%', '%' + search_word + '%', '%' + search_word + '%'))
+        unit_records = cur.fetchall()
+        numrows = len(unit_records)
+        html_response = render_template('unit_mgmt_response.html', unit_records=unit_records, numrows=numrows)
+    return jsonify({'htmlresponse': html_response, 'numrows': numrows})
+
+@app.route('/download', methods=['POST'])
+def download():
+    # Query database for all records
+    query = "SELECT record_id, unit_location, name, address, receipt, date_paid FROM unit_record"
+    df = pd.read_sql(query, engine)
+
+    if not df.empty:
+        # Create PDF
+        pdf_path = create_pdf(df)
+        # Return PDF file
+        return send_file(pdf_path, as_attachment=True)
+
+    return jsonify({'error': 'No records found.'}), 404
+
+def query_database(category):       
+    # Query database based on category
+    query = f"SELECT record_id, unit_location, name, address, receipt, date_paid FROM unit_record WHERE category = '{category}'"
+    try:
+        df = pd.read_sql(query, engine)
+        return df
+    except Exception as e:
+        print(f"Error querying database: {e}")
+        return None
+
+def create_pdf(df):
+    temp_pdf = tempfile.NamedTemporaryFile(delete=False)
+    my_doc = SimpleDocTemplate(temp_pdf.name, pagesize=letter)
+
+    c_width = [1.2*inch] * len(df.columns)
+    t = Table([df.columns.tolist()] + df.values.tolist(), colWidths=c_width, repeatRows=1)
+    t.setStyle(TableStyle([('FONTSIZE',(0,0),(-1,-1),5), ('BACKGROUND' ,(0,0),(-1,0),colors.aqua), ('VALIGN',(0,0),(-1,0),'TOP')]))
+    elements = [t]
+    my_doc.build(elements)
+    return temp_pdf.name
+
+
+
+# charts pero di pa tapos
+@app.route('/monthly_units_sold')
+def monthly_units_sold():
+    # Retrieve monthly units sold data from your database
+    # Example: Assuming you have a UnitRecord model with date_paid and unit_location columns
+    monthly_data = {
+        'labels': ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        'data': []  # Initialize an empty list to store the data
+    }
+
+    # Query the database to get monthly units sold
+    for month in monthly_data['labels']:
+        # Example: Count the number of units sold for each month
+        units_sold = UnitRecord.query.filter(UnitRecord.date_paid.like(f'%{month}%')).count()
+        monthly_data['data'].append(units_sold)
+
+    return jsonify(monthly_data)
+
+@app.route('/monthly_sales')
+def monthly_sales():
+    # Retrieve monthly sales data from your database
+    # Example: Assuming you have a UnitRecord model with date_paid and amount_paid columns
+    monthly_data = {
+        'labels': ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        'data': []  # Initialize an empty list to store the data
+    }
+
+    # Query the database to get monthly sales
+    for month in monthly_data['labels']:
+        # Example: Calculate the total sales amount for each month
+        total_sales = UnitRecord.query.filter(UnitRecord.date_paid.like(f'%{month}%')).with_entities(UnitRecord.amount_paid).all()
+        total_sales_amount = sum(amount[0] for amount in total_sales)
+        monthly_data['data'].append(total_sales_amount)
+
+    return jsonify(monthly_data)
+
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
 
 
 @app.route('/download', methods=['POST'])

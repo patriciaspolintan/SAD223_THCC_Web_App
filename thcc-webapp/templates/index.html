@@ -106,6 +106,10 @@
 						</li>
 					</ul> -->
 				</div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
 			</div>
 
 			<ul class="box-info">
@@ -132,7 +136,60 @@
 				</li>
 			</ul>
 
+			<script>
+				// Fetch units sold and available from Flask backend
+				fetch('/total_sold_units')
+					.then(response => response.json())
+					.then(data => {
+						document.getElementById('unitsSold').innerHTML = `
+							<i class='bx bxs-shopping-bag'></i>
+							<span class="text">
+								<h3>${data.total_sold_units}</h3>
+								<p>Units Sold</p>
+							</span>`;
+					});
+				
+				fetch('/total_available_units')
+					.then(response => response.json())
+					.then(data => {
+						document.getElementById('unitsAvailable').innerHTML = `
+							<i class='bx bxs-shopping-bag'></i>
+							<span class="text">
+								<h3>${data.total_available_units}</h3>
+								<p>Units Available</p>
+							</span>`;
+					});
+<<<<<<< HEAD
+=======
 
+<<<<<<< HEAD
+=======
+				fetch('/total_sales')
+					.then(response => response.json())
+					.then(data => {
+						document.getElementById('totalSales').innerHTML = `
+							<i class='bx bxs-shopping-bag'></i>
+							<span class="text">
+								<h3>${data.total_sales}</h3>
+								<p>Total Sales</p>
+							</span>`;
+					});
+				</script>
+>>>>>>> be145067d9d8fb8bec34b73084ea786e34fcd75b
+
+				fetch('/total_sales')
+					.then(response => response.json())
+					.then(data => {
+						document.getElementById('totalSales').innerHTML = `
+							<i class='bx bxs-shopping-bag'></i>
+							<span class="text">
+								<h3>${data.total_sales}</h3>
+								<p>Total Sales</p>
+							</span>`;
+					});
+				</script>
+
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
 				<div class="table-data">
 					<div class="order">
 						<div class="head">
@@ -158,6 +215,7 @@
 
 
 	<script src="static/script.js"></script>
+<<<<<<< HEAD
 	<script> // Fetch units sold and available from Flask backend
 		fetch('/total_sold_units')
 			.then(response => response.json())
@@ -251,5 +309,62 @@
 </script>
 
 
+=======
+	<script>
+fetch('/monthly_units_sold')
+    .then(response => response.json())
+    .then(data => {
+        new Chart(document.getElementById('unitsSoldChart').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: data.labels,
+                datasets: [{
+                    label: 'Monthly Units Sold',
+                    data: data.data,
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    });
+
+fetch('/monthly_sales')
+    .then(response => response.json())
+    .then(data => {
+        new Chart(document.getElementById('monthlySalesChart').getContext('2d'), {
+            type: 'line',
+            data: {
+                labels: data.labels,
+                datasets: [{
+                    label: 'Monthly Sales',
+                    data: data.data,
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    });
+
+
+
+
+	</script>
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
 </body>
 </html>

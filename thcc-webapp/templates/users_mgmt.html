@@ -18,6 +18,32 @@
 
 </head>
 <body>
+	<script>
+		$(document).ready(function(){
+    function load_data(query) {
+        $.ajax({
+            url: "/ajaxlivesearch",
+            method: "POST",
+            data: {query: query},
+            success: function(data) {
+                $('#result').html(data);
+                $("#result").append(data.htmlresponse);
+                // Check if search query is not empty
+                if (query !== '') {
+                    $('#users_table').hide(); // Hide the users table
+                } else {
+                    $('#users_table').show(); // Show the users table
+                }
+            }
+        });
+    }
+    
+    $('#search_text').keyup(function() {
+        var search = $(this).val();
+        load_data(search);
+    });
+});
+		</script>
 
 
 	<!-- ========== SIDEBAR ========== -->
@@ -104,7 +130,11 @@
 				<div class="form-input">
 					<!-- <input type="search" placeholder="Search record"> -->
 					<input type="text" name="search_text" id="search_text" class="form-control" placeholder="Search records" title="Enter your search term">
+<<<<<<< HEAD
 					<button type="submit" id="search_btn" class="search-btn" title="Search"></button>
+=======
+					<button type="submit" id="search_btn" class="search-btn" title="Search"><i class='bx bx-search' ></i></button>
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
 					
 
 				</div>
@@ -191,7 +221,13 @@
 				<div class="table-data">
 					<div class="order">							
 						<div id="result"></div>
+<<<<<<< HEAD
 						<table id="users_table" class="table-sortable">
+=======
+
+						<table id="users_table" class="table-sortable">
+
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
 							<thead>
 								<tr>
 									<th>User Id</th>

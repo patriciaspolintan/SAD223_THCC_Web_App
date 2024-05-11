@@ -6,6 +6,11 @@
 
 	<!-- ========== Boxicons ========== -->
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+<<<<<<< HEAD
+=======
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
 
 	<!-- ========== My CSS ========== -->
 	<link rel="stylesheet" href="static/style.css">
@@ -13,12 +18,62 @@
 	<title>THCC Unit Records</title>
 </head>
 <body>
+	<script>
+        function downloadRecords() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/download', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.responseType = 'blob';
 
+<<<<<<< HEAD
 <style>
 	.bold-label {
     font-weight: 500;
 }
 </style>
+=======
+            xhr.onload = function() {
+                if (this.status === 200) {
+                    var blob = new Blob([xhr.response], { type: 'application/pdf' });
+                    var link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = 'records.pdf';
+                    link.click();
+                }
+            };
+
+            // Send an empty request body as we want all records
+            xhr.send(JSON.stringify({}));
+        }
+    </script>
+	<script>
+		$(document).ready(function(){
+    function load_data(query) {
+        $.ajax({
+            url: "/ajaxlivesearchunitrec",
+            method: "POST",
+            data: {query: query},
+            success: function(data) {
+                $('#result').html(data);
+                $("#result").append(data.htmlresponse);
+                // Check if search query is not empty
+                if (query !== '') {
+                    $('#users_table').hide(); // Hide the users table
+                } else {
+                    $('#users_table').show(); // Show the users table
+                }
+            }
+        });
+    }
+    
+    $('#search_text').keyup(function() {
+        var search = $(this).val();
+        load_data(search);
+    });
+});
+		</script>
+
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
 
 
 	<!-- ========== SIDEBAR ========== -->
@@ -132,20 +187,70 @@
 	</div>
 
 	
+<<<<<<< HEAD
 
+=======
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+		setTimeout(() => {
+			$(".alert").hide();
+		}, 3000);
+	</script>
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
 		<main>
 			<div class="head-title">
 				<div class="left">
 					<h1>Unit Records</h1>
 				</div>
+				
 			</div>
 
 			<!-- ========== SEARCH ========== -->
+<<<<<<< HEAD
 			<form id="searchForm" method="POST" action="/ajaxlivesearchunitrec">
 				<div class="form-input">
 					<input type="search" name="search_text" id="search_text" placeholder="Search records" title="Enter your search item">
 					<!-- <button type="submit" class="search-btn" title="Search" disabled></button> -->
 				</div>
+=======
+<<<<<<< HEAD
+			<form id="searchForm" method="POST" action="/ajaxlivesearchunitrec">
+=======
+			<form method="post" action="{{ url_for('unit_record') }}" enctype="multipart/form-data" id="upload-form">
+>>>>>>> be145067d9d8fb8bec34b73084ea786e34fcd75b
+				<div class="form-input">
+					<input type="search" name="search_text" id="search_text" placeholder="Search records" title="Enter your search item">
+					<button type="submit" class="search-btn" title="Search" disabled><i class='bx bx-search'></i></button>
+				</div>
+			</form>
+			<form method="post" action="{{ url_for('unit_record') }}" enctype="multipart/form-data" id="upload-form">
+				
+
+				<div class="add-import">
+<<<<<<< HEAD
+					<div class="combo-box">
+						<select id="sortfilter" class="sortfilter-btn">
+						  <option value="" disabled selected>Filter</option>
+						  <option value="quadrant">Quadrant</option>
+						  <option value="block">Block</option>
+						  <option value="unit">Unit</option>
+						</select>
+						<i class='bx bx-filter-alt'></i>
+					  </div>
+					<!--binago ko yung button kasi need naka input yan kasi kukunin yung file from file manager-->
+					<label for="file-input" class="import-btn" title="Upload file">Import Records<input type="file" name="file" id="file-input" style="display: none;"><i class="bx bx-import"></i></label>
+=======
+					<button type="sortfilter" class="sortfilter-btn">Filter<i class='bx bx-filter-alt' ></i></button>
+					<!--binago ko yung button kasi need naka input yan kasi kukunin yung file from file manager-->
+					<label for="file-input" class="import-btn" title="Upload file">Import Records<input type="file" name="file" id="file-input" style="display: none;"><i class="bx bx-import"></i></label>
+					
+					<a href="#" class="btn-download">
+						<i class='bx bxs-cloud-download' ></i>
+						<span class="text" title="Download">Download Report</span>
+					</a>
+>>>>>>> be145067d9d8fb8bec34b73084ea786e34fcd75b
+				</div>
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
 			</form>
 
 			<!-- ========== ADD/FILTER/DOWNLAOD NEW RECORD ========== -->
@@ -153,6 +258,7 @@
 				<button id="newrecord-show" title="Add new record">Add New Record</button>
 				<button class="filter-btn" title="Print search results" onclick="printSearchResults()" >Print Search Results</button>
 			</div>
+<<<<<<< HEAD
 
 			<form method="post" action="{{ url_for('unit_record') }}" enctype="multipart/form-data" id="upload-form">
 				
@@ -169,6 +275,12 @@
 			</form>
 			
 			<!-- ========== NEW RECORD MODAL ========== -->
+=======
+			<a href="#" class="btn-download">
+				<i class='bx bxs-cloud-download' ></i>
+				<span onclick="downloadRecords()" class="text" title="Download" >Download Report</span>
+			</a>
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
 			<div id="newrecordmodal">
 				<div class="modal">
 					<div class="top-form">
@@ -178,9 +290,31 @@
 					<div class="login-form">
 						<h2>ADD NEW RECORD</h2>
 
+<<<<<<< HEAD
 						<form id="newrecord-form" action="/add_unitrecord" method="POST">
 								<input type="text" class="form-control" name="name" placeholder="Name">
 								<input type="text" class="form-control" name="address" placeholder="Sitio/Barangay, Municipality, City/Province" >
+=======
+<<<<<<< HEAD
+						<form id="newrecord-form" action="/add_unitrecord" method="POST">
+								<input type="text" class="form-control" name="name" placeholder="Name">
+								<input type="text" class="form-control" name="address" placeholder="Sitio/Barangay, Municipality, City/Province" >
+=======
+						<!-- flash messages -->
+						{% with messages = get_flashed_messages(with_categories=true) %}
+						{% for category, message in messages %}
+						<div class="alert alert-{{ category }}">
+							{{ message }}
+						</div>
+						{% endfor %}
+						{% endwith %}
+
+
+						<form id="newrecord-form" action="/add_record" method="POST">
+								<input type="text" class="form-control" name="text" placeholder="Name">
+								<input type="text" class="form-control" name="text" placeholder="Sitio/Barangay, Municipality, City/Province" >
+>>>>>>> be145067d9d8fb8bec34b73084ea786e34fcd75b
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
 							<div class="input-box">
 								<label for="unitLocation" class="bold-label">Unit Location:</label>
 								<div class="select-box-record">
@@ -271,6 +405,10 @@
 			<div class="table-data">
 				<div class="order">							
 					<div id="result"></div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
 					<table id="users_table" class="table-sortable">
 						<thead>
 							<tr>
@@ -287,6 +425,10 @@
 						</thead>
 						<tbody>
 							{% for record in unit_records %}
+<<<<<<< HEAD
+=======
+
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
 							<tr>
 								<td>{{ record.record_id }}</td>
 								<td>{{ record.unit_location }}</td>
@@ -295,19 +437,40 @@
 								<td>{{ record.receipt }}</td>
 								<td>{{ record.date_paid }}</td>
 								<td>{{ record.amount_paid }}</td>
+<<<<<<< HEAD
 								<td>{{ record.payment_status }}</td>
 								<td>
 									<button id="editunit-show" class="editrecord-button" onclick="showEditModal('{{record.record_id}}','{{record.name}}','{{record.address}}','{{record.unit_location}}')" title="View and edit record">
 										<i class='bx bxs-edit'></i>  
 									<button class="deleterecord-button" onclick="confirmDelete2('{{ record.record_id }}')" title="Delete record">
+=======
+<<<<<<< HEAD
+								<td>{{ record.payent_status }}</td>
+								<td>
+									<button id="editunit-show" class="editrecord-button" onclick="showEditModal('{{record.record_id}}','{{record.name}}','{{record.address}}','{{record.unit_location}}')" title="View and edit record">
+										<i class='bx bxs-edit'></i>  
+									<button class="deleterecord-button" onclick="confirmDelete2('{{ record.record_id }}')" title="Delete record">
+=======
+								<td>{{ record.payment_status }}</td>
+								<td>
+									<button id="editunit-show" class="editrecord-button" title="View and edit record">
+										<i class='bx bxs-edit'></i></button>  
+									<button class="deleterecord-button" onclick="confirmDelete('')" title="Delete record">
+>>>>>>> be145067d9d8fb8bec34b73084ea786e34fcd75b
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
 										<i class='bx bxs-trash'></i></button>
 								</td>
 							</tr>
 							{% endfor %}
+<<<<<<< HEAD
+=======
+
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
 						</tbody>
 					</table>
 				</div>
 			</div>
+<<<<<<< HEAD
 
 
 			<!-- PAGINATION -->
@@ -336,6 +499,9 @@
 
 
 			<!-- ========== EDIT RECORD MODAL ========== -->
+=======
+			
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
 			<div id="editunitrecordmodal">
 				<div class="modal">
 					<div class="top-form">
@@ -346,9 +512,21 @@
 						<h2>EDIT RECORD DETAILS</h2>
 
 						<form id="editrecord-form" action="/update_unit_record" method="POST">
+<<<<<<< HEAD
 								<input type="text" class="form-control" name="name" placeholder="Name" id="edit-name">
 								<input type="text" class="form-control" name="address" placeholder="Sitio/Barangay, Municipality, City/Province" id="edit-address">
 							<div class="input-box" >
+=======
+<<<<<<< HEAD
+								<input type="text" class="form-control" name="name" placeholder="Name" id="edit-name">
+								<input type="text" class="form-control" name="address" placeholder="Sitio/Barangay, Municipality, City/Province" id="edit-address">
+							<div class="input-box" >
+=======
+								<input type="text" class="form-control" name="text" placeholder="Name">
+								<input type="text" class="form-control" name="text" placeholder="Sitio/Barangay, Municipality, City/Province" >
+							<div class="input-box">
+>>>>>>> be145067d9d8fb8bec34b73084ea786e34fcd75b
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
 								<label for="unitLocation2">Unit Location:</label>
 								<div class="select-box-record">
 										<select name="quadrant2" id="edit-quadrant">
@@ -383,6 +561,7 @@
 	<script src="static/script.js"></script>
 	<script src="static/addnewuser.js"></script>
 	<script>
+<<<<<<< HEAD
 	document.getElementById('file-input').addEventListener('change', function() {
 		document.getElementById('upload-form').submit();
 	});
@@ -407,6 +586,31 @@
 	// var selectedValue = this.value;
 	// Do something with the selected value, like filtering or sorting.
 	// });
+=======
+<<<<<<< HEAD
+		document.getElementById('file-input').addEventListener('change', function() {
+			document.getElementById('upload-form').submit();
+		});
+	function showEditModal(record_id, name, address,unit_location) {
+	var parts = unit_location.split('/');
+    var quadrant = parts[0].trim();
+    var block = parts[1].trim();
+    var unit = parts[2].trim();
+    document.getElementById('editrecord-form').action = '/update_unit_record/' + record_id;
+    document.getElementById('edit-name').value = name;
+    document.getElementById('edit-address').value = address;
+    document.getElementById('edit-quadrant').value = quadrant;
+    document.getElementById('edit-block').value = block;
+    document.getElementById('edit-unit').value = unit;
+    document.getElementById('editunitrecordmodal').style.backgroundColor = 'rgba(0, 0, 0, 0)';
+    $('#editunitrecordmodal').fadeIn();
+    document.getElementById('editunitrecordmodal').style.display = 'flex';
+}	
+	document.getElementById("sortfilter").addEventListener("change", function() {
+  var selectedValue = this.value;
+  // Do something with the selected value, like filtering or sorting.
+});
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
 	</script>
 	<script>
 		const closeFlashMessage = (messageElement) => {
@@ -419,6 +623,7 @@
 			flashMessages.forEach(message => {
 				setTimeout(() => closeFlashMessage(message), 5000);
 			});
+<<<<<<< HEAD
 		});	
 	</script>
 	<script>
@@ -546,6 +751,18 @@ function printSearchResults() {
 </script>
 
 
+=======
+		});
+		
+		</script>
+=======
+		// Automatically submit the form when a file is selected
+		document.getElementById('file-input').addEventListener('change', function() {
+			document.getElementById('upload-form').submit();
+		});
+	</script>
+>>>>>>> be145067d9d8fb8bec34b73084ea786e34fcd75b
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
 
 
 

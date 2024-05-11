@@ -121,9 +121,13 @@
 			<!-- ========== END OF SEARCH ========== -->
 			<div class="table-data">
 				<div class="order">
+<<<<<<< HEAD
 					<div id="result"></div>
 
 					<table id="users_table" class="table-sortable">
+=======
+					<table>
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
 						<thead>
 							<tr>
 								<th>Record ID</th>
@@ -133,14 +137,23 @@
 								<th>Receipt No.</th>
 								<th>Date</th>
 								<th>Amount</th>
+<<<<<<< HEAD
 								<th >Payment Plan </th>
 								<th>Payment Status </th>
+=======
+								<th>Payment Status</th>
+
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
 								<th>Action</th>
 							</tr>
 						</thead>
 						<tbody>
 							{% for record in payment_records %}
 							<tr>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
 								<td>{{ record.record_id }}</td>
 								<td>{{ record.unit_location }}</td>
 								<td>{{ record.name }}</td>
@@ -148,6 +161,7 @@
 								<td>{{ record.receipt }}</td>
 								<td>{{ record.date_paid }}</td>
 								<td>{{ record.amount_paid }}</td>
+<<<<<<< HEAD
 								<td>{{ record.plan_id }}</td>
 								<td>{{ record.payment_status }}</td>
 								<td>
@@ -159,6 +173,27 @@
 										
 									<!-- <button class="deleterecord-button" onclick="return confirm('Are You Sure To Delete ?')" title="Delete record">
 										<i class='bx bxs-trash-alt'></i></button> -->
+=======
+=======
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+>>>>>>> be145067d9d8fb8bec34b73084ea786e34fcd75b
+								<td>
+									<button id="editpayment-show" class="editrecord-button" title="View and edit record">
+										<i class='bx bxs-edit-alt'></i></button>  
+									<button class="deleterecord-button" title="Delete record">
+										<i class='bx bxs-trash-alt'></i></button>
+
+
+									<!-- <button id="edit-show" class="editrecord-button"><i class='bx bxs-edit'></i></button>  
+									<button class="deleterecord-button"><i class='bx bxs-trash' onclick="return confirm('Are You Sure To Delete ?')"></i></i></button>  -->
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
 								</td>
 							</tr>
 							{% endfor %}
@@ -200,6 +235,7 @@
 
 					<div class="login-form">
 						<!-- <h2>EDIT PAYMENT DETAILS</h2> -->
+<<<<<<< HEAD
 						<form id="editpayment-form" action="" method="">
 							<div class="paymentdiv-container">
 								<div class="paymentdiv">
@@ -217,12 +253,36 @@
 												<option value="">Block</option>
 											</select>
 											<select name="" id="unit" disabled>
+=======
+
+						<form id="editpayment-form" action="/" method="/">
+							<div class="paymentdiv-container">
+								<div class="paymentdiv">
+									<!-- First column -->
+									<label for="unitLocation">Personal Information</label>
+									<input type="text" class="form-control" name="text" placeholder="Name">
+									<input type="text" class="form-control" name="text" placeholder="Sitio/Barangay, Municipality, City/Province">
+									<div class="newpayment-input-box">
+										<label for="unitLocation">Unit Location</label>
+										<div class="select-box-record">
+											<select name="" id="quadrant">
+												<option value="">Quadrant</option>
+											</select>
+											<select name="" id="block">
+												<option value="">Block</option>
+											</select>
+											<select name="" id="unit">
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
 												<option value="">Unit</option>
 											</select>
 										</div>
 									</div>
 									<div class="newpayment-input-box">
+<<<<<<< HEAD
 										<label for="unitLocation" class="bold-label">Payment Plan</label>
+=======
+										<label for="unitLocation">Payment Plan</label>
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
 										<div class="select-box">
 											<select name="user_role" id="user_role" required>
 												<option hidden>Select Payment Plan</option>
@@ -233,6 +293,7 @@
 											</select>
 										</div>
 									</div>
+<<<<<<< HEAD
 									<div class="form-element">
 										<button>SET PAYMENT PLAN</button>
 									</div>
@@ -259,9 +320,129 @@
 									</div>
 									<div class="form-element">
 										<button id="receipt-show">ADD NEW PAYMENT</button>
+=======
+								</div>
+								<div class="paymentdiv">
+									<label for="unitLocation">Add New Payment</label>
+									<!-- Second column -->
+									<div class="paymentdetails">
+										<div class="select-box-record">
+											<select name="user_role" id="user_role" required>
+<<<<<<< HEAD
+												<option hidden>Unit Payment</option>
+												<!-- <option>Unit Payment</option> -->
+=======
+												<option hidden>Additional Service?</option>
+												<option>No</option>
+>>>>>>> be145067d9d8fb8bec34b73084ea786e34fcd75b
+												<option>Mass</option>
+												<option>Interment</option>
+												<option>Name Plate and Flower Holder</option>
+												<option>Renewal</option>
+											</select>
+<<<<<<< HEAD
+											<!-- <select name="user_role" id="user_role" required>
+												<option hidden>Downpayment?</option>
+												<option>Yes</option>
+												<option>No</option>
+											</select> -->
+=======
+											<select name="user_role" id="user_role" required>
+												<option hidden>Downpayment?</option>
+												<option>Yes</option>
+												<option>No</option>
+											</select>
+>>>>>>> be145067d9d8fb8bec34b73084ea786e34fcd75b
+										</div>
+										
+									</div>
+									<div class="paymentdetails">
+										<input type="date" class="form-control" name="text" placeholder="Date">
+										<input type="text" class="form-control" name="text" placeholder="Amount">
+										<input type="number" class="form-control" name="text" placeholder="Receipt Number">
+									</div>
+
+									<div class="form-element">
+										<button>ADD NEW PAYMENT</button>
 									</div>
 								</div>
 							</div>
+							<div class="paymenthistory">
+								<label for="unitLocation">Payment History</label>
+
+								<div class="table-data">
+									<div class="order">
+										<table>
+											<thead>
+												<tr>
+													<th>Payment ID</th>
+													<th>Installment Plan ID</th>
+													<th>Payment Date</th>
+													<th>Payment Amount</th>
+<<<<<<< HEAD
+=======
+													<th>Is Additional Service</th>
+													<th>Additional Service Name</th>
+													<th>Additional Service Amount</th>
+													<th>Additional Service Date</th>
+													<th>Is Downpayment</th>
+>>>>>>> be145067d9d8fb8bec34b73084ea786e34fcd75b
+													<th>Remaining Balance</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+<<<<<<< HEAD
+													
+=======
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+												</tr>
+												<tr>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+												</tr>
+												<tr>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+>>>>>>> be145067d9d8fb8bec34b73084ea786e34fcd75b
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+												</tr>
+<<<<<<< HEAD
+												
+=======
+>>>>>>> be145067d9d8fb8bec34b73084ea786e34fcd75b
+											</tbody>
+										</table>
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
+									</div>
+								</div>
+								
+							</div>
+<<<<<<< HEAD
 
 							<!-- PAYMENT HISTORY -->
 							<!-- <div class="paymenthistory">
@@ -299,8 +480,11 @@
 								
 							</div> -->
 							
+=======
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
 							
 						</form>
+						
 					</div>
 				</div>
 			</div>

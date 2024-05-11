@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+
+/* ====== APRIL 30 CODE ====== */
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
 .units {
 	display: flex;
 	flex-direction: column;
@@ -5,7 +10,11 @@
 }
 
 .units table {
+<<<<<<< HEAD
 	background-color: #BBBBBB;
+=======
+	background-color: grey;
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
 }
 
 .units table td {
@@ -67,20 +76,39 @@
 #legend {
 	border-collapse: collapse;
 	table-layout: fixed;
+<<<<<<< HEAD
 	background-color: #FCFAF8;
+=======
+	background-color: white;
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
 	height: 10px;
 }
 
 #legend-available-color {
+<<<<<<< HEAD
 	background-color: #BBBBBB;
+=======
+	background-color: grey;
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
 	width: 4rem;
 }
 
 #legend-sold-color {
+<<<<<<< HEAD
 	background-color: #FFD95A;
 	width: 4rem;
 }
 
+=======
+	background-color: yellow;
+	width: 4rem;
+}
+
+#legend-not-available-color {
+	background-color: red;
+	width: 4rem;
+}
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
 
 .filler-table {
 	visibility: hidden;
@@ -91,7 +119,11 @@
     height: 50px;
     text-align: center;
     vertical-align: middle;
+<<<<<<< HEAD
 	border-width: 1px;
+=======
+	border-width: 2px;
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
 }
 
 .units-container {
@@ -101,13 +133,21 @@
 
 /* POP UP */
 .popup {
+<<<<<<< HEAD
 	background-color: #FCFAF8;
+=======
+	background-color: #CCC;
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
 	position: fixed;
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%, -50%);
 	z-index: 12345;
+<<<<<<< HEAD
 	width: 75%;
+=======
+	width: 70%;
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
 	height: 80%;
 	padding-left: 2rem;
 	padding-right: 2rem;
@@ -115,9 +155,12 @@
 	flex-direction: column;
 	justify-content: space-evenly;
 	margin: 0;
+<<<<<<< HEAD
 	border-radius: 15px;
 	box-shadow: 5px 5px 5px rgba(0,0,0,0.6);
 
+=======
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
 }
 
 .popup-header {
@@ -144,7 +187,11 @@
 	left: 0;
 	width: 100%;
 	height: 100%;
+<<<<<<< HEAD
 	background-color: rgba(0,0,0, 0.2);
+=======
+	background-color: rgba(0,0,0, 0.5);
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
 	z-index: 12344;
 }
 #popup-content {
@@ -157,11 +204,31 @@
 }
 
 .popup-footer-purchased-color{
+<<<<<<< HEAD
 	background-color: #FFD95A;
 }
 
 .popup-footer-standard-color{
 	background-color: #BBBBBB;
+=======
+	background-color: yellow;
+}
+
+.popup-footer-standard-color{
+	background-color: red;
+}
+
+.popup-footer-premium-color{
+	background-color: blue;
+}
+
+.popup-footer-premiumplus-color{
+	background-color: green;
+}
+
+.popup-footer-selected-color{
+	background-color: whitesmoke;
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
 }
 
 .footer-color {
@@ -177,7 +244,11 @@
 }
 
 .separator-solid {
+<<<<<<< HEAD
 	border-top: 2px solid black;
+=======
+	border-top: 2px solid #111;
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
 	transform: translateY(-30px);
 }
 
@@ -194,17 +265,23 @@
     text-align: center;
     vertical-align: middle;
 	border-width: 1px;
+<<<<<<< HEAD
 	padding: 5px;
 	background-color: #BBBBBB;
 }
 
 .popup-sold {
 	background-color: #FFD95A;
+=======
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
 }
 
 .altar-cell-above, .altar-cell-below, .altar-cell {
 	border-width: 0px;
+<<<<<<< HEAD
 
+=======
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
 }
 
 .altar-cell {

@@ -1,6 +1,12 @@
 <!-- <h3>{{ numrows }} Record(s) Found</h3> -->
+<<<<<<< HEAD
 <table>
     <table id="search-results-table">
+=======
+
+<table>
+    <table>
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
         <thead>
             <tr>
                 <th>Record ID</th>
@@ -10,14 +16,24 @@
                 <th>Receipt No.</th>
                 <th>Date</th>
                 <th>Amount</th>
+<<<<<<< HEAD
                 <th>Payment Status</th>
+=======
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
                 <th>Action</th>
 
             </tr>
         </thead>
+<<<<<<< HEAD
     <tbody id="search-results-tbody">
         {% if numrows > 0 %}
             {% for record in unit_records %}
+=======
+    <tbody>
+        {% if numrows > 0 %}
+            {% for record in unit_records %}
+
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
             <tr>
                 <td>{{ record.record_id }}</td>
                 <td>{{ record.unit_location }}</td>
@@ -26,7 +42,10 @@
                 <td>{{ record.receipt }}</td>
                 <td>{{ record.date_paid }}</td>
                 <td>{{ record.amount_paid }}</td>
+<<<<<<< HEAD
                 <td>{{ record.payment_status }}</td>
+=======
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
                 <td>
                     <button id="editunit-show" class="editrecord-button" onclick="showEditModal('{{record.record_id}}','{{record.name}}','{{record.address}}','{{record.unit_location}}')" title="View and edit record">
                         <i class='bx bxs-edit'></i>  
@@ -43,6 +62,10 @@
                 <tr>
                     <td colspan="5">No records found.</td>
                 </tr>
+<<<<<<< HEAD
         {% endif %}
+=======
+            {% endif %}
+>>>>>>> f53cd625ba9de8a9f4da0ef2493d8414de0abd9e
     </tbody>
 </table> 

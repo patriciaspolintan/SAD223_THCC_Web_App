@@ -156,6 +156,7 @@ document.addEventListener("DOMContentLoaded", function () {
         selectBlock = document.getElementById('block'),
         selectUnit = document.getElementById('unit'),
         selects = document.querySelectorAll('#newrecord-form select')
+        
 
 
 
